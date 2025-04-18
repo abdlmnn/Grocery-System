@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+{%load static%}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {%block title%} {{title}} {%endblock title%}
+    </title>
+
+    <!-- ====FAV ICON==== -->
+     <link rel="shortcut icon" href="{%static 'public/orange-icon-logo.png'%}" type="image/x-icon">
+
+    <!-- ====CSS==== -->
+    <link rel="stylesheet" href="{%static 'css/login.css'%}?v={{ timestamp }}">
+
+    <!-- ====ICONS / FONTS==== -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+</head>
+<body>
+    <!-- ====Top & Bottom background color==== -->
+    <div class="two-bg-color">
+        <div class="top">
+            <!-- Background image logo -->
+        </div>
+        <div class="bottom">
+            {%block content%}
+            <form class="login-form" method="post">
+                {% csrf_token %}
+                    <div class="input-cont">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="username" name="username" id="username-input" required placeholder="Username">
+                    </div>
+                
+                    <div class="input-cont">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" name="password" id="password-input" required placeholder="Password">
+                    </div>
+                
+                    <div class="button-cont">
+                        <div class="forgot-cont">
+                            <span>Administration</span>
+                            <a href="{%url 'adminpanel:forgotPassword'%}"><p>Forgot password?</p></a>
+                        </div>
+                        <button class="login-btn">Login</button>
+                    </div>
+                </form>
+            {%endblock%}
+        </div>
+    </div>
+    <!-- ====Top & Bottom background color==== -->
+     
+    <script type="module" src="{%static 'js/init.js'%}?v={{ timestamp }}" defer></script>
+    <script type="module" src="{%static 'js/login.js'%}?v={{ timestamp }}" defer></script>
+    <script type="module" src="{%static 'js/api.js'%}?v={{ timestamp }}" defer></script>
+    <script type="module" src="{%static 'js/auth.js'%}?v={{ timestamp }}" defer></script>
+    
+    {%block extrascript%}
+    
+    {%endblock%}
+</body>
+</html>

@@ -1,0 +1,88 @@
+---------- Manan In Code ----------
+
+
+
+------------ DOWNLOAD -------------
+
+DOWNLOAD PYTHON, IF YOU HAVEN'T DOWNLOAD:
+    OPEN LINK https://www.python.org/downloads/
+
+
+
+DOWNLOAD PIP, IF YOU HAVEN'T DOWNLOAD:
+    OPEN LINK https://bootstrap.pypa.io/get-pip.py
+    CTRL S
+    Save files to your folder
+
+
+
+------------ COMMANDS -------------
+
+
+
+INSTALL PIP:
+    python get-pip.py
+
+CHECK PIP VERSION:
+    pip --version
+
+
+
+INSTALL VIRTUAL ENVIRONMENT:
+    pip install pipenv
+
+SET UP VIRTUAL ENVIRONMENT:
+    pipenv shell
+
+
+
+INSTALL REST FRAMEWORK:
+    pip install djangorestframework
+
+
+
+INSTALL DOTENV:
+    pip install python-dotenv
+
+
+
+INSTALL DJANGO:
+    python install django
+
+CHECK DJANGO VERSION:
+    django-admin --version
+
+
+
+HOW TO CREATE PROJECT:
+    django-admin startproject name_project
+
+CREATE PROJECT:
+    django-admin startproject my_settings
+
+
+
+HOW TO CREATE APP:
+    django-admin startapp name_app
+                OR
+    python manage.py startapp name_app
+
+CREATE APP:
+    django-admin startapp customer
+                OR
+    python manage.py startapp customer
+
+
+
+CREATE MIGRATION FILES BASED ON CHANGES YOU'VE MADE IN model.py:
+    python manage.py makemigrations
+
+
+
+AFTER MIGRATION, APPLY THOSE CHANGES TO YOUR DATABASE/MODEL:
+    python manage.py migrate
+
+
+
+RUN PROJECT / RUNSERVER:
+    python manage.py runserver

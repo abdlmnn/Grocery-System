@@ -1,0 +1,149 @@
+/* ====Sidebar==== */
+.side-cont aside{
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 230px;
+  box-shadow: 0 0 4px 1px rgb(239, 239, 239);
+  background: var(--content-bg-color);
+  border-radius: var(--corner-radius);
+  padding: 1rem;
+  gap: 1rem;
+}
+
+/* Logo Image */
+.side-cont aside .logo-cont{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 5px 0 15px 0;
+  border-bottom: 1px solid #f57b0034;
+}
+
+.side-cont aside .logo-cont img {
+  width: 130px;
+  object-fit: fill;
+}
+
+/* Link / Dropdown */
+.side-cont aside .link-cont{
+  /* border: 1px solid red; */
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  width: 100%;
+  /* max-height: 390px; */
+  height: 100%;
+  position: relative;
+}
+
+.link-cont a,
+.link-cont .dropdown-btn{
+  display: flex;
+  gap: 10px;
+  border: none;
+  width: 100%;
+  text-align: left;
+  align-items: center;
+  cursor: pointer;
+  background: transparent;
+  padding: 6px 8px 6px 16px;
+  border-radius: 20px;
+  margin-top: 5px;
+  font-size: var(--size-text);
+  position: relative;
+  transition: background 0.3s ease;
+}
+
+.dropdown-btn > .drop-icon{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 9px;
+}
+
+.dropdown-cont{
+  padding: 0 5px;
+  display: none;
+  flex-direction: column;
+}
+
+.size-circle{
+  font-size: 5px;
+}
+
+.link-cont a:hover, 
+.dropdown-btn:hover,
+.link-cont a.active,
+.dropdown-btn.active{
+  background-color: var(--first-color-orange);
+  color: var(--text-color);
+}
+/* .dropdown-btn.active */
+
+.dropdown-cont .selected.active,
+.dropdown-cont .selected:focus{
+  color: var(--first-color-orange);
+  background-color: transparent;
+}
+
+/* Sidebar Profile */
+.side-cont aside .card-profile-cont{
+  width: 100%; 
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: center; 
+  justify-content: center;
+  background-color: var(--content-bg-color); 
+  margin-top: auto;
+  transition: background-color 0.3s ease;
+  /* border: 1px solid red; */
+  /* padding: 10px 5px; */
+  /* border-radius: 15px;  */
+  /* max-width: 300px; */
+  /* box-shadow: 0 0 4px 1px rgb(223, 222, 222); */
+}
+
+.card-profile-cont .img-user img{
+  width: 35px; 
+  height: 35px; 
+  object-fit: cover;
+  border-radius: 25px; 
+  border: 1.5px solid var(--content-bg-color);
+  overflow: hidden;
+  display: flex;
+  justify-content: center; 
+  align-items: center;  
+}
+
+.card-profile-cont .text-user {
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  gap: 5px;
+  overflow: hidden;
+  width: 100%;
+  max-width: 150px;
+  overflow: hidden; 
+  text-overflow: ellipsis;
+}
+
+.card-profile-cont .text-user .fullname {
+  font-weight: bold;
+  font-size: 9px;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+}
+
+.card-profile-cont .text-user .email {
+  font-size: 9px;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  max-width: 100%; 
+  word-break: break-word; 
+}
