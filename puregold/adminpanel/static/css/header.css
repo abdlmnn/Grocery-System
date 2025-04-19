@@ -313,7 +313,7 @@ header{
   
     .menu-bar-cont .menu-btn{
       border: none;
-      background-color: var(--first-color-grey);
+      background-color: var(--content-bg-color);
       padding: 10px;
       display: inline-block;
       position: relative;

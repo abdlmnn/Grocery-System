@@ -1,0 +1,49 @@
+<div class="notification-message-cont">
+    <!-- <button onclick="myMessageBtn()" class="message-btn-header active">
+        <i class="fa-regular fa-message message-icon"></i>
+        <span class="count-message">0</span>
+    </button>
+
+    <div id="dropdown-Message" class="dropdown-message-content">
+        <h1>Habib Albi</h1>
+        <h1>Habib Albi</h1>
+        <h1>Habib Albi</h1>
+    </div> -->
+
+    <button onclick="notification.openNotif()" class="notification-btn-header">
+        <i class="fa-regular fa-bell bell-icon"></i>
+        <span class="count-bell">0</span>
+    </button>
+    <div id="dropdown-Notification" class="dropdown-notification-content">
+        <div class="two-top-header">
+            <h3 class="text-notifications">Notifications</h3>
+            <button onclick="notification.closeNotif()" class="exit-notification-btn">
+                <i class="fa-solid fa-xmark"></i>                            
+            </button>
+        </div>
+        <div class="main-notif-cont">
+            <div class="message-content-containter">
+                <div class="clearall-cont">
+                    <button class="clearall-btn">
+                        Clear all
+                    </button>
+                </div>
+                <div class="card-message">
+                    <div class="card-child-top">
+                        <span class="card-name">Mohammad Abdulmanan</span>
+                        <button class="delete-notification-btn">
+                            <i class="fa-solid fa-xmark"></i> 
+                        </button>
+                    </div>
+                    <div class="card-child-mid">
+                        <p class="card-description">Changed password successfully</p>
+                    </div>
+                    <div class="card-child-bottom">
+                        <span class="card-time">07:30 pm</span>
+                        <span class="card-date">March 8, 2025</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -28,8 +28,9 @@
             <!-- Background image logo -->
         </div>
         <div class="bottom">
+            
             {%block content%}
-            <form class="login-form" method="post">
+            <form class="form" action="{%url 'adminpanel:login'%}" method="post">
                 {% csrf_token %}
                     <div class="input-cont">
                         <i class="fa-solid fa-user"></i>
@@ -46,21 +47,37 @@
                             <span>Administration</span>
                             <a href="{%url 'adminpanel:forgotPassword'%}"><p>Forgot password?</p></a>
                         </div>
-                        <button class="login-btn">Login</button>
+                        <button id="LBtn" class="login-btn" onclick="changeButtonText('LBtn', 'Authenticating...')">Login</button>
                     </div>
                 </form>
             {%endblock%}
         </div>
     </div>
     <!-- ====Top & Bottom background color==== -->
-     
-    <script type="module" src="{%static 'js/init.js'%}?v={{ timestamp }}" defer></script>
-    <script type="module" src="{%static 'js/login.js'%}?v={{ timestamp }}" defer></script>
-    <script type="module" src="{%static 'js/api.js'%}?v={{ timestamp }}" defer></script>
-    <script type="module" src="{%static 'js/auth.js'%}?v={{ timestamp }}" defer></script>
-    
+
     {%block extrascript%}
+    <!-- ====Message Error Button Text==== -->
+        {% if messages %}
+            {% for message in messages %}
+                <script>
+                    const loginBtn = document.getElementById('LBtn');
+
+                    const originalText = loginBtn.innerText;
+
+                    loginBtn.innerText = "{{ message }}";
+                    loginBtn.disabled = true;
+
+                    setTimeout(() => {
+                        loginBtn.innerText = originalText;
+                        loginBtn.disabled = false;
+                    }, 2000);
+                </script>
+            {% endfor %}
+        {% endif %}
+    <!-- ====Message Error Button Text==== -->
+    {%endblock%} 
+     
+    <script src="{%static 'js/changeText-btn.js'%}?v={{ timestamp }}" defer></script>
     
-    {%endblock%}
 </body>
 </html>

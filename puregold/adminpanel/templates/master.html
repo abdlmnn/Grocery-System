@@ -32,337 +32,20 @@
     <!-- ====CHARTS==== -->
     {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js" integrity="sha512-L0Shl7nXXzIlBSUUPpxrokqq4ojqgZFQczTYlGjzONGTDAcLremjwaWv5A+EDLnxhQzY5xUZPWLOLqYRkY0Cbw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> {% endcomment %}
     {% comment %} <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> {% endcomment %}
-
 </head>
 <body>
 
     <!-- ====Sidebar==== -->
-    <section class="side-cont">
-        <aside>
-            <div class="logo-cont">
-                <img src="{%static 'public/orange-green-original-puregold-logo.png'%}" alt="Logo" >
-            </div>
-            <div class="link-cont">
-                <a href="{%url 'adminpanel:dashboard'%}" class="{%if title == 'Dashboard'%} active {%endif%}">
-                    <i class="fa-solid fa-desktop"></i>
-                    Dashboard
-                </a>
-                <button class="dropdown-btn ">
-                    <i class="fa-solid fa-clipboard-list"></i>
-                    Orders
-                    <i class="fa fa-caret-down drop-icon"></i>
-                </button>
-                <div class="dropdown-cont">
-                    <a href="" class="">
-                        <i class="fa-solid fa-circle size-circle"></i>
-                        All Orders
-                    </a>
-                    <a href="#" class="">
-                        <i class="fa-solid fa-circle size-circle"></i>
-                        Placed Orders
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-circle size-circle"></i>
-                        Processing Orders
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-circle size-circle"></i>
-                        Product On The Way
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-circle size-circle"></i>
-                        Delivered Order
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-circle size-circle"></i>
-                        Canceled Order
-                    </a>
-                </div>
-                <button class="dropdown-btn ">
-                    <i class="fa-solid fa-box-open"></i>
-                    Inventory Management
-                    <i class="fa fa-caret-down drop-icon"></i>
-                </button>
-                <div class="dropdown-cont">
-                    <a href="#" class="selected">
-                        <i class="fa-solid fa-circle size-circle"></i>
-                        Products
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-circle size-circle"></i>
-                        Categories
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-circle size-circle"></i>
-                        Brands
-                    </a>
-                </div>
-                <a href="" class="">
-                    <i class="fa-solid fa-money-bill-transfer"></i>
-                    Transactions
-                </a>
-                <button class="dropdown-btn ">
-                    <i class="fa-solid fa-chart-line"></i>
-                    Reports
-                    <i class="fa fa-caret-down drop-icon"></i>
-                </button>
-                <div class="dropdown-cont">
-                    <a href="#" class="selected">
-                        <i class="fa-solid fa-circle size-circle"></i>
-                        Sales
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-circle size-circle"></i>
-                        Inventory
-                    </a>
-                </div>
-                <button class="dropdown-btn ">
-                    <i class="fa-solid fa-gear"></i>
-                    Settings
-                    <i class="fa fa-caret-down drop-icon"></i>
-                </button>
-                <div class="dropdown-cont">
-                    <a href="#" class="selected">
-                        <i class="fa-solid fa-circle size-circle"></i>
-                        My Profile
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-circle size-circle"></i>
-                        Change Password
-                    </a>
-                </div>
-                <button class="dropdown-btn ">
-                    <i class="fa-solid fa-user-gear"></i>
-                    Administration
-                    <i class="fa fa-caret-down drop-icon"></i>
-                </button>
-                <div class="dropdown-cont">
-                    <a href="#" class="selected">
-                        <i class="fa-solid fa-circle size-circle"></i>
-                        Users
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-circle size-circle"></i>
-                        Admin
-                    </a>
-                </div>
-                <a href="">
-                    <i class="fa-solid fa-door-open"></i>
-                    Logout
-                </a>
-            </div>
-            <div class="card-profile-cont">
-                <div class="img-user">
-                    <img src="{%static 'public/users/me.jpg'%}" alt="User">
-                </div>
-                <div class="text-user">
-                    <p class="fullname"></p>
-                    <p class="email"></p>
-                </div>
-            </div>
-        </aside>
-    </section>
+    {%include 'components/sidebar.html'%}
     <!-- ====Sidebar==== -->
 
     <!-- ====Main Content==== -->
     <section class="main-cont">
         <!-- ====Header==== -->
         <header>
-            <div class="menu-bar-cont">
-                <button onclick="menuBar.openSide()" class="menu-btn">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-                <div id="sidebar-modal" class="modal-sidebar-content">
-                    <div class="modal-sidebar-child">
-                        <div class="top-two-content">
-                            <h1></h1>
-                            <img src="{%static 'public/orange-green-original-puregold-logo.png'%}" alt="">
-                            <a href="javascript:void(0)" class="closebtn" onclick="menuBar.closeSide()">&times;</a>
-                        </div>
-                        <div class="sidebar-menu-main">
-                            <a href="{%url 'adminpanel:dashboard'%}" class="{%if title == 'Dashboard'%} active {%endif%}">
-                                <i class="fa-solid fa-desktop"></i>
-                                Dashboard
-                            </a>
-                            {% comment %} {%if button == 'Orders'%} active {%endif%} {% endcomment %}
-                            <button class="dropdown-btn ">
-                                <i class="fa-solid fa-clipboard-list"></i>
-                                Orders
-                                <i class="fa fa-caret-down drop-icon"></i>
-                            </button>
-                            <div class="dropdown-cont">
-                                {% comment %} {%url 'admin-orders:all-orders'%} {% endcomment %}
-                                {% comment %} {%if title == 'All Orders'%} active {%endif%} {% endcomment %}
-                                <a href="" class="">
-                                    <i class="fa-solid fa-circle size-circle"></i>
-                                    All Orders
-                                </a>
-                                <a href="#" class="selected">
-                                    <i class="fa-solid fa-circle size-circle"></i>
-                                    Placed Orders
-                                </a>
-                                <a href="#">
-                                    <i class="fa-solid fa-circle size-circle"></i>
-                                    Processing Orders
-                                </a>
-                                <a href="#">
-                                    <i class="fa-solid fa-circle size-circle"></i>
-                                    Product On The Way
-                                </a>
-                                <a href="#">
-                                    <i class="fa-solid fa-circle size-circle"></i>
-                                    Delivered Order
-                                </a>
-                                <a href="#">
-                                    <i class="fa-solid fa-circle size-circle"></i>
-                                    Canceled Order
-                                </a>
-                            </div>
-                            <button class="dropdown-btn ">
-                                <i class="fa-solid fa-box-open"></i>
-                                Inventory Management
-                                <i class="fa fa-caret-down drop-icon"></i>
-                            </button>
-                            <div class="dropdown-cont">
-                                <a href="#" class="selected">
-                                    <i class="fa-solid fa-circle size-circle"></i>
-                                    Products
-                                </a>
-                                <a href="#">
-                                    <i class="fa-solid fa-circle size-circle"></i>
-                                    Categories
-                                </a>
-                                <a href="#">
-                                    <i class="fa-solid fa-circle size-circle"></i>
-                                    Brands
-                                </a>
-                            </div>
-                            <a href="" class="">
-                                <i class="fa-solid fa-money-bill-transfer"></i>
-                                Transactions
-                            </a>
-                            <button class="dropdown-btn ">
-                                <i class="fa-solid fa-chart-line"></i>
-                                Reports
-                                <i class="fa fa-caret-down drop-icon"></i>
-                            </button>
-                            <div class="dropdown-cont">
-                                <a href="#" class="selected">
-                                    <i class="fa-solid fa-circle size-circle"></i>
-                                    Sales
-                                </a>
-                                <a href="#">
-                                    <i class="fa-solid fa-circle size-circle"></i>
-                                    Inventory
-                                </a>
-                            </div>
-                            <button class="dropdown-btn ">
-                                <i class="fa-solid fa-gear"></i>
-                                Settings
-                                <i class="fa fa-caret-down drop-icon"></i>
-                            </button>
-                            <div class="dropdown-cont">
-                                <a href="#" class="selected">
-                                    <i class="fa-solid fa-circle size-circle"></i>
-                                    My Profile
-                                </a>
-                                <a href="#">
-                                    <i class="fa-solid fa-circle size-circle"></i>
-                                    Change Password
-                                </a>
-                            </div>
-                            <button class="dropdown-btn ">
-                                <i class="fa-solid fa-user-gear"></i>
-                                Administration
-                                <i class="fa fa-caret-down drop-icon"></i>
-                            </button>
-                            <div class="dropdown-cont">
-                                <a href="#" class="selected">
-                                    <i class="fa-solid fa-circle size-circle"></i>
-                                    Users
-                                </a>
-                                <a href="#">
-                                    <i class="fa-solid fa-circle size-circle"></i>
-                                    Admin
-                                </a>
-                            </div>
-                            <a href="">
-                                <i class="fa-solid fa-door-open"></i>
-                                Logout
-                            </a>
-                        </div>
-                        <div class="card-profile-cont">
-                            <div class="img-user">
-                                <img src="{%static 'public/users/me.jpg'%}" alt="User">
-                            </div>
-                            <div class="text-user">
-                                <p class="fullname"></p>
-                                <p class="email"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="search-date-cont">
-                <div class="search-cont">
-                    <input type="text" class="search-input-header" placeholder="Search">
-                    <button class="search-btn-header">
-                        <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                    </button>
-                </div>
-                <div class="date-cont">
-                    <p class="date-day">Sunday, 6 March</p>
-                </div>
-            </div>
-            <div class="notification-message-cont">
-                <!-- <button onclick="myMessageBtn()" class="message-btn-header active">
-                    <i class="fa-regular fa-message message-icon"></i>
-                    <span class="count-message">0</span>
-                </button>
-
-                <div id="dropdown-Message" class="dropdown-message-content">
-                    <h1>Habib Albi</h1>
-                    <h1>Habib Albi</h1>
-                    <h1>Habib Albi</h1>
-                </div> -->
-
-                <button onclick="notification.openNotif()" class="notification-btn-header">
-                    <i class="fa-regular fa-bell bell-icon"></i>
-                    <span class="count-bell">0</span>
-                </button>
-                <div id="dropdown-Notification" class="dropdown-notification-content">
-                    <div class="two-top-header">
-                        <h3 class="text-notifications">Notifications</h3>
-                        <button onclick="notification.closeNotif()" class="exit-notification-btn">
-                            <i class="fa-solid fa-xmark"></i>                            
-                        </button>
-                    </div>
-                    <div class="main-notif-cont">
-                        <div class="message-content-containter">
-                            <div class="clearall-cont">
-                                <button class="clearall-btn">
-                                    Clear all
-                                </button>
-                            </div>
-                            <div class="card-message">
-                                <div class="card-child-top">
-                                    <span class="card-name">Mohammad Abdulmanan</span>
-                                    <button class="delete-notification-btn">
-                                        <i class="fa-solid fa-xmark"></i> 
-                                    </button>
-                                </div>
-                                <div class="card-child-mid">
-                                    <p class="card-description">Changed password successfully</p>
-                                </div>
-                                <div class="card-child-bottom">
-                                    <span class="card-time">07:30 pm</span>
-                                    <span class="card-date">March 8, 2025</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {%include 'components/modal-sidebar.html'%}
+            {%include 'components/searchbar.html'%}
+            {%include 'components/modal-notification.html'%}
         </header>
         <!-- ====Header==== -->
         <!-- ====Content==== -->
@@ -407,6 +90,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
             {%endblock%}
         </main>
@@ -416,7 +100,7 @@
 
     <!-- ====Script==== -->
     <script src="{%static 'js/script.js'%}?v={{ timestamp }}" defer></script>
-
+    
     <!-- ====Extra Script==== -->
     {%block extrascript%}
 
