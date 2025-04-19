@@ -16,4 +16,4 @@ urlpatterns = [
     
     # Main
     path('',dashboard,name='dashboard'),
-]
+] 

@@ -54,6 +54,11 @@ CHECK DJANGO VERSION:
 
 
 
+INSTALL PILLOW IMAGE FIELD:
+    pip install Pillow
+
+
+
 HOW TO CREATE PROJECT:
     django-admin startproject name_project
 
