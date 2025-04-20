@@ -1,0 +1,53 @@
+{%extends "master.html"%}
+
+{%load static%}
+
+{%block title%} {{title}} {%endblock title%}
+
+{%block extracss%}
+
+{%endblock%}
+
+{% block content %}
+    <div class="inventory-container">
+        {% block inventory %}
+        <div class="title-border-cont">
+            <h1>{{title}}</h1>
+            <div class="line-border"></div>
+        </div>
+        <div class="table-search-container">
+            <div class="search-cont-1">
+                <div class="search-icon-cont">
+                    <input type="text" class="search-input-2" placeholder="Search">
+                    <button class="search-btn-2">
+                        <i class="fa-solid fa-magnifying-glass search-icon-2"></i>
+                    </button>
+                </div>
+                <div class="date-cont">
+                    <div class="first-date">
+                        <input type="date" name=""  class="fdate"> 
+                        <i class="fa-solid fa-calendar-days calendar-icon"></i>
+                    </div>
+                    <span>To</span>
+                    <div class="second-date">
+                        <input type="date" name="" class="Sdate"> 
+                        <i class="fa-solid fa-calendar-days calendar-icon"></i>
+                    </div>
+                </div>
+                <div class="btn-add-new">
+                    <button class="add-btn-modal">Product<i class="fa-solid fa-plus add-btn"></i></button>
+                    {% comment %} <button class="subcategory-btn-modal">Subcategory<i class="fa-solid fa-plus add-btn"></i></button> {% endcomment %}
+                </div>
+                <div class="three-dot-cont">
+                    <i class="fa-solid fa-ellipsis-vertical threedot-icon"></i>
+                </div>
+            </div>
+            
+        </div>
+        {% endblock %}
+    </div>
+{% endblock %}  
+
+{%block extrascript%}
+
+{%endblock%}

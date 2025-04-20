@@ -1,6 +1,8 @@
 from django.urls import path
+from .views import *
 
 urlpatterns = [
     # Main
-    # path('',dashboard,name='dashboard'),
+    path('',product,name='product'),
+    path('categories/',category,name='category'),
 ] 

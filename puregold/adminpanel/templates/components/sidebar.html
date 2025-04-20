@@ -41,17 +41,17 @@
                     Canceled Order
                 </a>
             </div>
-            <button class="dropdown-btn ">
+            <button class="dropdown-btn {%if button == 'Inventory'%} active {%endif%}">
                 <i class="fa-solid fa-box-open"></i>
                 Inventory Management
                 <i class="fa fa-caret-down drop-icon"></i>
             </button>
             <div class="dropdown-cont">
-                <a href="#" class="selected">
+                <a href="{%url 'inventory:product'%}" class="{%if title == 'Products'%} active {%endif%}">
                     <i class="fa-solid fa-circle size-circle"></i>
                     Products
                 </a>
-                <a href="#">
+                <a href="{%url 'inventory:category'%}" class="{%if title == 'Categories'%} active {%endif%}">
                     <i class="fa-solid fa-circle size-circle"></i>
                     Categories
                 </a>

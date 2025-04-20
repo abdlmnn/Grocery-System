@@ -17,7 +17,7 @@ def login(request):
         'timestamp': datetime.now().timestamp(),
     }
     if request.user.is_authenticated:
-        return redirect('/adminpanel/')
+        return redirect('/admin/')
     else:
         if request.method == 'POST':
             username = request.POST['username']
@@ -26,20 +26,20 @@ def login(request):
             if user is not None:
                 if user.is_superuser:
                     auth_login(request, user)
-                    return redirect('/adminpanel/')
+                    return redirect('/admin/')
                 else:
                     messages.error(request, ('Unauthorized'))
-                    return redirect('/adminpanel/login/')
+                    return redirect('/admin/login/')
             else:
                 messages.error(request, ('Invalid username or password'))
-                return redirect('/adminpanel/login/')
+                return redirect('/admin/login/')
         else:
             return render(request,'login.html',context)
 
 def logout(request):
     auth_logout(request)
     messages.success(request, ('Logout successful'))
-    return redirect('/adminpanel/login/')
+    return redirect('/admin/login/')
 
 def forgotPassword(request):
     context = {
@@ -63,7 +63,7 @@ def forgotPassword(request):
             return redirect(reverse('adminpanel:sent-reset-password', kwargs={'reset_id': new_password_reset.reset_id}))
         except User.DoesNotExist:
             messages.error(request, 'Email not found')
-            return redirect('/adminpanel/forgot-password/') 
+            return redirect('/admin/forgot-password/') 
     else:
         return render(request,'forgot-pass/forgot-password.html',context)
 
@@ -75,7 +75,7 @@ def sentResetPassword(request, reset_id):
         return render(request,'sent-pass/sent-reset-password.html',context)
     else:  
         messages.error(request, 'Reset id not found')
-        return redirect('/adminpanel/forgot-password/')
+        return redirect('/admin/forgot-password/')
 
 def resetPassword(request, reset_id):
     context = {
@@ -96,7 +96,7 @@ def resetPassword(request, reset_id):
                     passwords_have_error = True
                     messages.error(request, 'Passwords is too short')
                 else:
-                    expiration_time = reset_password_id.created_when + timezone.timedelta(minutes=10)
+                    expiration_time = reset_password_id.created_when + timezone.timedelta(minutes=5)
                     if timezone.now() > expiration_time:
                         passwords_have_error = True
                         messages.error(request, 'Reset link has expired')
@@ -107,10 +107,10 @@ def resetPassword(request, reset_id):
                             user.save()
                             reset_password_id.delete()
                             messages.error(request, 'Reset password successful')
-                            redirect('/adminpanel/login/')
+                            return redirect('/admin/login/')  
     except PasswordReset.DoesNotExist:
         messages.error(request, 'Reset id not found')
-        return redirect('/adminpanel/forgot-password/')    
+        return redirect('/admin/forgot-password/')    
     return render(request,'reset-pass/reset-password.html',context)
 
 
