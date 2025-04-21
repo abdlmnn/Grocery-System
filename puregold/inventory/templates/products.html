@@ -5,7 +5,9 @@
 {%block title%} {{title}} {%endblock title%}
 
 {%block extracss%}
-
+    <link rel="stylesheet" href="{%static 'css/inventory.css'%}?v={{ timestamp }}">
+    <link rel="stylesheet" href="{%static 'css/table.css'%}?v={{ timestamp }}">
+    <link rel="stylesheet" href="{%static 'css/pagination.css'%}?v={{ timestamp }}">
 {%endblock%}
 
 {% block content %}
@@ -35,14 +37,211 @@
                     </div>
                 </div>
                 <div class="btn-add-new">
-                    <button class="add-btn-modal">Product<i class="fa-solid fa-plus add-btn"></i></button>
+                    <button class="add-btn-modal">Add New<i class="fa-solid fa-plus add-btn"></i></button>
                     {% comment %} <button class="subcategory-btn-modal">Subcategory<i class="fa-solid fa-plus add-btn"></i></button> {% endcomment %}
                 </div>
                 <div class="three-dot-cont">
                     <i class="fa-solid fa-ellipsis-vertical threedot-icon"></i>
                 </div>
             </div>
-            
+            <div class="table-list-cont">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>SL</th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Brand</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Unit</th>
+                            <th>Status</th>
+                            <th>Expiry Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-cell="SL">1</td>
+                            <td data-cell="Image"><img src="{%static 'public/users/me.jpg'%}" alt=""></td>
+                            <td data-cell="Name">Adult Plus Choco</td>
+                            <td data-cell="Category">Milk</td>
+                            <td data-cell="Brand">Bear Brand</td>
+                            <td data-cell="Price">&#8369; 399</td>
+                            <td data-cell="Stock">200</td>
+                            <td data-cell="Unit">700 grams</td>
+                            <td data-cell="Status">Active</td>
+                            <td data-cell="Date">21-04-2025</td>
+                            <td data-cell="Actions">
+                                <div class="btn-td-cont">
+                                <button class="dot-btn">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </button>
+                                </div>
+                                <div class="btn-td-cont-2">
+                                    <button class="read-btn">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </button>
+                                    <button class="update-btn">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </button>
+                                    <button class="delete-btn">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-cell="SL">2</td>
+                            <td data-cell="Image"><img src="{%static 'public/users/me.jpg'%}" alt=""></td>
+                            <td data-cell="Name">Adult Plus Choco</td>
+                            <td data-cell="Category">Milk</td>
+                            <td data-cell="Brand">Bear Brand</td>
+                            <td data-cell="Price">&#8369; 399</td>
+                            <td data-cell="Stock">200</td>
+                            <td data-cell="Unit">700 grams</td>
+                            <td data-cell="Status">Active</td>
+                            <td data-cell="Date">21-04-2025</td>
+                            <td data-cell="Actions">
+                                <div class="btn-td-cont">
+                                <button class="dot-btn">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </button>
+                                </div>
+                                <div class="btn-td-cont-2">
+                                    <button class="read-btn">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </button>
+                                    <button class="update-btn">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </button>
+                                    <button class="delete-btn">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-cell="SL">3</td>
+                            <td data-cell="Image"><img src="{%static 'public/users/me.jpg'%}" alt=""></td>
+                            <td data-cell="Name">Adult Plus Choco</td>
+                            <td data-cell="Category">Milk</td>
+                            <td data-cell="Brand">Bear Brand</td>
+                            <td data-cell="Price">&#8369; 399</td>
+                            <td data-cell="Stock">200</td>
+                            <td data-cell="Unit">700 grams</td>
+                            <td data-cell="Status">Active</td>
+                            <td data-cell="Date">21-04-2025</td>
+                            <td data-cell="Actions">
+                                <div class="btn-td-cont">
+                                <button class="dot-btn">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </button>
+                                </div>
+                                <div class="btn-td-cont-2">
+                                    <button class="read-btn">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </button>
+                                    <button class="update-btn">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </button>
+                                    <button class="delete-btn">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-cell="SL">4</td>
+                            <td data-cell="Image"><img src="{%static 'public/users/me.jpg'%}" alt=""></td>
+                            <td data-cell="Name">Adult Plus Choco</td>
+                            <td data-cell="Category">Milk</td>
+                            <td data-cell="Brand">Bear Brand</td>
+                            <td data-cell="Price">&#8369; 399</td>
+                            <td data-cell="Stock">200</td>
+                            <td data-cell="Unit">700 grams</td>
+                            <td data-cell="Status">Active</td>
+                            <td data-cell="Date">21-04-2025</td>
+                            <td data-cell="Actions">
+                                <div class="btn-td-cont">
+                                <button class="dot-btn">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </button>
+                                </div>
+                                <div class="btn-td-cont-2">
+                                    <button class="read-btn">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </button>
+                                    <button class="update-btn">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </button>
+                                    <button class="delete-btn">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-cell="SL">5</td>
+                            <td data-cell="Image"><img src="{%static 'public/users/me.jpg'%}" alt=""></td>
+                            <td data-cell="Name">Adult Plus Choco</td>
+                            <td data-cell="Category">Milk</td>
+                            <td data-cell="Brand">Bear Brand</td>
+                            <td data-cell="Price">&#8369; 399</td>
+                            <td data-cell="Stock">200</td>
+                            <td data-cell="Unit">700 grams</td>
+                            <td data-cell="Status">Active</td>
+                            <td data-cell="Date">21-04-2025</td>
+                            <td data-cell="Actions">
+                                <div class="btn-td-cont">
+                                <button class="dot-btn">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </button>
+                                </div>
+                                <div class="btn-td-cont-2">
+                                    <button class="read-btn">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </button>
+                                    <button class="update-btn">
+                                        <i class="fa-regular fa-pen-to-square"></i>
+                                    </button>
+                                    <button class="delete-btn">
+                                        <i class="fa-regular fa-trash-can"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        {% comment %} <button class="read-btn">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                                <button class="update-btn">
+                                    <i class="fa-regular fa-pen-to-square"></i>
+                                </button>
+                                <button class="delete-btn">
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </button> {% endcomment %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="pagination-container">
+                <div class="showing-entries">
+                    <p>Showing 1 to of 195 entries</p>
+                </div>
+                <div class="pagination-numbers">
+                    <button>
+                        <i class="fa-solid fa-angle-left"></i>
+                    </button>
+                    <a href="" >1</a>
+                    <a href="" >2</a>
+                    <a href="" class="active">3</a>
+                    <a href="">4</a>
+                    <a href="">5</a>
+                    <button>
+                        <i class="fa-solid fa-angle-right"></i>
+                    </button>
+                </div>
+            </div>
         </div>
         {% endblock %}
     </div>

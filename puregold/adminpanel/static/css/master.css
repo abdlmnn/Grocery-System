@@ -27,7 +27,7 @@
 
 /* ====Scrollbar Customize Webkit==== */
 ::-webkit-scrollbar {
-    width: 5px;
+    width:4px;
 }
   
 ::-webkit-scrollbar-track {
@@ -37,13 +37,14 @@
 }
   
 ::-webkit-scrollbar-thumb {
-    background-color: var(--text-black-color);
+    /* background-color: var(--text-black-color); */
+    background: var(--first-color-darkgreen);
     border-radius: 10px 0px 10px 0;
 }
   
-::-webkit-scrollbar-thumb:hover {
+/* ::-webkit-scrollbar-thumb:hover {
     background: var(--first-color-darkgreen);
-}
+} */
 
 
 
@@ -64,11 +65,18 @@ body{
     padding: 1rem 1.5rem;
     background-color: var(--bg-color);
     color: var(--text-black-color);
+    /* overflow: hidden; */
 }
 
 button{
     border: none;
     background-color: transparent;
+}
+
+/* ====Sidebar==== */
+.sidebar-parent{
+    /* border: 1px solid red; */
+    position: relative;
 }
 
 
@@ -80,6 +88,7 @@ button{
     display: flex;
     flex-direction: column;
     gap: 15px;
+    margin-left: 230px;
 }
 
 
@@ -88,4 +97,35 @@ button{
 main{
     /* border: 1px solid red; */
     flex: 1;
+}
+
+
+
+@media (max-width:1065px) {
+
+    .sidebar-parent{
+        /* border: 1px solid red; */
+        display: none;
+    }
+    
+    .main-cont{
+        /* border: 1px solid red; */
+        margin-left: 0;
+    }
+    
+}
+
+
+@media (max-width:768px) {
+
+    .sidebar-parent{
+        /* border: 1px solid red; */
+        display: none;
+    }
+
+    .main-cont{
+        /* border: 1px solid red; */
+        margin-left: 0;
+    }
+    
 }

@@ -4,13 +4,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
   width: 230px;
   box-shadow: 0 0 4px 1px rgb(239, 239, 239);
   background: var(--content-bg-color);
   border-radius: var(--corner-radius);
   padding: 1rem;
   gap: 1rem;
+  position: fixed;
+  top: 16px;
+  bottom: 16px;
+  z-index: 1000;
 }
 
 /* Logo Image */
@@ -37,6 +40,8 @@
   /* max-height: 390px; */
   height: 100%;
   position: relative;
+  overflow-y: auto;
+  flex-grow: 1;
 }
 
 .link-cont a,

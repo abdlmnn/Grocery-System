@@ -42,6 +42,7 @@ class Notification{
         this.button = document.querySelector('.notification-btn-header');
         this.closeNotif();
         this.outsideClick();
+        this.resizeClose(); 
     }
 
     openNotif(){
@@ -61,6 +62,12 @@ class Notification{
             if (!isClickInside) {
                 this.closeNotif();
             }
+        });
+    }
+
+    resizeClose(){
+        window.addEventListener('resize', () => {
+            this.closeNotif();
         });
     }
 }

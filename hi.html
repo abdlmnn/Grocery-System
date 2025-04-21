@@ -2,93 +2,190 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Date Input with Icon</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
-      background-color: #f4f4f4;
-    }
+    .table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
 
-    .input-with-icon {
-      position: relative;
-      display:flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: center;
-    }
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px; /* This makes it scrollable on small screens */
+}
 
-    .input-with-icon i {
-      position: absolute;
-      top: 50%;
-      z-index: 999;
-      right: 10px;
-      transform: translateY(-50%);
-      color: #000000;
-      pointer-events: none;
-      font-size: 14px;
-    }
+.custom-table th,
+.custom-table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
 
-    .input-with-icon input[type="date"] {
-      padding: 0 20px 0 0 ;
-      font-size: 14px;
-      border: none;
-      background-color: transparent;
-      outline: none;
-      appearance: none;        
-      -webkit-appearance: none;
-      -moz-appearance: none;    
-      position: relative;
-      z-index: 1;
-      width: 100%;
-    }
-    input[type="date"]::-webkit-calendar-picker-indicator {
-      opacity: 0;
-      cursor: pointer;
-      position: absolute;
-      right: 0;
-      width: 100%;
-      height: 100%;opacity: 0;
-      z-index: 2;
-    }
+.custom-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+/* 
+.action-buttons {
+  display: flex;
+  gap: 5px;
+}
 
-    .cont{
-        display: flex;
-        justify-content: center;
-        text-align: center;
-        gap: 5px;
-        align-items: center;
-        border: 1px solid #ccc;
-        background-color: #d6d6d6;
-        width: 25%;
-        /* max-width: 300px; */
-        padding: 4px;
-        border-radius: 50px;
-    }
+.edit-btn,
+.delete-btn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
 
-    .cont span{
-        margin-right: 10px;
-        font-size: 12px;
-        text-align: center;
-    }
+.edit-btn {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #45a049;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #da190b;
+} */
+
+.action-buttons {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.menu-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.action-menu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 30px;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.action-menu button {
+  padding: 8px 12px;
+  border: none;
+  background: none;
+  text-align: left;
+  width: 100%;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.action-menu button:hover {
+  background-color: #f5f5f5;
+}
+
+/* Hide buttons on mobile and use three dots */
+@media (max-width: 768px) {
+  /* .edit-btn, .delete-btn {
+    display: none;
+  } */
+  .menu-btn {
+    display: inline;
+  }
+}
+
+
   </style>
+  <script>
+    function toggleMenu(btn) {
+      const menu = btn.nextElementSibling;
+      const isVisible = menu.style.display === 'flex';
+      // Close any other open menus
+      document.querySelectorAll('.action-menu').forEach(m => m.style.display = 'none');
+      menu.style.display = isVisible ? 'none' : 'flex';
+    }
+  
+    // Close menu if clicking outside
+    window.addEventListener('click', function(e) {
+      if (!e.target.closest('.action-buttons')) {
+        document.querySelectorAll('.action-menu').forEach(m => m.style.display = 'none');
+      }
+    });
+  </script>
+  
 </head>
 <body>
-
-    <h2>Date Picker with Icon</h2>
-
-    <div class="cont">
-        <div class="input-with-icon">
-            <input type="date">
-            <i class="fa-solid fa-calendar-days"></i>
-        </div>
-        <span>To</span>
-        <div class="input-with-icon">
-            <input type="date">
-            <i class="fa-solid fa-calendar-days"></i>
-        </div>
-    </div>
-
+  <div class="table-responsive">
+    <table class="custom-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Product</th>
+          <th>Category</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Shoes</td>
+          <td>Fashion</td>
+          <td>5</td>
+          <td>$50</td>
+          <td>
+             <div class="action-buttons">
+                <button class="menu-btn" onclick="toggleMenu(this)">⋮</button>
+                <div class="action-menu">
+                  <button class="edit-btn">Edit</button>
+                  <button class="delete-btn">Delete</button>
+                </div>
+              </div>
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Shirt</td>
+          <td>Clothing</td>
+          <td>10</td>
+          <td>$20</td>
+          <td>
+             <div class="action-buttons">
+                <button class="menu-btn" onclick="toggleMenu(this)">⋮</button>
+                <div class="action-menu">
+                  <button class="edit-btn">Edit</button>
+                  <button class="delete-btn">Delete</button>
+                </div>
+              </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
 </body>
 </html>

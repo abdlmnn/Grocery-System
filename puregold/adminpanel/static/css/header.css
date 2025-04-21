@@ -141,7 +141,7 @@ header{
     right: 49px;
     background-color: var(--first-color-grey);
     max-width: 250px;
-    z-index: 1;
+    z-index: 1200;
     border-radius: 10px;
     /* border-radius: 10px 0 0 10px; */
     /* box-shadow: #e2e2e2; */
@@ -276,6 +276,185 @@ header{
     display: none;
   }
 
+  @media (max-width:1065px) {
+
+    /* Header */
+    header{
+      gap: 10px;
+    }
+
+    /* ====Sidebar==== */
+    .side-cont{
+      display: none;
+    }
+  
+    .search-date-cont{
+      gap: 10px;
+    }
+  
+    /* Search */
+    .search-date-cont .search-cont{
+      max-width: 250px;
+    }
+  
+    /* Date */
+    .search-date-cont .date-cont{
+      font-size: 10px;
+    }
+
+    /* ====New Sidebar==== */
+    header .menu-bar-cont{
+      display: flex;
+      position: relative;
+    }
+  
+    .menu-bar-cont .menu-btn{
+      border: none;
+      background-color: var(--content-bg-color);
+      padding: 10px;
+      display: inline-block;
+      position: relative;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: var(--size-text);
+    }
+  
+    /* .menu-bar-cont .menu-btn:hover{
+      background-color: var(--first-color-darkgreen);
+      color: var(--text-color);
+    } */
+  
+    /* Modal */
+    .menu-bar-cont .modal-sidebar-content{
+      height: 0;
+      width: 230px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      overflow: hidden;
+      z-index: 3;
+      background-color: var(--content-bg-color);
+      /* box-shadow: 0 0 4px 1px rgb(223, 222, 222); */
+      /* box-shadow: 0 0 1px rgb(158, 158, 158); */
+      transition: 0.5s;
+      transition: height 0.3s ease;
+    }
+  
+    .modal-sidebar-child{
+      /* border: 1px solid red; */
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;    
+      gap: 20px;
+    }
+  
+    .modal-sidebar-content .top-two-content .closebtn{
+      padding: 5px;
+      border-radius: 5px;
+      /* border: 1px solid var(--first-color-grey); */
+    }
+  
+    .modal-sidebar-content .top-two-content .closebtn:hover{
+      background-color: var(--first-color-darkgreen);
+      color: var(--text-color);
+    }
+  
+    .modal-sidebar-content .top-two-content{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 0 15px 0;
+      border-bottom: 1px solid #f57b0034;
+      /* border: 1px solid red; */
+    }
+  
+    .modal-sidebar-content .top-two-content img{
+      width: 130px;
+      object-fit: fill;
+    }
+  
+    .sidebar-menu-main{
+      /* border: 1px solid red; */
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      /* max-height: 410px; */
+      height: 100%;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+  
+    .sidebar-menu-main a,
+    .sidebar-menu-main .dropdown-btn{
+      display: flex;
+      gap: 10px;
+      border: none;
+      width: 100%;
+      text-align: left;
+      align-items: center;
+      cursor: pointer;
+      background: transparent;
+      padding: 6px 8px 6px 16px;
+      border-radius: 20px;
+      margin-top: 5px;
+      font-size: var(--size-text);
+      position: relative;
+      transition: background 0.3s ease
+    }
+  
+    .dropdown-btn > .drop-icon{
+      position: absolute;
+      top: 9px;
+      right: 10px;
+      font-size: 9px;
+    }
+    
+    .sidebar-menu-main a:hover, 
+    .dropdown-btn:hover,
+    .sidebar-menu-main a.active, 
+    .dropdown-btn.active{
+      background-color: var(--first-color-orange);
+      color: var(--text-color);
+    }
+  
+    .card-profile-cont{
+      /* border: 1px solid red; */
+      /* position: absolute; */
+      /* bottom: 25px; */
+      /* left: 15px; */
+      max-width: 200px;
+      width: 100%; 
+      margin: auto;
+      border: none; 
+      display: flex;
+      flex-direction: row;
+      padding: 10px 5px;
+      gap: 5px;
+      border-radius: 15px; 
+      align-items: center; 
+      justify-content: center;
+      background-color: var(--content-bg-color); 
+      /* box-shadow: 0 0 4px 1px rgb(223, 222, 222); */
+      transition: background-color 0.3s ease;
+    }
+  
+    .card-profile-cont .img-user img{
+      width: 35px; 
+      height: 35px; 
+      object-fit: cover;
+      border-radius: 25px; 
+      border: 1.5px solid var(--content-bg-color);
+      overflow: hidden;
+      display: flex;
+      justify-content: center; 
+      align-items: center;  
+    }
+    
+  }
+
 
 
   /* ====Media Query==== */
@@ -386,7 +565,8 @@ header{
       width: 100%;
       /* max-height: 410px; */
       height: 100%;
-      overflow: hidden;
+      overflow-y: auto;
+      flex-grow: 1;
     }
   
     .sidebar-menu-main a,
