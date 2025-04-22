@@ -50,102 +50,10 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td data-cell="SL">1</td>
-                        <td data-cell="Name">Abdul Salih</td>
-                        <td data-cell="Actions">
-                            
-                            <div class="btn-td-cont">
-                                {% comment %} <button class="dot-btn">
-                                    <i class="fa-solid fa-ellipsis"></i>
-                                </button> {% endcomment %}
-                                <button class="read-btn">
-                                    <i class="fa-regular fa-eye"></i>
-                                </button>
-                                <button class="update-btn">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </button>
-                                <button class="delete-btn">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </button>
-                            </div>
-                            <div class="btn-td-cont-2">
-                                <button class="read-btn">
-                                    <i class="fa-regular fa-eye"></i>
-                                </button>
-                                <button class="update-btn">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </button>
-                                <button class="delete-btn">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td data-cell="SL">1</td>
-                        <td data-cell="Name">Abdul Salih</td>
-                        <td data-cell="Actions">
-                            
-                            <div class="btn-td-cont">
-                                {% comment %} <button class="dot-btn">
-                                    <i class="fa-solid fa-ellipsis"></i>
-                                </button> {% endcomment %}
-                                <button class="read-btn">
-                                    <i class="fa-regular fa-eye"></i>
-                                </button>
-                                <button class="update-btn">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </button>
-                                <button class="delete-btn">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </button>
-                            </div>
-                            <div class="btn-td-cont-2">
-                                <button class="read-btn">
-                                    <i class="fa-regular fa-eye"></i>
-                                </button>
-                                <button class="update-btn">
-                                    <i class="fa-regular fa-pen-to-square"></i>
-                                </button>
-                                <button class="delete-btn">
-                                    <i class="fa-regular fa-trash-can"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    
-                    {% comment %} <button class="read-btn">
-                                <i class="fa-regular fa-eye"></i>
-                            </button>
-                            <button class="update-btn">
-                                <i class="fa-regular fa-pen-to-square"></i>
-                            </button>
-                            <button class="delete-btn">
-                                <i class="fa-regular fa-trash-can"></i>
-                            </button> {% endcomment %}
-                </tbody>
+                {% include "components/tbl-categories.html" %}
             </table>
         </div>
-        <div class="pagination-container">
-                <div class="showing-entries">
-                    <p>Showing 1 to of 195 entries</p>
-                </div>
-                <div class="pagination-numbers">
-                    <button>
-                        <i class="fa-solid fa-angle-left"></i>
-                    </button>
-                    <a href="" >1</a>
-                    <a href="" class="active">2</a>
-                    <a href="">3</a>
-                    <a href="">4</a>
-                    <a href="">5</a>
-                    <button>
-                        <i class="fa-solid fa-angle-right"></i>
-                    </button>
-                </div>
-            </div>
+        {% include "components/paginations.html" %}
         </div>
     </div>
 {% endblock %}
