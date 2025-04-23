@@ -11,4 +11,5 @@ urlpatterns = [
     
     # Main
     path('',dashboard,name='dashboard'),
+    path('search/', search, name='search'),
 ] 

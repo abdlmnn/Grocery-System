@@ -7,14 +7,41 @@ from django.conf import settings
 from django.core.mail import EmailMessage
 from django.utils import timezone
 from django.urls import reverse
-from datetime import datetime
 from accounts.models import PasswordReset
+from inventory.models import *
+from django.db.models import Q
+
+# Main
+@login_required()
+def dashboard(request):
+    context = {
+        'title': 'Dashboard',
+    }
+    return render(request,'master.html',context)
+
+@login_required()
+def search(request):
+    if request.method == 'POST':
+        searched = request.POST['search']
+        stock = Stock.objects.filter(Q(inventory__name__contains=searched) | Q(unit__name__contains=searched))
+        inventory = Inventory.objects.filter(Q(name__contains=searched) | Q(brand__name__contains=searched) | Q(subcategory__name__contains=searched))
+        brand = Brand.objects.filter(name__icontains=searched)
+        return render(request, 'search/search.html',{
+        'title': 'Search',
+        'searched': searched,
+        'stock': stock,
+        'inventory': inventory,
+        'brand': brand,
+    })
+    else:
+        return render(request, 'search/search.html',{
+            'title': 'Search',
+        })
 
 # Auth
 def login(request):
     context = {
         'title': 'Administration',
-        'timestamp': datetime.now().timestamp(),
     }
     if request.user.is_authenticated:
         return redirect('/admin/')
@@ -112,15 +139,3 @@ def resetPassword(request, reset_id):
         messages.error(request, 'Reset id not found')
         return redirect('/admin/forgot-password/')    
     return render(request,'reset-pass/reset-password.html',context)
-
-
-# Main
-@login_required()
-def dashboard(request):
-    context = {
-        'title': 'Dashboard',
-        'datetime': datetime.now(),
-        'timestamp': datetime.now().timestamp(),
-        'user': request.user
-    }
-    return render(request,'master.html',context)

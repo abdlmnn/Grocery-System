@@ -36,7 +36,7 @@
     /* border: 1px solid red; */
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 2px;
     height: 100%;
 }
 
@@ -81,6 +81,11 @@
 }
 
 /* Date */
+.search-cont-1 .btn-date-cont{
+    display: flex;
+    gap: 15px;
+}
+
 .search-cont-1  .date-cont{
     display: flex;
     gap: 8px;

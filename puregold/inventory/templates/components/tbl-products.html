@@ -1,16 +1,13 @@
 {%load static%}
 <tbody>
+    {%for data in inventory%}
     <tr>
-        <td data-cell="SL">1</td>
-        <td data-cell="Image"><img src="{%static 'public/users/me.jpg'%}" alt=""></td>
-        <td data-cell="Name">Adult Plus Choco</td>
-        <td data-cell="Category">Milk</td>
-        <td data-cell="Brand">Bear Brand</td>
-        <td data-cell="Price">&#8369; 399</td>
-        <td data-cell="Stock">200</td>
-        <td data-cell="Unit">700 grams</td>
-        <td data-cell="Status">Active</td>
-        <td data-cell="Date">21-04-2025</td>
+        <td data-cell="SL">{{data.id}}</td>
+        <td data-cell="Image"><img src="{{ data.image.url }}" alt="{{ data.name }}"></td>
+        <td data-cell="Name">{{data.name}}</td>
+        <td data-cell="Category">{{data.subcategory}}</td>
+        <td data-cell="Brand">{{data.brand | default_if_none:"No Brands"}}</td>
+        <td data-cell="Date">{{data.created_date}}</td>
         <td data-cell="Actions">
             <div class="btn-td-cont">
                 <button class="read-btn">
@@ -26,6 +23,11 @@
             <button class="dot-btn">
                 <i class="fa-solid fa-ellipsis"></i>
             </button>
+        </td>
+    </tr>
+    {% endfor %}
+</tbody>
+
             {% comment %} <div class="btn-td-cont-2"> {% endcomment %}
                 {% comment %} <button class="read-btn">
                     <i class="fa-regular fa-eye"></i>
@@ -37,9 +39,8 @@
                     <i class="fa-regular fa-trash-can"></i>
                 </button> {% endcomment %}
             {% comment %} </div> {% endcomment %}
-        </td>
-    </tr>
-    {% comment %} <button class="read-btn">
+
+{% comment %} <button class="read-btn">
                 <i class="fa-regular fa-eye"></i>
             </button>
             <button class="update-btn">
@@ -48,4 +49,3 @@
             <button class="delete-btn">
                 <i class="fa-regular fa-trash-can"></i>
             </button> {% endcomment %}
-</tbody>

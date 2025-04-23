@@ -1,12 +1,13 @@
 
 <div class="search-date-cont">
-    <div class="search-cont">
-        <input type="text" class="search-input-header" placeholder="Search">
-        <button class="search-btn-header">
+    <form action="{% url 'adminpanel:search' %}" method=POST class="search-cont">
+        {% csrf_token %}
+        <input type="text" name="search" class="search-input-header" placeholder="Search">
+        <button class="search-btn-header" type="submit">
             <i class="fa-solid fa-magnifying-glass search-icon"></i>
         </button>
-    </div>
+    </form>
     <div class="date-cont">
-        <p class="date-day">{{ datetime }}</p>
+        <p class="date-day">{{ datetime|date:"l, j F" }}</p>
     </div>
 </div>

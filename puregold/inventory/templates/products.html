@@ -18,32 +18,34 @@
             <div class="line-border"></div>
         </div>
         <div class="table-search-container">
-            <div class="search-cont-1">
+            <form class="search-cont-1" action="{%url 'inventory:product'%}" method="get">
                 <div class="search-icon-cont">
-                    <input type="text" class="search-input-2" placeholder="Search">
+                    <input type="text" name="search" class="search-input-2" placeholder="Search">
                     <button class="search-btn-2">
                         <i class="fa-solid fa-magnifying-glass search-icon-2"></i>
                     </button>
                 </div>
-                <div class="date-cont">
-                    <div class="first-date">
-                        <input type="date" name=""  class="fdate"> 
-                        <i class="fa-solid fa-calendar-days calendar-icon"></i>
+                <div class="btn-date-cont">
+                    <div class="date-cont">
+                        <div class="first-date">
+                            <input type="date" name="start_date"  class="fdate"> 
+                            <i class="fa-solid fa-calendar-days calendar-icon"></i>
+                        </div>
+                        <span>To</span>
+                        <div class="second-date">
+                            <input type="date" name="end_date" class="Sdate"> 
+                            <i class="fa-solid fa-calendar-days calendar-icon"></i>
+                        </div>
                     </div>
-                    <span>To</span>
-                    <div class="second-date">
-                        <input type="date" name="" class="Sdate"> 
-                        <i class="fa-solid fa-calendar-days calendar-icon"></i>
+                    <div class="btn-add-new">
+                        <button class="add-btn-modal" type="button">Add New<i class="fa-solid fa-plus add-btn"></i></button>
+                        {% comment %} <button class="subcategory-btn-modal">Subcategory<i class="fa-solid fa-plus add-btn"></i></button> {% endcomment %}
+                    </div>
+                    <div class="three-dot-cont">
+                        <i class="fa-solid fa-ellipsis-vertical threedot-icon"></i>
                     </div>
                 </div>
-                <div class="btn-add-new">
-                    <button class="add-btn-modal">Add New<i class="fa-solid fa-plus add-btn"></i></button>
-                    {% comment %} <button class="subcategory-btn-modal">Subcategory<i class="fa-solid fa-plus add-btn"></i></button> {% endcomment %}
-                </div>
-                <div class="three-dot-cont">
-                    <i class="fa-solid fa-ellipsis-vertical threedot-icon"></i>
-                </div>
-            </div>
+            </form>
             <div class="table-list-cont">
                 <table class="table">
                     <thead>
@@ -51,13 +53,9 @@
                             <th>SL</th>
                             <th>Image</th>
                             <th>Name</th>
-                            <th>Category</th>
+                            <th>Subcategory</th>
                             <th>Brand</th>
-                            <th>Price</th>
-                            <th>Stock</th>
-                            <th>Unit</th>
-                            <th>Status</th>
-                            <th>Expiry Date</th>
+                            <th>Date</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -71,5 +69,20 @@
 {% endblock %}  
 
 {%block extrascript%}
-
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('.search-cont-1');
+            const startDate = form.querySelector('input[name="start_date"]');
+            const endDate = form.querySelector('input[name="end_date"]');
+    
+            function checkAndSubmit() {
+                if (startDate.value && endDate.value) {
+                    form.submit();
+                }
+            }
+    
+            startDate.addEventListener('change', checkAndSubmit);
+            endDate.addEventListener('change', checkAndSubmit);
+        });
+    </script>
 {%endblock%}

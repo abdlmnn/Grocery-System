@@ -1,0 +1,192 @@
+:root{
+    --primary-color: #8c6414;
+    --secondary-color: #052c24;
+    /* --secondary-color: #073a31; */
+
+    --bg-color: #f3f3f3;
+    --content-bg-color: #f8f8f8;
+
+    --white-bg-color: #fff;
+
+    --first-color-orange: #f17b0d; 
+    --second-color-orange: #f57c00;
+  
+    --first-color-darkgreen: #044635;
+    --second-color-darkgreen: #104d34;
+
+    --first-color-grey: #eeefef;
+
+    --text-color: #fff;
+    --text-black-color: #525253;
+
+    --size-text: 12px;
+
+    --corner-radius: 15px;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: var(--content-bg-color);
+    color: #3c3c3c;
+    font-family: 'Inter', sans-serif;
+}
+
+button{
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+input{
+    outline: none;
+    border: none;
+}
+
+.two-bg-color{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.two-bg-color .top{
+    flex: 1;
+    /* background-image: url('public/oragne-logo.png/'); */
+    background-image: url('/static/public/orange-green-original-puregold-logo.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    /* background-size: 400px 75px; */
+    background-size: 500px 85px;
+    background-color: var(--content-bg-color);
+}
+
+.two-bg-color .bottom{
+    flex: 2;
+    width: 100%;
+    background-color: var(--first-color-darkgreen);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    border-radius: 100% 100% 0 0;
+}
+
+.bottom form{
+    position: absolute;
+    top: 10%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 300px;
+    background-color: var(--bg-color);
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+form .input-cont{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 10px;
+    width: 100%;
+    background-color: var(--content-bg-color);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.input-cont input{
+    background-color: var(--content-bg-color);
+    border-radius: 5px;
+    width: 100%;
+    padding: 5px;
+    font-size: var(--size-text);
+}
+
+.input-cont i{
+    font-size: 14px;
+    /* color: var(--first-color-darkgreen); */
+}
+
+.button-cont{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 10px;
+    gap: 15px;
+}
+
+.button-cont .forgot-cont{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--size-text);
+    color: inherit;
+    padding: 0 10px;
+}
+
+.forgot-cont a:hover{
+    text-decoration: underline;
+    color: var(--first-color-orange);
+}   
+
+.button-cont .login-btn{
+    width: 100%;
+    background-color: var(--first-color-darkgreen);
+    font-weight: bold;
+    color: var(--content-bg-color);
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: var(--size-text);
+}
+
+.button-cont .login-btn:hover{
+    background-color: var(--secondary-color);
+}
+
+
+@media (max-width: 768px) {
+
+    .two-bg-color .top{
+        background-size: 400px 75px;
+    }
+    
+    .two-bg-color .bottom{
+        flex: 3;
+        border-radius: 1500% 1500% 0 0;
+    }
+
+    .bottom form{
+        top: 20%;
+    }
+}
+
+@media (max-width: 420px) {
+
+    .two-bg-color .top{
+        background-size: 300px 55px;
+    }
+
+    .two-bg-color .bottom{
+        flex: 3;
+    }
+
+    .two-bg-color .bottom{
+        border-radius: 30px 30px 0 0;
+    }
+
+    .bottom form{
+        top: 7%;
+        min-width: 250px;
+    }
+}

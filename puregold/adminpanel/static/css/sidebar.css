@@ -79,19 +79,24 @@
   font-size: 5px;
 }
 
-.link-cont a:hover, 
+.link-cont > a:hover, 
 .dropdown-btn:hover,
-.link-cont a.active,
+.link-cont > a.active,
 .dropdown-btn.active{
   background-color: var(--first-color-orange);
   color: var(--text-color);
 }
 /* .dropdown-btn.active */
 
-.dropdown-cont .selected.active,
+/* .dropdown-cont .selected.active,
 .dropdown-cont .selected:focus{
   color: var(--first-color-orange);
   background-color: transparent;
+} */
+
+.dropdown-cont a:hover,
+.dropdown-cont a.selected{
+  color: var(--first-color-orange);
 }
 
 /* Sidebar Profile */

@@ -1,0 +1,45 @@
+{%extends "master.html"%}
+
+{%load static%}
+
+{%block title%} {{title}} {%endblock title%}
+
+{%block extracss%}
+{%endblock%}
+
+{% block content %}
+    {%if searched%}
+        <h1>Searching for {{searched}}</h1>
+
+        {%if stock%}
+            {%for data in stock%} 
+            <br>
+                <p>{{data.id}}</p>
+                <p>{{data.inventory}}</p>
+                <img src="{{data.inventory.image.url}}" alt="" width='40px'>
+                <p>{{data.quantity}}</p>
+                <p>{{data.amount_per_unit | default_if_none:""}}</p>
+                <p>{{data.unit | default_if_none:""}}</p>
+                <p>{{data.price}}</p>
+                <br>
+            {%endfor%} 
+        {%elif inventory%}
+            {%for data in inventory%} 
+            <br>
+            <p>{{data.id}}</p>
+            <p>{{data.subcategory}}</p>
+                <p>{{data.brand | default_if_none:""}}</p>
+                <p>{{data.name}}</p>
+                <img src="{{data.image.url}}" alt="" width='40px'>
+                <p>{{data.description}}</p>
+                <br>
+            {%endfor%} 
+        {%endif%} 
+    {%else%}
+        <h1>You forgot to search</h1>
+    {%endif%} 
+{% endblock %}  
+
+{%block extrascript%}
+
+{%endblock%}
