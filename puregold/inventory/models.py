@@ -6,6 +6,7 @@ import os
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=100)
+    created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.name}'
@@ -13,12 +14,14 @@ class Category(models.Model):
 class Subcategory(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
+    created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.name}'
     
 class Brand(models.Model):
     name = models.CharField(max_length=100)
+    created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.name}'
@@ -27,6 +30,7 @@ class Unit(models.Model):
     name = models.CharField(max_length=20, unique=True, null=True, blank=True)
     abbreviation = models.CharField(max_length=5, unique=True, null=True, blank=True)
     description = models.TextField(blank=True, null=True)
+    created_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.name}'

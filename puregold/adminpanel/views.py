@@ -14,8 +14,16 @@ from django.db.models import Q
 # Main
 @login_required()
 def dashboard(request):
+    labels = []
+    data = []
+    stock = Stock.objects.select_related('inventory')
+    for x in stock:
+        labels.append(x.inventory.name)
+        data.append(x.quantity)
     context = {
         'title': 'Dashboard',
+        'labels': labels,
+        'data': data,
     }
     return render(request,'master.html',context)
 

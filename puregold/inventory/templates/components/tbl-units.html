@@ -1,9 +1,11 @@
 {%load static%}
 <tbody>
-    {%for data in category%}
+    {%for data in unit%}
     <tr>
         <td data-cell="SL">{{data.id}}</td>
         <td data-cell="Name">{{data.name}}</td>
+        <td data-cell="Abbreviation">{{data.abbreviation}}</td>
+        <td data-cell="Abbreviation">{{data.description}}</td>
         <td data-cell="Date">{{data.created_date}}</td>
         <td data-cell="Actions">
             <div class="btn-td-cont">

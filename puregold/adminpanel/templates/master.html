@@ -54,45 +54,8 @@
         <main>
             {%block content%}
             <div class="dashboard-container">
-                <div class="dashboard-cards">
-                    <div class="cards">
-                        <div class="one-container">
-                            <i class="fa-solid fa-cart-shopping shop-icon"></i>
-                        </div>
-                        <div class="two-container">
-                            <span class="text-1">Orders</span>
-                            <p>700</p>
-                        </div>
-                    </div>
-                    <div class="cards">
-                        <div class="one-container">
-                            <i class="fa-solid fa-box product-icon"></i>                
-                        </div>
-                        <div class="two-container">
-                            <span class="text-2">Products</span>
-                            <p>1,200</p>
-                        </div>
-                    </div>
-                    <div class="cards">
-                        <div class="one-container">
-                            <i class="fa-solid fa-users user-icon"></i>                
-                        </div>
-                        <div class="two-container">
-                            <span class="text-3">Customers</span>
-                            <p>900</p>
-                        </div>
-                    </div>
-                    <div class="cards">
-                        <div class="one-container">
-                            <i class="fa-solid fa-coins sales-icon"></i>                
-                        </div>
-                        <div class="two-container">
-                            <span class="text-4">Sales</span>
-                            <p>125,200</p>
-                        </div>
-                    </div>
-                </div>
-                
+                {%include 'components/total-cards.html'%}
+                {%include 'components/charts.html'%}
             </div>
             {%endblock%}
         </main>
@@ -103,9 +66,78 @@
     <!-- ====Script==== -->
     <script src="{%static 'js/script.js'%}?v={{ timestamp }}" defer></script>
     
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- ====Extra Script==== -->
     {%block extrascript%}
-
+    <script>
+        const ctx = document.getElementById('stockChart').getContext('2d');
+        const stockChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: {{ labels|safe }},
+                datasets: [{
+                    label: 'Total Stock Quantity',
+                    data: {{ data|safe }},
+                    backgroundColor: 'rgba(241, 123, 13, 0.2)',
+                    borderColor: '#f17b0d',
+                    borderWidth: 1,
+                    tension: 0.3,
+                    fill: true,
+                    pointBackgroundColor: '#f17b0d', 
+                    pointRadius: 3,
+                    pointHoverRadius: 6
+                }]
+            },
+            options: {
+                responsive: false,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        grid: {
+                            color: 'rgba(147, 146, 144, 0.2)' 
+                        },
+                        ticks: {
+                            font: {
+                                size: 10,
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        grid: { 
+                            color: 'rgba(147, 146, 144, 0.2)' 
+                        },
+                        ticks: {
+                            font: {
+                                size: 10,
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Stock Quantity',
+                        font: {
+                            size: 12,
+                        }
+                    },
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return 'Quantity: ' + context.parsed.y;
+                            }
+                        }
+                    }
+                },
+            }
+        });
+    </script>
     {%endblock%}
 </body>
 </html>

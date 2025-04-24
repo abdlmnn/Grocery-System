@@ -1,0 +1,49 @@
+.charts-container{
+    display: grid;
+}
+/* Make the grid responsive */
+.chart-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Flexible columns */
+    gap: 20px; /* Spacing between the charts */
+    padding: 20px;
+    grid-template-rows: auto; /* Adjust row height based on content */
+  }
+  
+  /* Styling for each chart container */
+  .chart-box {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    height: 300px; /* Fixed height for charts */
+    overflow: hidden;
+  }
+  
+  /* Ensure the canvas fits the container */
+  canvas {
+    width: 100% !important;  /* Full width of the chart-box */
+    height: 100% !important; /* Full height of the chart-box */
+    display: block;  /* Removes any unwanted space below the canvas */
+  }
+  
+  /* Optional: Dark mode styling for chart containers */
+  .chart-box {
+    background-color: #1e1e2f;
+    color: #fff;
+  }
+  
+  /* Smaller screen size adjustments */
+@media (max-width: 768px) {
+    .chart-grid {
+      grid-template-columns: 1fr; /* Stack the charts into one column */
+      gap: 15px; /* Reduce the gap on smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .chart-box {
+      height: 250px; /* Reduce chart height on mobile */
+    }
+  }
+  

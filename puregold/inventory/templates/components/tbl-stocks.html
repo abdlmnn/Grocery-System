@@ -1,10 +1,16 @@
 {%load static%}
 <tbody>
-    {%for data in category%}
+    {%for data in stock%}
     <tr>
         <td data-cell="SL">{{data.id}}</td>
-        <td data-cell="Name">{{data.name}}</td>
-        <td data-cell="Date">{{data.created_date}}</td>
+        <td data-cell="Image"><img src="{{ data.inventory.image.url }}" alt="{{ data.inventory }}"></td>
+        <td data-cell="Name">{{data.inventory}}</td>
+        <td data-cell="Quantity">{{data.quantity}}</td>
+        <td data-cell="Unit">{{data.amount_per_unit | default_if_none:""}} {{data.unit | default_if_none:"No Units"}}</td>
+        <td data-cell="Price">&#x20B1; {{data.price}}</td>
+        <td data-cell="Status">{{data.status}}</td>
+        <td data-cell="Expiry">{{data.expiry_date}}</td>
+        <td data-cell="Date">{{data.date_added}}</td>
         <td data-cell="Actions">
             <div class="btn-td-cont">
                 <button class="read-btn">

@@ -4,27 +4,27 @@ from .models import *
 # Register your models here.
 @admin.register(Category)
 class Category(admin.ModelAdmin):
-    list_display = ('name',)
-    search_fields = ('name',)
-    list_filter = ('name',)
+    list_display = ('name','created_date')
+    search_fields = ('name','created_date')
+    list_filter = ('name','created_date')
 
 @admin.register(Subcategory)
 class Subcategory(admin.ModelAdmin):
-    list_display = ('category','name')
-    search_fields = ('category','name')
-    list_filter = ('category','name')
+    list_display = ('category','name','created_date')
+    search_fields = ('category','name','created_date')
+    list_filter = ('category','name','created_date')
 
 @admin.register(Brand)
 class Brand(admin.ModelAdmin):
-    list_display = ('name',)
-    search_fields = ('name',)
-    list_filter = ('name',)
+    list_display = ('name','created_date')
+    search_fields = ('name','created_date')
+    list_filter = ('name','created_date')
 
 @admin.register(Unit)
 class Unit(admin.ModelAdmin):
-    list_display = ('name','abbreviation')
-    search_fields = ('name','abbreviation')
-    list_filter = ('name','abbreviation')
+    list_display = ('name','abbreviation','created_date')
+    search_fields = ('name','abbreviation','created_date')
+    list_filter = ('name','abbreviation','created_date')
 
 @admin.register(Inventory)
 class Inventory(admin.ModelAdmin):

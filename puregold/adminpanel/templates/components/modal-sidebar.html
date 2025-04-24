@@ -60,13 +60,25 @@
                         <i class="fa-solid fa-circle size-circle"></i>
                         Products
                     </a>
+                    <a href="{%url 'inventory:stock'%}" class="{%if title == 'Stocks'%} selected {%endif%}">
+                        <i class="fa-solid fa-circle size-circle"></i>
+                        Stocks
+                    </a>
                     <a href="{%url 'inventory:category'%}" class="{%if title == 'Categories'%} selected {%endif%}">
                         <i class="fa-solid fa-circle size-circle"></i>
                         Categories
                     </a>
+                    <a href="{%url 'inventory:subcategory'%}" class="{%if title == 'Subcategories'%} selected {%endif%}">
+                        <i class="fa-solid fa-circle size-circle"></i>
+                        Subcategories
+                    </a>
                     <a href="{%url 'inventory:brand'%}" class="{%if title == 'Brands'%} selected {%endif%}">
                         <i class="fa-solid fa-circle size-circle"></i>
                         Brands
+                    </a>
+                    <a href="{%url 'inventory:unit'%}" class="{%if title == 'Units'%} selected {%endif%}">
+                        <i class="fa-solid fa-circle size-circle"></i>
+                        Units
                     </a>
                 </div>
                 <a href="" class="">

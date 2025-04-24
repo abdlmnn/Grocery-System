@@ -16,7 +16,7 @@
         <div class="line-border"></div>
     </div>
     <div class="table-search-container">
-        <form class="search-cont-1" action="{%url 'inventory:brand'%}" method="get">
+        <form class="search-cont-1" action="{%url 'inventory:subcategory'%}" method="get">
             <div class="search-icon-cont">
                 <input type="text" name="search" class="search-input-2" placeholder="Search">
                 <button class="search-btn-2">
@@ -50,11 +50,12 @@
                     <tr>
                         <th>SL</th>
                         <th>Name</th>
+                        <th>Category</th>
                         <th>Date Added</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
-                {% include "components/tbl-brands.html" %}
+                {% include "components/tbl-subcategories.html" %}
             </table>
         </div>
         {% include "components/paginations.html" %}

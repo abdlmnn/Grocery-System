@@ -1,9 +1,10 @@
 {%load static%}
 <tbody>
-    {%for data in category%}
+    {%for data in subcategory%}
     <tr>
         <td data-cell="SL">{{data.id}}</td>
         <td data-cell="Name">{{data.name}}</td>
+        <td data-cell="Category">{{data.category}}</td>
         <td data-cell="Date">{{data.created_date}}</td>
         <td data-cell="Actions">
             <div class="btn-td-cont">

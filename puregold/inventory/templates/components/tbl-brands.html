@@ -1,8 +1,10 @@
 {%load static%}
 <tbody>
+    {%for data in brand%}
     <tr>
-        <td data-cell="SL">1</td>
-        <td data-cell="Name">Abdul Salih</td>
+        <td data-cell="SL">{{data.id}}</td>
+        <td data-cell="Name">{{data.name}}</td>
+        <td data-cell="Date">{{data.created_date}}</td>
         <td data-cell="Actions">
             <div class="btn-td-cont">
                 <button class="read-btn">
@@ -18,27 +20,7 @@
             <button class="dot-btn">
                 <i class="fa-solid fa-ellipsis"></i>
             </button>
-            {% comment %} <div class="btn-td-cont-2">
-                <button class="read-btn">
-                    <i class="fa-regular fa-eye"></i>
-                </button>
-                <button class="update-btn">
-                    <i class="fa-regular fa-pen-to-square"></i>
-                </button>
-                <button class="delete-btn">
-                    <i class="fa-regular fa-trash-can"></i>
-                </button>
-            </div> {% endcomment %}
         </td>
     </tr>
-    
-    {% comment %} <button class="read-btn">
-                <i class="fa-regular fa-eye"></i>
-            </button>
-            <button class="update-btn">
-                <i class="fa-regular fa-pen-to-square"></i>
-            </button>
-            <button class="delete-btn">
-                <i class="fa-regular fa-trash-can"></i>
-            </button> {% endcomment %}
+    {% endfor %}
 </tbody>
