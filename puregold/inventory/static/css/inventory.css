@@ -184,6 +184,13 @@
     transition: all .3s ease;
 }
 
+.btn-add-new .add-btn-modal:hover,
+.btn-add-new .add-btn-modal:focus-within{
+    color: var(--content-bg-color);
+    background-color: var(--first-color-orange);
+    border: 1px solid var(--first-color-orange);
+}
+
 .add-btn-modal .add-btn,
 .subcategory-btn-modal .add-btn{
     font-size: 10px;

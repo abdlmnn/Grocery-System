@@ -10,20 +10,33 @@ from django.urls import reverse
 from accounts.models import PasswordReset
 from inventory.models import *
 from django.db.models import Q
+from django.core.serializers.json import DjangoJSONEncoder
+import json
+from collections import Counter
 
 # Main
 @login_required()
 def dashboard(request):
     labels = []
     data = []
+    labels2 = []
+    data2 = []
     stock = Stock.objects.select_related('inventory')
+    sub = Stock.objects.select_related('inventory')
     for x in stock:
         labels.append(x.inventory.name)
         data.append(x.quantity)
+    for x in sub:
+        labels2.append(x.inventory.name)
+        data2.append(x.quantity)
     context = {
         'title': 'Dashboard',
-        'labels': labels,
-        'data': data,
+
+        'labels': json.dumps(labels, cls=DjangoJSONEncoder),
+        'data': json.dumps(data, cls=DjangoJSONEncoder),
+
+        'labels2': json.dumps(labels2, cls=DjangoJSONEncoder),
+        'data2': json.dumps(data2, cls=DjangoJSONEncoder),
     }
     return render(request,'master.html',context)
 

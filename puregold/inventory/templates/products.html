@@ -69,6 +69,7 @@
 {% endblock %}  
 
 {%block extrascript%}
+    <script src="{%static 'js/button.js'%}?v={{ timestamp }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const form = document.querySelector('.search-cont-1');

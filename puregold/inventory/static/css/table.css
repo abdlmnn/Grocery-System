@@ -79,36 +79,92 @@
     border-radius: 8px;
 }
 
+
+/* Button */
 .btn-td-cont{
     display: flex;
     flex-direction: row;
     gap: 10px;
 }
-.table tbody tr td button{
+
+.table tbody tr td .button{
     cursor: pointer;
     padding: 4px 6px;
-    border: 1px solid #dddddd;
-    background-color: var(--first-color-grey);
+    border-radius: 5px;
 }
 
 /* Dot menu */
 .dot-btn{
     display: none;
+    position: relative;
 }
+
+.read-btn{
+    color: #8047dcbf;
+    background-color: rgba(155, 90, 204, 0.11);
+    border: 1px solid #6a40ad3c;
+}
+.read-btn:hover,
+.read-btn:focus-within{
+    color: var(--content-bg-color);
+    background-color: #8047dcbf;
+    border: 1px solid #8047dcbf;
+}
+
+.update-btn{
+    color: #fd871ac2;
+    background-color: rgba(253, 136, 26, 0.11);
+    border: 1px solid #fd881a65;
+}
+.update-btn:hover,
+.update-btn:focus-within{
+    color: var(--content-bg-color);
+    background-color: #fd871ac2;
+    border: 1px solid #fd871ac2;
+}
+
+.delete-btn{
+    color: #db0d22;
+    background-color: rgba(219, 13, 34, 0.11);
+    border: 1px solid #db0d2241;
+}
+.delete-btn:hover,
+.delete-btn:focus-within{
+    color: var(--content-bg-color);
+    background-color: #db0d22;
+    border: 1px solid #db0d22;
+}
+
+/* .dot-btn:hover,
+.dot-btn:focus-within{
+    color: var(--content-bg-color);
+    background-color: #044635;
+    border: 1px solid #044635;
+} */
 
 /* .btn-td-cont-2{
     display: none;
 } */
 
+
+
 @media (max-width:1065px) {
 
     .dot-btn{
         display: block;
+        color: #044635;
+        background-color: rgba(8, 126, 96, 0.11);
+        border: 1px solid #04463628;
     }
+    /* .read-btn, .update-btn, .delete-btn{
+        display: none;
+    } */
 
-    .read-btn, .update-btn, .delete-btn{
+    #dropdown-Btn{
         display: none;
     }
+
+
     
 }
 
@@ -122,9 +178,13 @@
         display: none;
     }
 
-    .read-btn, .update-btn, .delete-btn{
+    #dropdown-Btn{
         display: inline-block;
     }
+
+    /* .read-btn, .update-btn, .delete-btn{
+        display: inline-block;
+    } */
 
     /* .btn-td-cont-2{
         display: inline-block;

@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{%static 'css/sidebar.css'%}?v={{ timestamp }}">
     <link rel="stylesheet" href="{%static 'css/header.css'%}?v={{ timestamp }}">
     <link rel="stylesheet" href="{%static 'css/dashboard.css'%}?v={{ timestamp }}">
+    <link rel="stylesheet" href="{%static 'css/charts.css'%}?v={{ timestamp }}">
 
     <!-- ====EXTRA CSS====-->
     {%block extracss%}
@@ -55,7 +56,7 @@
             {%block content%}
             <div class="dashboard-container">
                 {%include 'components/total-cards.html'%}
-                {%include 'components/charts.html'%}
+                {% comment %} {%include 'components/charts.html'%} {% endcomment %}
             </div>
             {%endblock%}
         </main>
@@ -66,78 +67,19 @@
     <!-- ====Script==== -->
     <script src="{%static 'js/script.js'%}?v={{ timestamp }}" defer></script>
     
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {% comment %} <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> {% endcomment %}
     <!-- ====Extra Script==== -->
     {%block extrascript%}
-    <script>
-        const ctx = document.getElementById('stockChart').getContext('2d');
-        const stockChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: {{ labels|safe }},
-                datasets: [{
-                    label: 'Total Stock Quantity',
-                    data: {{ data|safe }},
-                    backgroundColor: 'rgba(241, 123, 13, 0.2)',
-                    borderColor: '#f17b0d',
-                    borderWidth: 1,
-                    tension: 0.3,
-                    fill: true,
-                    pointBackgroundColor: '#f17b0d', 
-                    pointRadius: 3,
-                    pointHoverRadius: 6
-                }]
-            },
-            options: {
-                responsive: false,
-                maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        grid: {
-                            color: 'rgba(147, 146, 144, 0.2)' 
-                        },
-                        ticks: {
-                            font: {
-                                size: 10,
-                                weight: 'bold'
-                            }
-                        }
-                    },
-                    y: {
-                        beginAtZero: true,
-                        grid: { 
-                            color: 'rgba(147, 146, 144, 0.2)' 
-                        },
-                        ticks: {
-                            font: {
-                                size: 10,
-                                weight: 'bold'
-                            }
-                        }
-                    }
-                },
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Stock Quantity',
-                        font: {
-                            size: 12,
-                        }
-                    },
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return 'Quantity: ' + context.parsed.y;
-                            }
-                        }
-                    }
-                },
-            }
-        });
-    </script>
+    {% comment %} <script>
+        window.chartData = {
+            labels: {{labels | safe}},
+            data: {{data | safe}},
+
+            labels2: {{labels2 | safe}},
+            data2: {{data2 | safe}},
+        }
+    </script> {% endcomment %}
     {%endblock%}
+    {% comment %} <script src="{%static 'js/charts.js'%}?v={{ timestamp }}" defer></script> {% endcomment %}
 </body>
 </html>

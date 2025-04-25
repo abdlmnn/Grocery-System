@@ -1,19 +1,16 @@
-/* .dashboard-container{
-    border: 1px solid green;
-} */
-/* 
-
-@media (max-width:768px) {
-    .dashboard-cards{
-        flex-direction: column;
-    }
-    
-} */
+.dashboard-container{
+    /* border: 1px solid green; */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
 .dashboard-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     gap: 1rem;
+    height: 100%;
+    /* border: 1px solid red; */
 }
   
 .cards {

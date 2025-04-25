@@ -9,24 +9,55 @@
         <td data-cell="Brand">{{data.brand | default_if_none:"No Brands"}}</td>
         <td data-cell="Date">{{data.created_date}}</td>
         <td data-cell="Actions">
-            <div class="btn-td-cont">
-                <button class="read-btn">
+            <div class="btn-td-cont" id="dropdown-Btn">
+                <button class="button read-btn" onclick="openModal('{{ data.id }}')">
                     <i class="fa-regular fa-eye"></i>
                 </button>
-                <button class="update-btn">
+                <button class="button update-btn" onclick="openModal('{{ data.id }}', 'edit')">
                     <i class="fa-regular fa-pen-to-square"></i>
                 </button>
-                <button class="delete-btn">
+                <button class="button delete-btn">
                     <i class="fa-regular fa-trash-can"></i>
                 </button>
             </div>
-            <button class="dot-btn">
+            <button class="button dot-btn" onclick="" id="dot">
                 <i class="fa-solid fa-ellipsis"></i>
             </button>
         </td>
     </tr>
     {% endfor %}
 </tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             {% comment %} <div class="btn-td-cont-2"> {% endcomment %}
                 {% comment %} <button class="read-btn">
