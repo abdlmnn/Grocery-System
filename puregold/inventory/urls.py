@@ -9,4 +9,10 @@ urlpatterns = [
     path('subcategories/',subcategory,name='subcategory'),
     path('brands/',brand,name='brand'),
     path('units/',unit,name='unit'),
+
+    # CRUD
+    path('addproduct/',addProduct,name='addProduct'),
+    path('viewproduct/<int:pID>/',viewProduct,name='viewProduct'),
+    path('editproduct/<int:pID>/',editProduct,name='editProduct'),
+    path('deleteproduct/<int:pID>/',deleteProduct,name='deleteProduct'),
 ] 

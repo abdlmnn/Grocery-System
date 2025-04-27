@@ -3,22 +3,26 @@
     {%for data in inventory%}
     <tr>
         <td data-cell="SL">{{data.id}}</td>
-        <td data-cell="Image"><img src="{{ data.image.url }}" alt="{{ data.name }}"></td>
+        <td data-cell="Image"><img src="{{data.image.url }}" alt="{{data.name}}"></td>
         <td data-cell="Name">{{data.name}}</td>
         <td data-cell="Category">{{data.subcategory}}</td>
         <td data-cell="Brand">{{data.brand | default_if_none:"No Brands"}}</td>
         <td data-cell="Date">{{data.created_date}}</td>
         <td data-cell="Actions">
             <div class="btn-td-cont" id="dropdown-Btn">
-                <button class="button read-btn" onclick="openModal('{{ data.id }}')">
+                <button type="button" class="button read-btn"
+                onclick="openViewModalProduct({{data.id}})"
+                >
                     <i class="fa-regular fa-eye"></i>
                 </button>
-                <button class="button update-btn" onclick="openModal('{{ data.id }}', 'edit')">
+                <button type="button" class="button update-btn"
+                onclick="openEditModalProduct({{data.id}})"
+                >
                     <i class="fa-regular fa-pen-to-square"></i>
                 </button>
-                <button class="button delete-btn">
+                <a href="{%url 'inventory:deleteProduct' data.id%}" class="button delete-btn">
                     <i class="fa-regular fa-trash-can"></i>
-                </button>
+                </a>
             </div>
             <button class="button dot-btn" onclick="" id="dot">
                 <i class="fa-solid fa-ellipsis"></i>
@@ -27,9 +31,6 @@
     </tr>
     {% endfor %}
 </tbody>
-
-
-
 
 
 

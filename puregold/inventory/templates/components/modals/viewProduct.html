@@ -1,0 +1,43 @@
+<div id="viewModal" class="modal-form-container">
+    <div class="add-container">
+        <div class="child-top">
+            <h2>View Product</h2>
+            <button class="close" onclick="closeViewModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <form>
+            <div class="group-cont">
+                <div class="form-group one">
+                    <label for="subcategory">Subcategory:</label>
+                    <button disabled id="subcategory2" class="form-control"></button>
+                </div>
+                
+                <div class="form-group two">
+                    <label for="brand">Brand:</label>
+                    <button disabled id="brand2" class="form-control"></button>
+                </div>
+            </div>
+
+            <div class="group-cont">
+                <div class="form-group one">
+                    <label for="productName">Product Name:</label>
+                    <input type="text" name="name" id="name" class="form-control" disabled>
+                </div>
+            </div>
+
+            <div class="group-cont">
+                <div class="form-group one">
+                    <label for="Description">Description:</label>
+                    <textarea name="description" id="description" disabled></textarea>
+                </div>
+                <div class="form-group two">
+                    <label for="Image">Product Image:</label>
+                    <div class="image-cont">
+                        <img src="" alt="" id="previewImage">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

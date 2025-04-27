@@ -6,6 +6,7 @@
 
 {%block extracss%}
     <link rel="stylesheet" href="{%static 'css/inventory.css'%}?v={{ timestamp }}">
+    <link rel="stylesheet" href="{%static 'css/modal-addbtn.css'%}?v={{ timestamp }}">
     <link rel="stylesheet" href="{%static 'css/table.css'%}?v={{ timestamp }}">
     <link rel="stylesheet" href="{%static 'css/pagination.css'%}?v={{ timestamp }}">
 {%endblock%}
@@ -38,7 +39,9 @@
                         </div>
                     </div>
                     <div class="btn-add-new">
-                        <button class="add-btn-modal" type="button">Add New<i class="fa-solid fa-plus add-btn"></i></button>
+                        <button class="add-btn-modal" type="button"
+                            id="addbtn"
+                        >Add New<i class="fa-solid fa-plus add-btn"></i></button>
                         {% comment %} <button class="subcategory-btn-modal">Subcategory<i class="fa-solid fa-plus add-btn"></i></button> {% endcomment %}
                     </div>
                     <div class="three-dot-cont">
@@ -46,6 +49,7 @@
                     </div>
                 </div>
             </form>
+
             <div class="table-list-cont">
                 <table class="table">
                     <thead>
@@ -62,6 +66,13 @@
                     {% include "components/tbl-products.html" %}
                 </table>
             </div>
+
+            {% include "components/modals/addProduct.html" %}
+
+            {% include "components/modals/viewProduct.html" %}
+            
+            {% include "components/modals/editProduct.html" %}
+
             {% include "components/paginations.html" %}
         </div>
         {% endblock %}
@@ -70,6 +81,10 @@
 
 {%block extrascript%}
     <script src="{%static 'js/button.js'%}?v={{ timestamp }}"></script>
+    <script src="{%static 'js/modal-form.js'%}?v={{ timestamp }}"></script>
+    <script src="{%static 'js/image.js'%}?v={{ timestamp }}"></script>
+    <script src="{%static 'js/ajax-productform-modal.js'%}?v={{ timestamp }}"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const form = document.querySelector('.search-cont-1');

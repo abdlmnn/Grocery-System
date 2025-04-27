@@ -4,188 +4,156 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    .table-responsive {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-}
-
-.custom-table {
-  width: 100%;
-  border-collapse: collapse;
-  min-width: 600px; /* This makes it scrollable on small screens */
-}
-
-.custom-table th,
-.custom-table td {
-  padding: 10px;
-  text-align: left;
-  border-bottom: 1px solid #eee;
-  font-size: 14px;
-}
-
-.custom-table th {
-  background-color: #f4f4f4;
-  font-weight: bold;
-}
-/* 
-.action-buttons {
-  display: flex;
-  gap: 5px;
-}
-
-.edit-btn,
-.delete-btn {
-  padding: 5px 10px;
-  border: none;
-  border-radius: 4px;
-  font-size: 13px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.edit-btn {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.edit-btn:hover {
-  background-color: #45a049;
-}
-
-.delete-btn {
-  background-color: #f44336;
-  color: white;
-}
-
-.delete-btn:hover {
-  background-color: #da190b;
-} */
-
-.action-buttons {
-  position: relative;
-  display: flex;
-  justify-content: center;
-}
-
-.menu-btn {
-  background: none;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  padding: 5px;
-}
-
-.action-menu {
-  display: none;
-  flex-direction: column;
-  position: absolute;
-  top: 30px;
-  right: 0;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  z-index: 1000;
-}
-
-.action-menu button {
-  padding: 8px 12px;
-  border: none;
-  background: none;
-  text-align: left;
-  width: 100%;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-.action-menu button:hover {
-  background-color: #f5f5f5;
-}
-
-/* Hide buttons on mobile and use three dots */
-@media (max-width: 768px) {
-  /* .edit-btn, .delete-btn {
-    display: none;
-  } */
-  .menu-btn {
-    display: inline;
-  }
-}
-
-
-  </style>
-  <script>
-    function toggleMenu(btn) {
-      const menu = btn.nextElementSibling;
-      const isVisible = menu.style.display === 'flex';
-      // Close any other open menus
-      document.querySelectorAll('.action-menu').forEach(m => m.style.display = 'none');
-      menu.style.display = isVisible ? 'none' : 'flex';
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      background: #f1f1f1;
     }
-  
-    // Close menu if clicking outside
-    window.addEventListener('click', function(e) {
-      if (!e.target.closest('.action-buttons')) {
-        document.querySelectorAll('.action-menu').forEach(m => m.style.display = 'none');
+    .dashboard{
+      border: 1px solid red;
+      height: 100vh;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-areas: 
+        'topleft topright'
+        'orders orders'
+        'chart3 chart4'
+      ;
+      padding: 20px;
+      gap: 10px;
+    }
+    .chart{
+      height: 300px;
+      position: relative;
+    }
+    .chart, .orders{
+      border: 1px solid rebeccapurple;
+      /* height: 100%; */
+      background-color: #f5f5f5;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .chart1{
+      grid-area: topleft;
+      padding: 20px;
+    }
+    .chart1 canvas{
+      width: 100% !important;
+      height: 100% !important;
+    }
+    .chart2{
+      grid-area: topright;
+    }
+    .orders{
+      grid-area: orders;
+    }
+    .chart3{
+      grid-area: chart3;
+    }
+    .chart4{
+      grid-area: chart4;
+    }
+
+    @media (max-width: 768px) {
+
+      .dashboard{
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+          'topleft'
+          'topright'
+          'orders'
+          'chart3'
+          'chart4'
+        ;
       }
-    });
-  </script>
-  
+      
+    }
+  </style>
 </head>
 <body>
-  <div class="table-responsive">
-    <table class="custom-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Product</th>
-          <th>Category</th>
-          <th>Quantity</th>
-          <th>Price</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Shoes</td>
-          <td>Fashion</td>
-          <td>5</td>
-          <td>$50</td>
-          <td>
-             <div class="action-buttons">
-                <button class="menu-btn" onclick="toggleMenu(this)">⋮</button>
-                <div class="action-menu">
-                  <button class="edit-btn">Edit</button>
-                  <button class="delete-btn">Delete</button>
-                </div>
-              </div>
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Shirt</td>
-          <td>Clothing</td>
-          <td>10</td>
-          <td>$20</td>
-          <td>
-             <div class="action-buttons">
-                <button class="menu-btn" onclick="toggleMenu(this)">⋮</button>
-                <div class="action-menu">
-                  <button class="edit-btn">Edit</button>
-                  <button class="delete-btn">Delete</button>
-                </div>
-              </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="dashboard">
+    <div class="chart chart1">
+      <canvas id="chart1Canvas"  ></canvas>
+    </div>
+    <div class="chart chart2">
+      <canvas id="chart2Canvas"></canvas>
+    </div>
+    <div class="orders">
+      <h3>Recent Orders</h3>
+    <ul>
+      <li>Order #001 - 3 items - ₱450</li>
+      <li>Order #002 - 1 item - ₱120</li>
+      <li>Order #003 - 5 items - ₱890</li>
+    </ul>
+    </div>
+    <div class="chart chart3">
+      <canvas id="chart3Canvas"></canvas>
+    </div>
+    <div class="chart chart4">
+      <canvas id="chart4Canvas"></canvas>
+    </div>  
   </div>
-  
+  <script>
+     const config1 = {
+    type: 'bar',
+    data: {
+      labels: ['Apples', 'Milk', 'Bread', 'Eggs'],
+      datasets: [{
+        label: 'Stock',
+        data: [12, 19, 3, 5],
+        backgroundColor: 'rgba(75, 192, 192, 0.7)'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false
+    }
+  };
+
+  const config2 = {
+    type: 'line',
+    data: {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+      datasets: [{
+        label: 'Orders',
+        data: [5, 7, 4, 9, 6],
+        borderColor: 'rgba(255, 99, 132, 0.8)',
+        fill: false
+      }]
+    }
+  };
+
+  const config3 = {
+    type: 'pie',
+    data: {
+      labels: ['Grocery', 'Frozen', 'Beverages', 'Snacks'],
+      datasets: [{
+        label: 'Sales by Category',
+        data: [30, 20, 25, 25],
+        backgroundColor: ['#ff6384', '#36a2eb', '#ffcd56', '#4bc0c0']
+      }]
+    }
+  };
+
+  const config4 = {
+    type: 'doughnut',
+    data: {
+      labels: ['COD', 'GCash', 'Credit Card'],
+      datasets: [{
+        label: 'Payment Methods',
+        data: [45, 30, 25],
+        backgroundColor: ['#42a5f5', '#66bb6a', '#ef5350']
+      }]
+    }
+  };
+
+  new Chart(document.getElementById('chart1Canvas'), config1);
+  new Chart(document.getElementById('chart2Canvas'), config2);
+  new Chart(document.getElementById('chart3Canvas'), config3);
+  new Chart(document.getElementById('chart4Canvas'), config4);
+  </script>
 </body>
 </html>

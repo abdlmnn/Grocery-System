@@ -138,11 +138,12 @@ header{
     display: none;
     position: absolute;
     top: 75px;
-    right: 49px;
+    right: 24px;
     background-color: var(--first-color-grey);
     max-width: 250px;
     z-index: 1200;
     border-radius: 10px;
+    box-shadow: 0 2px 4px 1px rgba(0, 0, 0, .11);
     /* border-radius: 10px 0 0 10px; */
     /* box-shadow: #e2e2e2; */
   }
@@ -337,7 +338,7 @@ header{
       background-color: var(--content-bg-color);
       /* box-shadow: 0 0 4px 1px rgb(223, 222, 222); */
       /* box-shadow: 0 0 1px rgb(158, 158, 158); */
-      transition: 0.5s;
+      /* transition: 0.5s; */
       transition: height 0.3s ease;
     }
   
@@ -524,7 +525,7 @@ header{
       background-color: var(--content-bg-color);
       /* box-shadow: 0 0 4px 1px rgb(223, 222, 222); */
       /* box-shadow: 0 0 1px rgb(158, 158, 158); */
-      transition: 0.5s;
+      /* transition: 0.5s; */
       transition: height 0.3s ease;
     }
   

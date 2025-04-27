@@ -41,7 +41,7 @@ def product_image_path(instance, filename):
 class Inventory(models.Model):
     subcategory = models.ForeignKey(Subcategory, on_delete=models.CASCADE, null=True, blank=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True, blank=True)
-    image = models.ImageField(upload_to=product_image_path, default='products/default-noimage.jpg', null=True, blank=True)
+    image = models.ImageField(upload_to="product", default='products/default-noimage.jpg', null=True, blank=True)
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     created_date = models.DateTimeField(auto_now_add=True)
@@ -55,6 +55,7 @@ class Stock(models.Model):
     amount_per_unit = models.DecimalField(default=0, max_digits=6, decimal_places=2, null=True, blank=True)
     unit = models.ForeignKey(Unit, on_delete=models.CASCADE,  blank=True, null=True)
     price = models.DecimalField(default=0, max_digits=6, decimal_places=2)
+    description = models.TextField(blank=True, null=True)
     date_added = models.DateTimeField(auto_now_add=True)
     expiry_date = models.DateField(blank=True, null=True)
     is_empty = models.BooleanField(default=False)
