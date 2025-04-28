@@ -32,20 +32,24 @@ def product(request):
         paginator = Paginator(inventory, 5)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
-    context = {
-        'button': 'Inventory',
-        'title': 'Products',
-        'page_obj': page_obj,
-        'inventory': page_obj.object_list,
-        'subcategory': Subcategory.objects.all(),
-        'brand': Brand.objects.all(),
-    }
+        context = {
+            'button': 'Inventory',
+            'title': 'Products',
+            'page_obj': page_obj,
+            'inventory': page_obj.object_list,
+            'subcategory': Subcategory.objects.all(),
+            'brand': Brand.objects.all(),
+        }
     return render(request, 'products.html', context)
 
 def addProduct(request):
     if request.method == 'POST':
         subcat = Subcategory.objects.get(id=request.POST['subcategory'])
-        brand = Brand.objects.get(id=request.POST['brand'])
+        brandID = request.POST['brand']
+        if brandID:
+            brand = Brand.objects.get(id=brandID)
+        else:
+            brand = None
         name = request.POST.get('name')
         image = request.FILES.get('image')
         description = request.POST.get('description')
@@ -85,6 +89,8 @@ def editProduct(request, pID):
             subcategory = Subcategory.objects.get(id=subcategory_id)
         if brand_id:
             brand = Brand.objects.get(id=brand_id)
+        else:
+            brand = None
         product.subcategory = subcategory
         product.brand = brand
         product.name = name
@@ -92,13 +98,28 @@ def editProduct(request, pID):
         if 'image' in request.FILES:
             product.image = request.FILES['image']
         product.save()
-        return JsonResponse({'status': 'success', 'message': 'Product updated.'})
-    return JsonResponse({'status': 'error', 'message': 'Invalid request.'})
+        return JsonResponse({
+            'status': 'success', 
+            'message': 'Product updated.'
+        })
+    return JsonResponse({
+        'status': 'error', 
+        'message': 'Invalid request.'
+    })
 
 def deleteProduct(request, pID):
     product = Inventory.objects.get(id=pID)
     product.delete()
     return redirect('inventory:product')
+
+
+
+
+
+
+
+
+
 
 @login_required()
 def stock(request):
@@ -110,19 +131,88 @@ def stock(request):
         if search_query:
             stock = stock.filter(Q(inventory__name__icontains=search_query) | Q(unit__name__icontains=search_query))
         if start_date:
-            stock = stock.filter(created_date__gte=start_date)
+            stock = stock.filter(Q(date_added__gte=start_date))
         if end_date:
-            stock = stock.filter(created_date__lte=end_date)
+            stock = stock.filter(Q(date_added__lte=end_date))
         paginator = Paginator(stock, 5)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
-    context = {
-        'button': 'Inventory',
-        'title': 'Stocks',
-        'page_obj': page_obj,
-        'stock': page_obj.object_list,
-    }
+        context = {
+            'button': 'Inventory',
+            'title': 'Stocks',
+            'page_obj': page_obj,
+            'stock': page_obj.object_list,
+            'inventory': Inventory.objects.all(),
+            'unit': Unit.objects.all(),
+        }
     return render(request, 'stocks.html', context)
+
+def addStock(request):
+    if request.method == 'POST':
+        product = request.POST.get('product')
+        quantity = request.POST.get('quantity')
+        amountPerUnit = request.POST.get('amountPerUnit') or 0
+        unitID = request.POST.get('unit')
+        if unitID:
+            unit = Unit.objects.get(id=unitID)
+        else:
+            unit = None
+        price = request.POST.get('price')
+        expiryDate = request.POST.get('expiryDate') or None
+        description = request.POST.get('description')
+        inventory = Inventory.objects.get(id=product)
+        Stock.objects.create(
+            inventory = inventory,
+            quantity = quantity,
+            amount_per_unit = amountPerUnit,
+            unit = unit,
+            price = price,
+            description = description,
+            expiry_date = expiryDate
+        ).save()
+        return redirect('inventory:stock')
+    else:
+        return redirect('inventory:stock')
+
+def getImage(request, pID):
+    try:
+        product = Inventory.objects.get(id=pID)
+        if product.image:
+            return JsonResponse({
+                'status': 'success',
+                'message': 'Fetched image.',
+                'image': product.image.url
+            })
+        else:
+            return JsonResponse({
+                'status': 'error',
+                'message': 'No image.'
+            })
+    except Inventory.DoesNotExist:
+        return JsonResponse({
+            'status': 'error',
+            'message': 'No product id.'
+        })
+
+def viewStock(request):
+    pass
+
+def editStock(request):
+    pass
+
+def deleteStock(request):
+    pass
+
+
+
+
+
+
+
+
+
+
+
 
 @login_required()
 def category(request):

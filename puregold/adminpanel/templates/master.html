@@ -56,7 +56,7 @@
             {%block content%}
             <div class="dashboard-container">
                 {%include 'components/total-cards.html'%}
-                {% comment %} {%include 'components/charts.html'%} {% endcomment %}
+                {%include 'components/charts.html'%}
             </div>
             {%endblock%}
         </main>
@@ -67,10 +67,10 @@
     <!-- ====Script==== -->
     <script src="{%static 'js/script.js'%}?v={{ timestamp }}" defer></script>
     
-    {% comment %} <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> {% endcomment %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- ====Extra Script==== -->
     {%block extrascript%}
-    {% comment %} <script>
+    <script>
         window.chartData = {
             labels: {{labels | safe}},
             data: {{data | safe}},
@@ -78,8 +78,8 @@
             labels2: {{labels2 | safe}},
             data2: {{data2 | safe}},
         }
-    </script> {% endcomment %}
+    </script>
+    <script src="{%static 'js/charts.js'%}?v={{ timestamp }}" defer></script>
     {%endblock%}
-    {% comment %} <script src="{%static 'js/charts.js'%}?v={{ timestamp }}" defer></script> {% endcomment %}
 </body>
 </html>

@@ -2,7 +2,7 @@ const stock = document.getElementById('stockChart');
 const subcat = document.getElementById('subcategoryChart');
 
 const chart1 = {
-    type: 'pie',
+    type: 'line',
     data: {
         labels: window.chartData.labels,
         datasets: [{

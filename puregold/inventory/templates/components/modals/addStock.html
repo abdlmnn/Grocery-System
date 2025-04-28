@@ -1,0 +1,71 @@
+<div id="openAddModalStock" class="modal-form-container">
+    <div class="add-container">
+        <div class="child-top">
+            <h2>Add New Stock</h2>
+            <button class="close" onclick="closeModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <form id="addForm" action="{%url 'inventory:addStock'%}" method="post">
+            {% csrf_token %}
+            <div class="group-cont">
+                <div class="form-group one">
+                    <label for="product">Product:</label>
+                    <select id="product" name="product" class="form-control" required>
+                        <option value="" selected disabled>Select</option>
+                        {%for x in inventory%}
+                        <option value="{{x.id}}">{{x.name}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+
+                <div class="form-group two">
+                    <label for="Quatity">Quantity:</label>
+                    <input type="number" name="quantity" id="quantity" class="form-control" min="1" placeholder="Quantity" required>
+                </div>
+            </div>
+
+            <div class="group-cont">
+                <div class="form-group one">
+                    <label for="AmountUnit">Amount Per Unit:</label>
+                    <input type="number" name="amountPerUnit" id="amountPerUnit" class="form-control" min="0" placeholder="Amount per unit">
+                </div>
+                <div class="form-group two">
+                    <label for="Unit">Unit:</label>
+                    <select id="unit" name="unit" class="form-control">
+                        <option value="">Select</option>
+                        {%for x in unit%}
+                        <option value="{{x.id}}">{{x.name}}</option>
+                        {%endfor%}
+                    </select>
+                </div>
+            </div>
+
+            <div class="group-cont">
+                <div class="form-group one">
+                    <label for="Price">Price:</label>
+                    <input type="number" id="price" name="price" class="form-control" min="1" placeholder="Price" required>
+                </div>
+                <div class="form-group two">
+                    <label for="expiryDate">Expiry Date:</label>
+                    <input type="date" id="expiryDate" name="expiryDate" class="form-control">
+                </div>
+            </div>  
+
+            <div class="group-cont">
+                <div class="form-group one">
+                    <label for="Description">Description:</label>
+                    <textarea name="description" id="description"></textarea>
+                </div>
+                <div class="form-group two">
+                    <label for="Description">Product Image:</label>
+                    <div class="image-preview" >
+                        <img id="imagePreview25" src="" alt="">
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Add Stock</button>
+        </form>
+    </div>
+</div>

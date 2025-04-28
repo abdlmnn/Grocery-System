@@ -6,11 +6,17 @@
         <td data-cell="Image"><img src="{{ data.inventory.image.url }}" alt="{{ data.inventory }}"></td>
         <td data-cell="Name">{{data.inventory}}</td>
         <td data-cell="Quantity">{{data.quantity}}</td>
-        <td data-cell="Unit">{{data.amount_per_unit | default_if_none:""}} {{data.unit | default_if_none:"No Units"}}</td>
+        <td data-cell="Unit">
+            {% if data.amount_per_unit and data.unit %}
+                {{ data.amount_per_unit }} {{ data.unit }}
+            {% else %}
+                None
+            {% endif %}
+        </td>
         <td data-cell="Price">&#x20B1; {{data.price}}</td>
         <td data-cell="Status">{{data.status}}</td>
         <td data-cell="Expiry">{{data.expiry_date}}</td>
-        <td data-cell="Date">{{data.date_added}}</td>
+        {% comment %} <td data-cell="Date">{{data.date_added}}</td> {% endcomment %}
         <td data-cell="Actions">
             <div class="btn-td-cont">
                 <button class="button read-btn">

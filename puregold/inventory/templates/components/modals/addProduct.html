@@ -1,18 +1,20 @@
 <div id="openAddBtn" class="modal-form-container">
     <div class="add-container">
+        
         <div class="child-top">
             <h2>Add New Product</h2>
             <button class="close">
                 <i class="fa-solid fa-xmark"></i>
             </button>
         </div>
+
         <form action="{%url 'inventory:addProduct'%}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="group-cont">
                 <div class="form-group one">
                     <label for="subcategory">Subcategory:</label>
                     <select id="subcategory" name="subcategory" class="form-control" required>
-                        <option value="">Select</option>
+                        <option value="" disabled>Select</option>
                         {%for x in subcategory%}
                         <option value="{{x.id}}">{{x.name}}</option>
                         {%endfor%}
@@ -21,7 +23,7 @@
 
                 <div class="form-group two">
                     <label for="brand">Brand:</label>
-                    <select id="brand" name="brand" class="form-control" required>
+                    <select id="brand" name="brand" class="form-control">
                         <option value="">Select</option>
                         {%for x in brand%}
                         <option value="{{x.id}}">{{x.name}}</option>

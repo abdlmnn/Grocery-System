@@ -20,6 +20,7 @@
                 <div class="form-group two">
                     <label for="brand">Brand:</label>
                     <select id="brand1" name="brand" class="form-control">
+                        <option value="">Select</option>
                         {% for x in brand %}
                             <option value="{{ x.id }}">{{ x.name }}</option>
                         {% endfor %}

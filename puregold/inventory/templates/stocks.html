@@ -40,7 +40,7 @@
                     </div>
                     <div class="btn-add-new">
                         <button class="add-btn-modal" type="button"
-                            id="addbtn"
+                            onclick="openAddModalStock()"
                         >Add New<i class="fa-solid fa-plus add-btn"></i></button>
                         {% comment %} <button class="subcategory-btn-modal">Subcategory<i class="fa-solid fa-plus add-btn"></i></button> {% endcomment %}
                     </div>
@@ -49,81 +49,6 @@
                     </div>
                 </div>
             </form>
-
-            <div id="openAddBtn" class="modal-form-container">
-                <div class="add-container">
-                    <div class="child-top">
-                        <h2>Add New Stock</h2>
-                        <button class="close">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </div>
-                    <form action="" method="post">
-                        <div class="group-cont">
-                            <div class="form-group one">
-                                <label for="product">Product:</label>
-                                <select id="product" class="form-control" required>
-                                    <option value="">Select</option>
-                                    <option value="Coca-cola">Coca-cola</option>
-                                    <option value="Coca-cola">Coca-cola</option>
-                                    <option value="Coca-cola">Coca-cola</option>
-                                    <option value="Coca-cola">Coca-cola</option>
-                                    <option value="Coca-cola">Coca-cola</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group two">
-                                <label for="Quatity">Quantity:</label>
-                                <input type="number" id="productName" class="form-control" min="1" placeholder="Quantity" required>
-                            </div>
-                        </div>
-
-                        <div class="group-cont">
-                            <div class="form-group one">
-                                <label for="AmountUnit">Amount Per Unit:</label>
-                                <input type="number" id="productName" class="form-control" min="0" placeholder="Amount per unit">
-                            </div>
-                            <div class="form-group two">
-                                <label for="Unit">Unit:</label>
-                                <select id="unit" class="form-control">
-                                    <option value="">Select</option>
-                                    <option value="Liter">Liter</option>
-                                    <option value="Kilogram">Kilogram</option>
-                                    <option value="Gram">Gram</option>
-                                    <option value="Bottle">Bottle</option>
-                                    <option value="Gallon">Gallon</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="group-cont">
-                            <div class="form-group one">
-                                <label for="Price">Price:</label>
-                                <input type="number" id="price" class="form-control" min="1" placeholder="Amount per unit" required>
-                            </div>
-                            <div class="form-group two">
-                                <label for="expiryDate">Expiry Date:</label>
-                                <input type="date" id="expiryDate" class="form-control">
-                            </div>
-                        </div>
-
-                        <div class="group-cont">
-                            <div class="form-group one">
-                                <label for="Description">Description:</label>
-                                <textarea name="" ></textarea>
-                            </div>
-                            {% comment %} <div class="form-group two">
-                                <label for="Description">Product Image:</label>
-                                <div class="image-preview" id="imagePreview">
-                                    <img src="{%static 'public/Coca-cola 1.5L.jpg'%}" alt="">
-                                </div>
-                            </div> {% endcomment %}
-                        </div>
-
-                        <button type="submit" class="submit-btn">Add Stock</button>
-                    </form>
-                </div>
-            </div>
 
             <div class="table-list-cont">
                 <table class="table">
@@ -137,13 +62,14 @@
                             <th>Price</th>
                             <th>Status</th>
                             <th>Expiry Date</th>
-                            <th>Date Added</th>
+                            {% comment %} <th>Date Added</th> {% endcomment %}
                             <th>Actions</th>
                         </tr>
                     </thead>
                     {% include "components/tbl-stocks.html" %}
                 </table>
             </div>
+            {% include "components/modals/addStock.html" %}
             {% include "components/paginations.html" %}
         </div>
         {% endblock %}
@@ -151,7 +77,7 @@
 {% endblock %}  
 
 {%block extrascript%}
-    <script src="{%static 'js/modal-form.js'%}?v={{ timestamp }}"></script>
+    <script src="{%static 'js/ajax-stockform-modal.js'%}?v={{ timestamp }}"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {

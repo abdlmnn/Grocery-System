@@ -15,4 +15,8 @@ urlpatterns = [
     path('viewproduct/<int:pID>/',viewProduct,name='viewProduct'),
     path('editproduct/<int:pID>/',editProduct,name='editProduct'),
     path('deleteproduct/<int:pID>/',deleteProduct,name='deleteProduct'),
+
+
+    path('addstock/',addStock,name='addStock'),
+    path('getimage/<int:pID>/',getImage,name='getImage'),
 ] 

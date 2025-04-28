@@ -1,10 +1,4 @@
 
-
-
-
-
-
-
 // Product VIEW MODAL
 const openViewModalProduct = async (id) => {
     const viewModal = document.getElementById('viewModal');
