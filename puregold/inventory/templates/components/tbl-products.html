@@ -3,10 +3,10 @@
     {%for data in inventory%}
     <tr>
         <td data-cell="SL">{{data.id}}</td>
-        <td data-cell="Image"><img src="{{data.image.url}}" alt="{{data.name}}"></td>
-        <td data-cell="Name">{{data.name}}</td>
+        <td data-cell="Image"><img src="{{data.image.url}}" alt="{{data.name|capfirst}}"></td>
+        <td data-cell="Name">{{data.name|capfirst}}</td>
         <td data-cell="Category">{{data.subcategory}}</td>
-        <td data-cell="Brand">{{data.brand | default_if_none:"None"}}</td>
+        <td data-cell="Brand">{{data.brand}}</td>
         <td data-cell="Date">{{data.created_date}}</td>
         <td data-cell="Actions">
             <div class="btn-td-cont" id="dropdown-Btn">

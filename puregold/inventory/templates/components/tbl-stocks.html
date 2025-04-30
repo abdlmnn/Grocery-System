@@ -4,30 +4,46 @@
     <tr>
         <td data-cell="SL">{{data.id}}</td>
         <td data-cell="Image"><img src="{{ data.inventory.image.url }}" alt="{{ data.inventory }}"></td>
-        <td data-cell="Name">{{data.inventory}}</td>
+        <td data-cell="Name">{{data.inventory|capfirst}}</td>
         <td data-cell="Quantity">{{data.quantity}}</td>
         <td data-cell="Unit">
             {% if data.amount_per_unit and data.unit %}
                 {{ data.amount_per_unit }} {{ data.unit }}
+            {% elif data.unit %}
+                {{ data.unit }}
             {% else %}
                 None
             {% endif %}
         </td>
         <td data-cell="Price">&#x20B1; {{data.price}}</td>
-        <td data-cell="Status">{{data.status}}</td>
+        <td data-cell="Status"><button class="status
+            {% if data.status == 'available' %}
+                avail
+            {% elif data.status == 'out_of_stock' %}
+                out
+            {% elif data.status == 'expired' %}
+                expired
+            {% endif %}
+            ">
+            {{ data.status|capfirst }}
+        </button></td>
         <td data-cell="Expiry">{{data.expiry_date}}</td>
         {% comment %} <td data-cell="Date">{{data.date_added}}</td> {% endcomment %}
         <td data-cell="Actions">
             <div class="btn-td-cont">
-                <button class="button read-btn">
+                <button class="button read-btn"
+                onclick="openViewModalStock({{data.id}})"
+                >
                     <i class="fa-regular fa-eye"></i>
                 </button>
-                <button class="button update-btn">
+                <button class="button update-btn"
+                onclick="openEditModalStock({{data.id}})"
+                >
                     <i class="fa-regular fa-pen-to-square"></i>
                 </button>
-                <button class="button delete-btn">
+                <a href="{%url 'inventory:deleteStock' data.id%}" class="button delete-btn">
                     <i class="fa-regular fa-trash-can"></i>
-                </button>
+                </a>
             </div>
             <button class="button dot-btn">
                 <i class="fa-solid fa-ellipsis"></i>

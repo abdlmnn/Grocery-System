@@ -19,4 +19,12 @@ urlpatterns = [
 
     path('addstock/',addStock,name='addStock'),
     path('getimage/<int:pID>/',getImage,name='getImage'),
+    path('viewstock/<int:pID>/',viewStock,name='viewStock'),
+    path('editstock/<int:pID>/',editStock,name='editStock'),
+    path('deletestock/<int:pID>/',deleteStock,name='deleteStock'),
+
+
+    path('addcategory/',addCategory,name='addCategory'),
+    path('viewcategory/<int:cID>',viewCategory,name='viewCategory'),
+    path('deletecategory/<int:cID>/',deleteCategory,name='deleteCategory'),
 ] 

@@ -1,0 +1,60 @@
+<div id="openViewModalStock" class="modal-form-container">
+    <div class="add-container">
+        <div class="child-top">
+            <h2>View Stock</h2>
+            <button class="close" onclick="closeModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <form>
+            <div class="group-cont">
+                <div class="form-group one">
+                    <label for="product">Product:</label>
+                    <button disabled id="productView" class="form-control"></button>
+                </div>
+                
+                <div class="form-group two">
+                    <label for="quantity">Quantity:</label>
+                    <button disabled id="quantityView" class="form-control"></button>
+                </div>
+            </div>
+
+            <div class="group-cont">
+                <div class="form-group one">
+                    <label for="amountPerUnit">Amount Per Unit:</label>
+                    <input type="text" name="amountPerUnitView" id="amountPerUnitView" class="form-control" disabled>
+                </div>
+
+                <div class="form-group two">
+                    <label for="unit">Unit:</label>
+                    <input type="text" name="unit" id="unitView" class="form-control" disabled>
+                </div>
+            </div>
+
+            <div class="group-cont">
+                <div class="form-group one">
+                    <label for="price">Price:</label>
+                    <input type="text" name="priceView" id="priceView" class="form-control" disabled>
+                </div>
+
+                <div class="form-group two">
+                    <label for="expiryDate">Expiry Date:</label>
+                    <input disabled name="expiryDate" id="expiryDateView" class="form-control">
+                </div>
+            </div> 
+
+            <div class="group-cont">
+                <div class="form-group one">
+                    <label for="description">Description:</label>
+                    <textarea name="description" id="descriptionView" disabled></textarea>
+                </div>
+                <div class="form-group two">
+                    <label for="Image">Product Image:</label>
+                    <div class="image-cont">
+                        <img src="" alt="" id="previewImage">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

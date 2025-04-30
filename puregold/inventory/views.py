@@ -5,6 +5,9 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import JsonResponse
 
+
+
+
 def get_filtered_objects(model, search_query=None, start_date=None, end_date=None):
     queryset = model.objects.all()
     if search_query:
@@ -21,13 +24,6 @@ def product(request):
         search_query = request.GET.get('search', '')
         start_date = request.GET.get('start_date')
         end_date = request.GET.get('end_date')
-        # inventory = Inventory.objects.all()
-        # if search_query:
-        #     inventory = inventory.filter(Q(name__icontains=search_query) | Q(subcategory__name__icontains=search_query) | Q(brand__name__icontains=search_query))
-        # if start_date:
-        #     inventory = inventory.filter(created_date__gte=start_date)
-        # if end_date:
-        #     inventory = inventory.filter(created_date__lte=end_date)
         inventory = get_filtered_objects(Inventory, search_query, start_date, end_date)
         paginator = Paginator(inventory, 5)
         page_number = request.GET.get('page')
@@ -71,7 +67,7 @@ def viewProduct(request, pID):
         'status': 'success',
         'message': 'Data is visible.',
         'subcategory': product.subcategory.name if product.subcategory else '',
-        'brand': product.brand.name if product.brand else '',
+        'brand': product.brand.name if product.brand else None,
         'name': product.name,
         'image': product.image.url,
         'description': product.description,
@@ -194,14 +190,66 @@ def getImage(request, pID):
             'message': 'No product id.'
         })
 
-def viewStock(request):
-    pass
+def viewStock(request, pID):
+    stock = get_object_or_404(Stock, id=pID)
+    data = {
+        'status': 'success',
+        'message': 'Data is visible.',
+        'product': stock.inventory.name,
+        'quantity': stock.quantity,
+        'amountPerUnit': stock.amount_per_unit or None,
+        'unit': stock.unit.name if stock.unit else None,
+        'price': stock.price,
+        'expiryDate': stock.expiry_date,
+        'description': stock.description,
+        'image': stock.inventory.image.url,
+    }    
+    return JsonResponse(data)
 
-def editStock(request):
-    pass
+def editStock(request, pID):
+    stock = get_object_or_404(Stock, id=pID)
+    if request.method == 'POST':
+        product_id = request.POST.get('product')
+        quantity = request.POST.get('quantity')
+        amountPerUnit = request.POST.get('amountPerUnit')
+        unit_id = request.POST.get('unit')
+        price = request.POST.get('price')
+        expiryDate = request.POST.get('expiryDate')
+        description = request.POST.get('description')
+        if product_id:
+            product = Inventory.objects.get(id=product_id)
+        if unit_id:
+            unit = Unit.objects.get(id=unit_id)
+        else:
+            unit = None
+        if amountPerUnit:
+            stock.amount_per_unit = amountPerUnit
+        else:
+            stock.amount_per_unit = None
+        
+        if expiryDate:
+            stock.expiry_date = expiryDate 
+        else:
+            stock.expiry_date = None
+        stock.inventory = product
+        stock.quantity = quantity
+        stock.unit = unit
+        stock.price  = price 
+        stock.description = description
+        stock.save()
+        return JsonResponse({
+            'status': 'success', 
+            'message': 'Stock updated.'
+        })
+    return JsonResponse({
+        'status': 'error', 
+        'message': 'Invalid request.'
+    })
 
-def deleteStock(request):
-    pass
+def deleteStock(request, pID):
+    stock = Stock.objects.get(id=pID)
+    stock.delete()
+    return redirect('inventory:stock')
 
 
 
@@ -237,6 +285,42 @@ def category(request):
         'category': page_obj.object_list,
     }
     return render(request, 'category.html', context)
+
+def addCategory(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        category = Category.objects.create(
+            name = name
+        )
+        category.save()
+        return redirect('inventory:category')
+    else:
+        return redirect('inventory:category')
+
+def viewCategory(request,cID):
+    category = get_object_or_404(Category, id=cID)
+    return JsonResponse({
+        'status': 'success',
+        'message': 'Data visible.',
+        'name': category.name,
+    })
+
+def editCategory(request,cID):
+    pass
+
+def deleteCategory(request,cID):
+    category = Category.objects.get(id=cID)
+    category.delete()
+    return redirect('inventory:category')
+
+
+
+
+
+
+
+
+
 
 @login_required()
 def subcategory(request):

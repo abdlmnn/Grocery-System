@@ -19,11 +19,11 @@ const openViewModalProduct = async (id) => {
                 viewModal.style.display = "flex";
 
                 subcategory.innerText = data.subcategory;
-                brand.innerText = data.brand;
+                brand.innerText = data.brand ? data.brand : "None";
                 
                 name.value = data.name; 
                 
-                description.value = data.description;
+                description.value = data.description ;
                 
                 if (data.image) {
                     preview.src = data.image; 

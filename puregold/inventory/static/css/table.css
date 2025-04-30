@@ -93,6 +93,28 @@
     border-radius: 5px;
 }
 
+.status{
+    border: 1px solid #cccccca7;
+    padding: 4px 6px;
+    border-radius: 5px;
+    font-size: var(--size-text);
+}
+
+.avail{
+    background-color: #20971a16;
+    color: #1b860d;
+}
+
+.out {
+    background-color: #dc35461f; 
+    color: #ae1020d3;
+}
+
+.expired {
+    background-color: #ffd90026; 
+    color: #cfab0a;
+}
+
 /* Dot menu */
 .dot-btn{
     display: none;
