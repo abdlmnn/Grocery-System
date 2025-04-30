@@ -25,7 +25,7 @@ def product(request):
         start_date = request.GET.get('start_date')
         end_date = request.GET.get('end_date')
         inventory = get_filtered_objects(Inventory, search_query, start_date, end_date)
-        paginator = Paginator(inventory, 5)
+        paginator = Paginator(inventory, 10)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         context = {
@@ -96,7 +96,7 @@ def editProduct(request, pID):
         product.save()
         return JsonResponse({
             'status': 'success', 
-            'message': 'Product updated.'
+            'message': 'Stock updated.'
         })
     return JsonResponse({
         'status': 'error', 
@@ -130,7 +130,7 @@ def stock(request):
             stock = stock.filter(Q(date_added__gte=start_date))
         if end_date:
             stock = stock.filter(Q(date_added__lte=end_date))
-        paginator = Paginator(stock, 5)
+        paginator = Paginator(stock, 10)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
         context = {
@@ -275,7 +275,7 @@ def category(request):
             category = category.filter(created_date__gte=start_date)
         if end_date:
             category = category.filter(created_date__lte=end_date)
-        paginator = Paginator(category, 5)
+        paginator = Paginator(category, 10)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
     context = {
@@ -306,7 +306,19 @@ def viewCategory(request,cID):
     })
 
 def editCategory(request,cID):
-    pass
+    category = get_object_or_404(Category, id=cID)
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        category.name = name
+        category.save()
+        return JsonResponse({
+            'status': 'success', 
+            'message': 'Category updated.'
+        })
+    return JsonResponse({
+        'status': 'error', 
+        'message': 'Invalid request.'
+    })
 
 def deleteCategory(request,cID):
     category = Category.objects.get(id=cID)
@@ -335,7 +347,7 @@ def subcategory(request):
             subcategory = subcategory.filter(created_date__gte=start_date)
         if end_date:
             subcategory = subcategory.filter(created_date__lte=end_date)
-        paginator = Paginator(subcategory, 5)
+        paginator = Paginator(subcategory, 10)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
     context = {
@@ -343,8 +355,64 @@ def subcategory(request):
         'title': 'Subcategories',
         'page_obj': page_obj,
         'subcategory': page_obj.object_list,
+        'category': Category.objects.all()
     }
     return render(request, 'subcategory.html', context)
+
+def addSubCategory(request):
+    if request.method == 'POST':
+        category = Category.objects.get(id= request.POST.get('category'))
+        name = request.POST.get('name')
+        subcategory = Subcategory.objects.create(
+            category = category,
+            name = name,
+        )
+        subcategory.save()
+        return redirect('inventory:subcategory')
+    else:
+        return redirect('inventory:subcategory')
+
+def viewSubCategory(request,sID):
+    subcategory = get_object_or_404(Subcategory, id=sID)
+    return JsonResponse({
+        'status': 'success',
+        'message': 'Data visible.',
+        'category': subcategory.category.name,
+        'name': subcategory.name,
+    })
+
+def editSubCategory(request,sID):
+    subcategory = get_object_or_404(Subcategory, id=sID)
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        categoryID = request.POST.get('category')
+        if categoryID:
+            category = Category.objects.get(id=categoryID)
+        subcategory.category = category
+        subcategory.name = name
+        subcategory.save()
+        return JsonResponse({
+            'status': 'success', 
+            'message': 'Subcategory updated.'
+        })
+    return JsonResponse({
+        'status': 'error', 
+        'message': 'Invalid request.'
+    })
+
+def deleteSubCategory(request,sID):
+    subcategory = Subcategory.objects.get(id=sID)
+    subcategory.delete()
+    return redirect('inventory:subcategory')
+
+
+
+
+
+
+
+
+
 
 @login_required()
 def brand(request):

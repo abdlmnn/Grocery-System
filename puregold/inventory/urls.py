@@ -25,6 +25,13 @@ urlpatterns = [
 
 
     path('addcategory/',addCategory,name='addCategory'),
-    path('viewcategory/<int:cID>',viewCategory,name='viewCategory'),
+    path('viewcategory/<int:cID>/',viewCategory,name='viewCategory'),
+    path('editcategory/<int:cID>/',editCategory,name='editCategory'),
     path('deletecategory/<int:cID>/',deleteCategory,name='deleteCategory'),
+
+
+    path('addsubcategory/',addSubCategory,name='addSubCategory'),
+    path('viewsubcategory/<int:sID>/',viewSubCategory,name='viewSubCategory'),
+    path('editsubcategory/<int:sID>/',editSubCategory,name='editSubCategory'),
+    path('deletesubcategory/<int:sID>/',deleteSubCategory,name='deleteSubCategory'),
 ] 
