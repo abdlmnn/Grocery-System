@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PureGold Groceries</title>
+
+    <!-- ====FAV ICON==== -->
+    <link rel="shortcut icon" href="{%static 'public/orange-icon-logo.png'%}" type="image/x-icon">
+    
+    <link rel="stylesheet" href="{%static 'css/shop.css'%}?v={{ timestamp }}">
+    
+    <!-- ====EXTRA CSS====-->
+    {%block extracss%}
+
+    {%endblock%}
+
+     <!-- ====ICONS / FONTS==== -->
+     <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+
+    <nav>
+        <div class="nav-cont">
+            <a href="" class='logo-link'>
+                <img src="{%static 'public/orange-white-logo.png'%}" alt="">
+            </a>
+            <ul>
+                <a href="">Home</i></a>
+                <a href="">Shop</a>
+                <a href="">About</a>
+                <a href="{%url 'shop:login'%}">Login</a>
+                <a href=""><i class="fa-solid fa-heart"></i></a>
+                <a href=""><i class="fa-solid fa-cart-shopping"></i></a>
+                <a href=""><i class="fa-solid fa-bell"></i></a>
+            </ul>
+        </div>
+    </nav>
+  
+    <main>
+        {% block content %}
+        <div class="hero-cont">
+            <div class="content">
+                <div class="text">
+                    <h1>Welcome to Pure<span class="gold">Gold</span> Groceries</h1>
+                    <p>
+                        Skip the lines and let us bring fresh groceries straight to your door. Shop now and enjoy stress-free grocery shopping with PureGold!
+                    </p>  
+                </div>
+                <div class="buttons">
+                    <a href="#shopnow" class="btn btn-primary">Shop Now</a>
+                    <a href="#" class="btn btn-secondary">View Wishlist</a>
+                </div>
+            </div>
+            <img src="{%static '1hero.png'%}" alt="Groceries" class="image"/>
+        </div>
+
+        <div class="after-hero-cont" id="shopnow">
+            <h3>All Products</h3>
+            <div class="filter-cont">
+                <div class="left-filter">
+                    <select id="category" name="category" class="filter-select">
+                        <option value="all">All Categories</option>
+                        <option value="beverages">Beverages</option>
+                        <option value="snacks">Snacks</option>
+                        <option value="fresh-food">Fresh Food</option>
+                        <option value="dairy">Dairy</option>
+                    </select>
+
+                    <select id="subcategory" name="subcategory" class="filter-select">
+                        <option value="all">All Subcategories</option>
+                        <option value="carbonated">Carbonated</option>
+                        <option value="juices">Juices</option>
+                        <option value="chips">Chips</option>
+                        <option value="cheese">Cheese</option>
+                    </select>
+
+                    <select id="brand" name="brand" class="filter-select">
+                        <option value="all">All Brands</option>
+                        <option value="coca-cola">Coca Cola</option>
+                        <option value="pepsi">Pepsi</option>
+                        <option value="lays">Lays</option>
+                        <option value="dole">Dole</option>
+                    </select>
+                </div>
+
+                <div class="right-filter">
+                    <select id="brand" name="brand" class="filter-select">
+                        <option value="all">Sort by</option>
+                        <option value="coca-cola">Coca Cola</option>
+                        <option value="pepsi">Pepsi</option>
+                        <option value="lays">Lays</option>
+                        <option value="dole">Dole</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="product-cont">
+                {%for x in stocks%}
+                <div class="product">
+                    <a href="#" class="product-link">
+                        <img src="{{x.inventory.image.url}}" alt="{{x.inventory.name}}" class="product-img">
+                        <div class="product-info">
+                            <h3>
+                                {{x.inventory.name|capfirst}}
+
+                                {%if x.amount_per_unit and x.unit%}
+                                    {{x.amount_per_unit|floatformat:"-0"}} {{x.unit}}
+                                {%else%}
+
+                                {%endif%}
+                            </h3>
+                            <p class="price">{{x.inventory.subcategory.category.name}} | {{x.inventory.subcategory.name}}</p>
+                        </div>
+                    </a>
+                    <div class="product-actions">
+                        <div class="price-cont">
+                            <p class="price">&#x20B1; {{x.price}}</p>
+                        </div>
+                        <div class="btn-cont">
+                            <a href="#" class="btn-primary1"><i class="fa-solid fa-plus"></i></a>
+                            <a href="#" class="wishlist-icon"><i class="fa-solid fa-heart"></i></a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endblock content %}
+    </main>
+
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-col">
+                <h4>Page</h4>
+                <a href="#">Home</a>
+                <a href="#">Shop</a>
+                <a href="#">About</a>
+                <a href="#">Cart</a>
+                <a href="#">Wishlist</a>
+            </div>
+            <div class="footer-col">
+                <h4>Customer Service</h4>
+                <a href="#">Help Center</a>
+                <a href="#">Track Order</a>
+                <a href="#">Returns & Refunds</a>
+                <a href="#">FAQs</a>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="#">About Us</a>
+                <a href="#">Careers</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <p><i class="fa-solid fa-phone"></i> +63 912 345 6789</p>
+                <p><i class="fa-solid fa-envelope"></i> support@puregold.com</p>
+                <p><i class="fa-solid fa-location-dot"></i> 123 PureGold Ave, Iligan City, PH</p>
+                <p><i class="fa-brands fa-facebook"></i> puregoldph</p>
+            <p><i class="fa-brands fa-instagram"></i> @puregoldgroceries</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 PureGold Grocery Ordering and Inventory Management System. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+    {%block extrascript%}
+
+    {%endblock%}
+</body>
+</html>
