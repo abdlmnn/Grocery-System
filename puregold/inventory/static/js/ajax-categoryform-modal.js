@@ -6,7 +6,7 @@ const openEditModalCategory = async (id) => {
     const editForm = document.getElementById('editForm');
     const nameEdit = document.getElementById('nameEdit');
     try {
-        const res = await fetch(`/inventory/viewcategory/${id}`);
+        const res = await fetch(`/inventory/viewcategory/${id}/`);
 
         if (res.ok) {
             const data = await res.json();
@@ -20,7 +20,7 @@ const openEditModalCategory = async (id) => {
                 console.log('Error: ', data.message);
             }
 
-            editForm.action = `/inventory/editcategory/${id}`;
+            editForm.action = `/inventory/editcategory/${id}/`;
 
             editForm.onsubmit = async (e) => {
                 e.preventDefault();
@@ -69,7 +69,7 @@ const openViewModalCategory = async (id) => {
     const viewModal = document.getElementById('openViewModalCategory');
     const nameView = document.getElementById('nameView');
     try {
-        const res = await fetch(`/inventory/viewcategory/${id}`);
+        const res = await fetch(`/inventory/viewcategory/${id}/`);
 
         if (res.ok) {
             const data = await res.json();

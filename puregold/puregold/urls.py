@@ -23,5 +23,11 @@ urlpatterns = [
     path('dj-admin/', admin.site.urls),
     path('admin/', include(('adminpanel.urls', 'adminpanel'), namespace='adminpanel')),
     path('inventory/', include(('inventory.urls', 'inventory'), namespace='inventory')),
+    path('order/', include(('order.urls', 'order'), namespace='order')),
     path('accounts/', include(('accounts.urls', 'accounts'), namespace='accounts')),
+    path('wishlist/', include(('wishlist.urls', 'wishlist'), namespace='wishlist')),
+    path('notification/', include(('notification.urls', 'notification'), namespace='notification')),
+    path('cart/', include(('cart.urls', 'cart'), namespace='cart')),
+    path('payment/', include(('payment.urls', 'payment'), namespace='payment')),
+    path('', include(('shop.urls', 'shop'), namespace='shop')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

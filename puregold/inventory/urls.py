@@ -34,4 +34,16 @@ urlpatterns = [
     path('viewsubcategory/<int:sID>/',viewSubCategory,name='viewSubCategory'),
     path('editsubcategory/<int:sID>/',editSubCategory,name='editSubCategory'),
     path('deletesubcategory/<int:sID>/',deleteSubCategory,name='deleteSubCategory'),
+
+
+    path('addbrand/',addBrand,name='addBrand'),
+    path('viewbrand/<int:bID>/',viewBrand,name='viewBrand'),
+    path('editbrand/<int:bID>/',editBrand,name='editBrand'),
+    path('deletebrand/<int:bID>/',deleteBrand,name='deleteBrand'),
+
+
+    path('addunit/',addUnit,name='addUnit'),
+    path('viewunit/<int:uID>/',viewUnit,name='viewUnit'),
+    path('editunit/<int:uID>/',editUnit,name='editUnit'),
+    path('deleteunit/<int:uID>/',deleteUnit,name='deleteUnit'),
 ] 

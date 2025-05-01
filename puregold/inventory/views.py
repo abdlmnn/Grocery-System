@@ -427,7 +427,7 @@ def brand(request):
             brand = brand.filter(created_date__gte=start_date)
         if end_date:
             brand = brand.filter(created_date__lte=end_date)
-        paginator = Paginator(brand, 5)
+        paginator = Paginator(brand, 10)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
     context = {
@@ -437,6 +437,56 @@ def brand(request):
         'brand': page_obj.object_list,
     }
     return render(request, 'brands.html', context)
+
+def addBrand(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        brand = Brand.objects.create(
+            name = name
+        )
+        brand.save()
+        return redirect('inventory:brand')
+    else:
+        return redirect('inventory:brand')
+
+def viewBrand(request,bID):
+    brand = get_object_or_404(Brand, id=bID)
+    return JsonResponse({
+        'status': 'success',
+        'message': 'Data visible.',
+        'name': brand.name,
+    })
+
+def editBrand(request,bID):
+    brand = get_object_or_404(Brand, id=bID)
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        brand.name = name
+        brand.save()
+        return JsonResponse({
+            'status': 'success', 
+            'message': 'Brand updated.'
+        })
+    return JsonResponse({
+        'status': 'error', 
+        'message': 'Invalid request.'
+    })
+
+def deleteBrand(request,bID):
+    brand = Brand.objects.get(id=bID)
+    brand.delete()
+    return redirect('inventory:brand')
+
+
+
+
+
+
+
+
+
+
+
 
 @login_required()
 def unit(request):
@@ -451,7 +501,7 @@ def unit(request):
             unit = unit.filter(created_date__gte=start_date)
         if end_date:
             unit = unit.filter(created_date__lte=end_date)
-        paginator = Paginator(unit, 5)
+        paginator = Paginator(unit, 10)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
     context = {
@@ -461,3 +511,52 @@ def unit(request):
         'unit': page_obj.object_list,
     }
     return render(request, 'units.html', context)
+
+def addUnit(request):
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        abbreviation = request.POST.get('abbreviation')
+        description = request.POST.get('description')
+        unit = Unit.objects.create(
+            name = name,
+            abbreviation = abbreviation,
+            description = description,
+        )
+        unit.save()
+        return redirect('inventory:unit')
+    else:
+        return redirect('inventory:unit')
+
+def viewUnit(request,uID):
+    unit = get_object_or_404(Unit, id=uID)
+    return JsonResponse({
+        'status': 'success',
+        'message': 'Data visible.',
+        'name': unit.name,
+        'abbreviation': unit.abbreviation,
+        'description': unit.description,
+    })
+
+def editUnit(request,uID):
+    unit = get_object_or_404(Unit, id=uID)
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        abbreviation = request.POST.get('abbreviation')
+        description = request.POST.get('description')
+        unit.name = name
+        unit.abbreviation = abbreviation
+        unit.description = description
+        unit.save()
+        return JsonResponse({
+            'status': 'success', 
+            'message': 'Unit updated.'
+        })
+    return JsonResponse({
+        'status': 'error', 
+        'message': 'Invalid request.'
+    })
+
+def deleteUnit(request,uID):
+    unit = Unit.objects.get(id=uID)
+    unit.delete()
+    return redirect('inventory:unit')

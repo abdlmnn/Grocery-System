@@ -1,0 +1,21 @@
+<div id="openEditModalBrand"  class="modal-form-container">
+    <div class="add-container">
+        <div class="child-top">
+            <h2>Edit Brand</h2>
+            <button class="close" onclick="closeModal()">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <form id="editForm">
+            {% csrf_token %}
+            <div class="group-cont">
+                <div class="form-group one">
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" id="nameEdit" class="form-control" placeholder="Name" required>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn">Update Brand</button>
+        </form>
+    </div>
+</div>
