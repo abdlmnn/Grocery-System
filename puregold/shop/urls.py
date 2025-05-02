@@ -7,5 +7,6 @@ urlpatterns = [
     # Main
     path('',shop,name="shop"),
     path('login/',login,name="login"),
+    path('logout/',logout,name="logout"),
     path('register/',register,name="register"),
 ] 

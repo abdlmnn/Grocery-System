@@ -103,7 +103,7 @@
                 Create Your Account
             </a>
         </div>
-          <form method="post">
+          <form action="{%url 'shop:register'%}" method="post">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-6 mb-3">
@@ -117,10 +117,15 @@
             </div>
 
             <div class="mb-3">
-              <label>Email</label>
+              <label>Email address</label>
               <input type="email" class="form-control" name="email" required>
             </div>
 
+            <div class="mb-3">
+              <label>Username</label>
+              <input type="username" class="form-control" name="username" required>
+            </div>
+            
             <div class="mb-3">
               <label>Password</label>
               <input type="password" class="form-control" name="password1" required>

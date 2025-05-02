@@ -76,7 +76,7 @@ nav .nav-cont {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 1.5rem;
+    padding: 1rem 1.5rem;
     font-size: 14px;
 }
 
@@ -95,6 +95,23 @@ nav .nav-cont {
 .nav-cont ul {
     display: flex;
     gap: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-cont ul a i {
+    font-size: 16px;
+}
+
+.nav-cont ul .login-btn {
+    background-color: var(--first-color-orange);
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.nav-cont ul .login-btn:hover{
+    color: var(--content-bg-color);
 }
 
 .nav-cont ul a:hover {
