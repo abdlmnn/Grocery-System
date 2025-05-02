@@ -46,7 +46,7 @@ def login(request):
 def logout(request):
     auth_logout(request)
     messages.success(request, ('Logout successful'))
-    return redirect('shop:login')
+    return redirect('shop:shop')
 
 def register(request):
     if request.user.is_authenticated and request.user.is_superuser:
