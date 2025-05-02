@@ -4,11 +4,12 @@ from django.contrib.auth import authenticate, login as auth_login, logout as aut
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from inventory.models import *
-from django.urls import reverse
 
 # Create your views here.
 
 def shop(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        return redirect('/admin/')
     context = {
         'stocks': Stock.objects.all(),
         'category': Category.objects.all(),
@@ -18,6 +19,8 @@ def shop(request):
     return render(request,'shop.html', context)
 
 def login(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        return redirect('/admin/')
     if request.user.is_authenticated:
         return redirect('shop:shop')
     if request.method == 'POST':
@@ -27,7 +30,10 @@ def login(request):
             user = User.objects.get(email=email)
             user = authenticate(request, username=user.username, password=password)
             if user is not None:
-                auth_login(request, user) 
+                if user.is_superuser or user.is_staff:
+                    messages.error(request, 'Unauthorized.')
+                    return redirect('shop:login')
+                auth_login(request, user, backend='django.contrib.auth.backends.ModelBackend') 
                 return redirect('shop:shop')  
             else:
                 messages.error(request, 'Invalid username or password')
@@ -43,6 +49,10 @@ def logout(request):
     return redirect('shop:login')
 
 def register(request):
+    if request.user.is_authenticated and request.user.is_superuser:
+        return redirect('/admin/')
+    if request.user.is_authenticated:
+        return redirect('shop:shop')
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
@@ -70,8 +80,12 @@ def register(request):
                         username = username,
                         password = password1
                     )
-                user.save()
-                return redirect('shop:shop') 
+                    user.is_superuser = False
+                    user.is_staff = False
+                    user.save()
+                    auth_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+                    
+                    return redirect('shop:shop') 
     context = {
         'hi': 'hi'
     }

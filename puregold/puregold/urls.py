@@ -21,6 +21,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('dj-admin/', admin.site.urls),
+    path('accounts/', include('allauth.urls')),
     path('admin/', include(('adminpanel.urls', 'adminpanel'), namespace='adminpanel')),
     path('inventory/', include(('inventory.urls', 'inventory'), namespace='inventory')),
     path('order/', include(('order.urls', 'order'), namespace='order')),

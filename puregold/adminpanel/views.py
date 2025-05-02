@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
 from django.conf import settings
 from django.core.mail import EmailMessage
@@ -14,9 +14,11 @@ from django.core.serializers.json import DjangoJSONEncoder
 import json
 from collections import Counter
 
-# Main
-@login_required()
+@login_required
 def dashboard(request):
+    if not request.user.is_superuser:
+        messages.error(request, 'Unauthorized to access the admin.')
+        return redirect('shop:shop')
     labels = []
     data = []
     labels2 = []
@@ -64,8 +66,14 @@ def login(request):
     context = {
         'title': 'Administration',
     }
+    # if request.user.is_authenticated:
+    #     return redirect('/admin/')
     if request.user.is_authenticated:
-        return redirect('/admin/')
+        if request.user.is_superuser:
+            return redirect('/admin/')
+        else:
+            messages.error(request, 'Unauthorized to access the admin.')
+            return redirect('shop:shop')
     else:
         if request.method == 'POST':
             username = request.POST['username']
@@ -90,6 +98,9 @@ def logout(request):
     return redirect('/admin/login/')
 
 def forgotPassword(request):
+    if not request.user.is_superuser:
+        messages.error(request, 'Unauthorized to access the admin.')
+        return redirect('shop:shop')
     context = {
         'title': 'Forgot Password',
     }

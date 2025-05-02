@@ -4,6 +4,7 @@ from .models import *
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import JsonResponse
+from django.contrib import messages
 
 
 
@@ -20,6 +21,9 @@ def get_filtered_objects(model, search_query=None, start_date=None, end_date=Non
 
 @login_required()
 def product(request):
+    if not request.user.is_superuser:
+        messages.error(request, 'Unauthorized to access the admin.')
+        return redirect('shop:shop')
     if request.method == 'GET':
         search_query = request.GET.get('search', '')
         start_date = request.GET.get('start_date')
@@ -119,6 +123,9 @@ def deleteProduct(request, pID):
 
 @login_required()
 def stock(request):
+    if not request.user.is_superuser:
+        messages.error(request, 'Unauthorized to access the admin.')
+        return redirect('shop:shop')
     if request.method == 'GET':
         search_query = request.GET.get('search', '')
         start_date = request.GET.get('start_date')
@@ -264,6 +271,9 @@ def deleteStock(request, pID):
 
 @login_required()
 def category(request):
+    if not request.user.is_superuser:
+        messages.error(request, 'Unauthorized to access the admin.')
+        return redirect('shop:shop')
     if request.method == 'GET':
         search_query = request.GET.get('search', '')
         start_date = request.GET.get('start_date')
@@ -336,6 +346,9 @@ def deleteCategory(request,cID):
 
 @login_required()
 def subcategory(request):
+    if not request.user.is_superuser:
+        messages.error(request, 'Unauthorized to access the admin.')
+        return redirect('shop:shop')
     if request.method == 'GET':
         search_query = request.GET.get('search', '')
         start_date = request.GET.get('start_date')
@@ -416,6 +429,9 @@ def deleteSubCategory(request,sID):
 
 @login_required()
 def brand(request):
+    if not request.user.is_superuser:
+        messages.error(request, 'Unauthorized to access the admin.')
+        return redirect('shop:shop')
     if request.method == 'GET':
         search_query = request.GET.get('search', '')
         start_date = request.GET.get('start_date')
@@ -490,6 +506,9 @@ def deleteBrand(request,bID):
 
 @login_required()
 def unit(request):
+    if not request.user.is_superuser:
+        messages.error(request, 'Unauthorized to access the admin.')
+        return redirect('shop:shop')
     if request.method == 'GET':
         search_query = request.GET.get('search', '')
         start_date = request.GET.get('start_date')
