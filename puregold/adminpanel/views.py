@@ -98,28 +98,36 @@ def logout(request):
     return redirect('/admin/login/')
 
 def forgotPassword(request):
-    if not request.user.is_superuser:
-        messages.error(request, 'Unauthorized to access the admin.')
-        return redirect('shop:shop')
+    if request.user.is_authenticated:
+        if request.user.is_superuser:
+            return redirect('/admin/')
+        else:
+            messages.error(request, 'Unauthorized to access the admin.')
+            return redirect('shop:shop')
     context = {
         'title': 'Forgot Password',
     }
     if request.method == 'POST':
         email = request.POST['email']
         try:
-            user = User.objects.get(email=email)
-            new_password_reset = PasswordReset(user=user)
-            new_password_reset.save()
-            reset_password_url = reverse('adminpanel:reset-password', kwargs={'reset_id': new_password_reset.reset_id})
-            full_reset_password_url = f'{request.scheme}://{request.get_host()}{reset_password_url}'
-            subject = 'You request reset password.'
-            body = f'Here is the link of your reset password {user.first_name} {user.last_name}. \n{full_reset_password_url}'
-            sender = settings.DEFAULT_FROM_EMAIL
-            receiver = [email]
-            message = EmailMessage(subject, body, sender, receiver)
-            message.fail_silently = True
-            message.send()
-            return redirect(reverse('adminpanel:sent-reset-password', kwargs={'reset_id': new_password_reset.reset_id}))
+            users = User.objects.filter(email=email)
+            if users.count() == 1:
+                user = users.first()
+                new_password_reset = PasswordReset(user=user)
+                new_password_reset.save()
+                reset_password_url = reverse('adminpanel:reset-password', kwargs={'reset_id': new_password_reset.reset_id})
+                full_reset_password_url = f'{request.scheme}://{request.get_host()}{reset_password_url}'
+                subject = 'You request reset password.'
+                body = f'Here is the link of your reset password {user.first_name} {user.last_name}. \n{full_reset_password_url}'
+                sender = settings.DEFAULT_FROM_EMAIL
+                receiver = [email]
+                message = EmailMessage(subject, body, sender, receiver)
+                message.fail_silently = True
+                message.send()
+                return redirect(reverse('adminpanel:sent-reset-password', kwargs={'reset_id': new_password_reset.reset_id}))
+            else:
+                messages.error(request, 'Multiple emails found.')
+                return redirect('/admin/forgot-password/')
         except User.DoesNotExist:
             messages.error(request, 'Email not found')
             return redirect('/admin/forgot-password/') 
