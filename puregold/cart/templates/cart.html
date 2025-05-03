@@ -1,0 +1,45 @@
+{% extends "shop.html" %}
+
+{% load static %}
+
+{% block title %}
+    Wishlist
+{% endblock title %}
+
+{% block content %}
+<div class="after-hero-cont">
+    <h3>Your Cart</h3>
+
+    {% if cart_items %}
+        <div class="product-cont">
+            {% for x in cart_items %}
+            <div class="product">
+                <a href="#" class="product-link">
+                    <img src="{{ x.stock.inventory.image.url }}" alt="{{ x.stock.inventory.name }}" class="product-img">
+                    <div class="product-info">
+                        <h3>
+                            {{ x.stock.inventory.name|capfirst }}
+                            {% if x.stock.amount_per_unit and x.stock.unit %}
+                                {{ x.stock.amount_per_unit|floatformat:"-0" }} {{ x.stock.unit }}
+                            {% endif %}
+                        </h3>
+                        <p class="price">{{ x.stock.inventory.subcategory.category.name }} | {{ x.stock.inventory.subcategory.name }}</p>
+                    </div>
+                </a>
+                <div class="product-actions">
+                    <div class="price-cont">
+                        <p class="price">&#x20B1; {{ x.stock.price }} × {{ x.quantity }}</p>
+                        <p class="price-total">Total: &#x20B1; {{ x.stock.price|floatformat:2|floatformat:"-0"|add:x.quantity|floatformat:2 }}</p>
+                    </div>
+                    <div class="btn-cont">
+                        <a href="{% url 'cart:delete' x.id %}" class="btn-primary1"><i class="fa-solid fa-trash"></i></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Your cart is empty.</p>
+    {% endif %}
+</div>
+{% endblock content %}

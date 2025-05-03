@@ -6,7 +6,6 @@ from django.contrib import messages
 from inventory.models import *
 
 # Create your views here.
-
 def shop(request):
     if request.user.is_authenticated and request.user.is_superuser:
         return redirect('/admin/')

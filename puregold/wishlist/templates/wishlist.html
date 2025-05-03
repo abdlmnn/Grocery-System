@@ -1,0 +1,47 @@
+{% extends "shop.html" %}
+
+{% load static %}
+
+{% block title %}
+    Wishlist
+{% endblock title %}
+
+{% block content %}
+    <div class="after-hero-cont" id="wishlist">
+        <h3>Your Wishlist</h3>
+
+        <div class="product-cont">
+            {% for item in wishlist_items %}
+            <div class="product">
+                <a href="#" class="product-link">
+                    <img src="{{ item.stock.inventory.image.url }}" alt="{{ item.stock.inventory.name }}" class="product-img">
+                    <div class="product-info">
+                        <h3>
+                            {{ item.stock.inventory.name|capfirst }}
+                            {% if item.stock.amount_per_unit and item.stock.unit %}
+                                {{ item.stock.amount_per_unit|floatformat:"-0" }} {{ item.stock.unit }}
+                            {% endif %}
+                        </h3>
+                        <p class="price">
+                            {{ item.stock.inventory.subcategory.category.name }} | {{ item.stock.inventory.subcategory.name }}
+                        </p>
+                    </div>
+                </a>
+                <div class="product-actions">
+                    <div class="price-cont">
+                        <p class="price">&#x20B1; {{ item.stock.price }}</p>
+                    </div>
+                    <div class="btn-cont">
+                        <a href="#" class="btn-primary1"><i class="fa-solid fa-plus"></i></a>
+                        <a href="{% url 'wishlist:delete' item.id%}" class="wishlist-icon remove">
+                            <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+                <p>No items in your wishlist yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}
