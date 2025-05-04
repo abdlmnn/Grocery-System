@@ -14,6 +14,9 @@
     <link rel="shortcut icon" href="{%static 'public/orange-icon-logo.png'%}" type="image/x-icon">
     
     <link rel="stylesheet" href="{%static 'css/shop.css'%}?v={{ timestamp }}">
+
+    <link rel="stylesheet" href="{%static 'css/checkout.css'%}?v={{ timestamp }}">
+    <link rel="stylesheet" href="{%static 'css/cart.css'%}?v={{ timestamp }}">
     
     <!-- ====EXTRA CSS====-->
     {%block extracss%}
@@ -35,14 +38,17 @@
                 {% comment %} <a href="">Home</i></a>
                 <a href="">Shop</a>
                 <a href="">About</a> {% endcomment %}
-                {% if request.user.is_authenticated%}
-                    <a href="{%url 'shop:logout'%}" class="login-btn">Log out</a>
-                {% else %}
+                
+                {% if not request.user.is_authenticated %}
                     <a href="{%url 'shop:login'%}" class="login-btn">Hello, log in</a>
                 {% endif %}
-                <a href="{%url 'wishlist:wishlist'%}"><i class="fa-solid fa-heart"></i></a>
+                <a href="{%url 'cart:cart'%}"><i class="fa-solid fa-shop"></i></a>
                 <a href="{%url 'cart:cart'%}"><i class="fa-solid fa-cart-shopping cart-icon"></i></a>
+                <a href="{%url 'wishlist:wishlist'%}"><i class="fa-solid fa-heart"></i></a>
                 <a href=""><i class="fa-solid fa-bell"></i></a>
+                {% if request.user.is_authenticated%}
+                    <a href="{%url 'shop:logout'%}" class="login-btn">Log out</a>
+                {% endif %}
             </ul>
         </div>
     </nav>
@@ -130,7 +136,7 @@
                                 <i class="fa-solid fa-plus"></i>
                             </a>
                             {% else %}
-                            <span class="out-of-stock">Out of Stock</span>
+                                <span class="out-of-stock">Out of Stock</span>
                             {% endif %}
                             <a href="{% url 'wishlist:add_to_wishlist' x.id %}" class="wishlist-icon">
                                 <i class="fa-solid fa-heart"></i>

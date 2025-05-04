@@ -61,7 +61,7 @@ class Stock(models.Model):
     is_empty = models.BooleanField(default=False)
     STATUS_CHOICES = [
         ('available', 'Available'),
-        ('out_of_stock', 'Out of Stock'),
+        ('out stock', 'Out Stock'),
         ('expired', 'Expired'),
     ]
     status = models.CharField(max_length=12, choices=STATUS_CHOICES, default='available')

@@ -8,7 +8,7 @@
 
 {% block content %}
     <div class="after-hero-cont" id="wishlist">
-        <h3>Your Wishlist</h3>
+        <h3 style="font-size: 16px;">Your Wishlist</h3>
 
         <div class="product-cont">
             {% for item in wishlist_items %}
@@ -32,7 +32,9 @@
                         <p class="price">&#x20B1; {{ item.stock.price }}</p>
                     </div>
                     <div class="btn-cont">
-                        <a href="#" class="btn-primary1"><i class="fa-solid fa-plus"></i></a>
+                        <a href="{% url 'cart:add_to_cart' item.stock.id %}" class="btn-primary1">
+                           <i class="fa-solid fa-plus"></i> 
+                        </a>
                         <a href="{% url 'wishlist:delete' item.id%}" class="wishlist-icon remove">
                             <i class="fa-solid fa-trash"></i>
                         </a>
@@ -40,7 +42,7 @@
                 </div>
             </div>
             {% empty %}
-                <p>No items in your wishlist yet.</p>
+                <p style="text-align: center; font-size: 20px;">No items in your wishlist yet.</p>
             {% endfor %}
         </div>
     </div>

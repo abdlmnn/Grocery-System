@@ -247,7 +247,8 @@ nav .nav-cont {
     width: 100%;
     display: flex;
     flex-direction: column;
-    background: var(--content-bg-color);
+    /* background: var(--content-bg-color); */
+    background: var(--text-color);
     padding: 1rem;
     border-radius: var(--corner-radius);
     box-shadow: 0 0 4px 1px rgb(239, 239, 239);
@@ -393,7 +394,7 @@ nav .nav-cont {
 }
 
 .footer {
-    padding-top: 1.5rem;
+    padding-top: 1rem;
 }
 
 .footer-top {
@@ -444,4 +445,29 @@ nav .nav-cont {
     font-size: var(--size-text);
     background-color: transparent;
     color: var(--first-color-darkgreen);
+}
+
+.qty-input {
+    width: 60px;
+    padding: 4px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.update-form {
+    display: flex;
+    gap: 7px;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-primary-edit-qty {
+    font-size: 10px;
+    width: 100%;
+    padding: 4px;
+    border-radius: 3px;
+    background-color: var(--first-color-orange);
+    color: var(--text-color);
+    cursor: pointer;
 }

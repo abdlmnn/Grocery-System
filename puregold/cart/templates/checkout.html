@@ -1,0 +1,90 @@
+{% extends "shop.html" %}
+{% load static %}
+
+{% block title %}
+    Checkout
+{% endblock title %}
+
+{% block extracss %}
+
+{% endblock %}
+
+{% block content %}
+<div class="checkout-container">
+    <div class="checkout-header">Checkout</div>
+
+    <table class="checkout-table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Name</th>
+                <th>Unit Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td><img src="{{ item.stock.inventory.image.url }}" alt="{{ item.stock.inventory.name }}"></td>
+                <td>{{ item.stock.inventory.name }}</td>
+                <td>&#x20B1;{{ item.stock.price }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>&#x20B1;{{ item.total_amount }}</td>
+            </tr>
+            {% endfor %}
+            <tr class="total-row">
+                <td colspan="4">Grand Total:</td>
+                <td>&#x20B1;{{ total_price }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="customer-info-form">
+        <h3>Customer Information</h3>
+        <form method="POST" action="{% url 'order:place-order' %}">
+            <div class="form">
+                {% csrf_token %}
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="full_name">Full Name:</label>
+                        <input type="text" id="full_name" name="full_name" value="{{ request.user.first_name }} {{ request.user.last_name }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="birth">Date of Birth:</label>
+                        <input type="date" id="birth" name="birth" value="{{ request.user.customer.birth|date:'Y-m-d' }}">
+                    </div>
+                </div>
+        
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone_number">Phone Number:</label>
+                        <input type="text" id="phone_number" name="phone_number" value="{{ request.user.customer.phone_number }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="payment_method">Payment Method:</label>
+                        <select id="payment_method" name="payment_method" required>
+                            <option value="cod">Cash on Delivery</option>
+                            <option value="gcash">GCash</option>
+                            <option value="paypal">PayPal</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="address">Address:</label>
+                        <textarea id="address" name="address" required>{{ request.user.customer.address }}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-checkout" style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px;">
+                <a href="{%url 'cart:cart'%}" class="checkout-btn">Back to cart</a>
+                <button style="cursor: pointer;" class="checkout-btn">Place order</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

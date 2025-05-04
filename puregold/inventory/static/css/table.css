@@ -17,6 +17,7 @@
     /* table-layout: fixed; */
     /* table-layout: initial; */
     /* border-collapse: collapse; */
+    border-collapse: separate;
     border-spacing: 0 15px;
 }
 
@@ -32,6 +33,7 @@
     padding: 14px 16px;
     text-align: left;
     font-weight: 500;
+    /* border: 1px solid red; */
     /* white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis; */

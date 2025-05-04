@@ -131,6 +131,12 @@ def stock(request):
         start_date = request.GET.get('start_date')
         end_date = request.GET.get('end_date')
         stock = Stock.objects.all()
+        for item in stock:
+            if item.quantity == 0:
+                item.status = 'out stock'
+            else:
+                item.status = 'available'
+            item.save()
         if search_query:
             stock = stock.filter(Q(inventory__name__icontains=search_query) | Q(unit__name__icontains=search_query))
         if start_date:
@@ -244,6 +250,7 @@ def editStock(request, pID):
         stock.price  = price 
         stock.description = description
         stock.save()
+        
         return JsonResponse({
             'status': 'success', 
             'message': 'Stock updated.'
@@ -299,10 +306,9 @@ def category(request):
 def addCategory(request):
     if request.method == 'POST':
         name = request.POST.get('name')
-        category = Category.objects.create(
+        Category.objects.create(
             name = name
-        )
-        category.save()
+        ).save()
         return redirect('inventory:category')
     else:
         return redirect('inventory:category')
@@ -355,7 +361,9 @@ def subcategory(request):
         end_date = request.GET.get('end_date')
         subcategory = Subcategory.objects.all()
         if search_query:
-            subcategory = subcategory.filter(Q(category__name__contains=search_query) | Q(name__contains=search_query) )
+            subcategory = subcategory.filter(
+                Q(category__name__icontains=search_query) |
+                Q(name__icontains=search_query))
         if start_date:
             subcategory = subcategory.filter(created_date__gte=start_date)
         if end_date:

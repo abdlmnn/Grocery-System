@@ -1,0 +1,51 @@
+{% extends "shop.html" %}
+{% block title %}Place Order{% endblock title %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{%static 'css/orders.css'%}?v={{ timestamp }}">
+{% endblock %}
+
+{% block content %}
+<div class="after-hero-cont">
+    <h2>Review Your Cart</h2>
+    
+    {% if cart_items %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in cart_items %}
+            <tr>
+                <td>{{ item.stock.inventory.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>&#x20B1; {{ item.stock.price }}</td>
+                <td>&#x20B1; {{ item.total_amount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <div class="total-amount">
+        <h3>Total: &#x20B1; 
+        {% with total_amount=cart_items.aggregate(total=models.Sum('total_amount')) %}
+            {{ total_amount.total }}
+        {% endwith %}
+        </h3>
+    </div>
+
+    <form method="POST" action="{% url 'cart:place_order' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Place Order</button>
+    </form>
+    
+    {% else %}
+        <p>Your cart is empty. Add items to your cart before placing an order.</p>
+    {% endif %}
+</div>
+{% endblock content %}

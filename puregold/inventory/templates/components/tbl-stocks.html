@@ -19,12 +19,12 @@
         <td data-cell="Status"><button class="status
             {% if data.status == 'available' %}
                 avail
-            {% elif data.status == 'out_of_stock' %}
+            {% elif data.status == 'out stock' %}
                 out
             {% elif data.status == 'expired' %}
                 expired
             {% endif %}
-            ">
+        ">
             {{ data.status|capfirst }}
         </button></td>
         <td data-cell="Expiry">{{data.expiry_date}}</td>

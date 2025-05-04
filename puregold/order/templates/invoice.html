@@ -1,0 +1,70 @@
+{% extends "shop.html" %}
+{% load static %}
+
+{% block title %}
+    Invoice - Order #{{ order.id }}
+{% endblock title %}
+
+{% block extracss %}
+    <style>
+
+        .invoice-footer {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+        }
+
+        .info{
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+    </style>
+{% endblock extracss %}
+
+{% block content %}
+<div class="checkout-container">
+    <div class="checkout-header">
+        <h2>Invoice - Order #{{ order.id }}</h2>
+    </div>
+
+    <table class="checkout-table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Name</th>
+                <th>Unit Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in order.orderline_set.all %}
+            <tr>
+                <td><img src="{{ item.stock.inventory.image.url }}" alt="{{ item.stock.inventory.name }}"></td>
+                <td>{{ item.stock.inventory.name }}</td>
+                <td>&#x20B1;{{ item.stock.price }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>&#x20B1;{{ item.total_amount }}</td>
+            </tr>
+            {% endfor %}
+            <tr class="total-row">
+                <td colspan="4">Grand Total:</td>
+                <td>&#x20B1;{{ order.total_amount }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="invoice-footer">
+        <div class="info">
+            <p><strong>Customer:</strong> {{ order.customer }}</p>
+            <p><strong>Payment Method:</strong> {{ order.payment_method|default:"Cash on Delivery" }}</p>
+            <p><strong>Shipping Address:</strong> {{ order.customer.address }}</p>
+        </div>
+        <div>
+            <a href="{% url 'order:thank-you' %}" class="checkout-btn">Thank You</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}
