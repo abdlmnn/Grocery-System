@@ -32,11 +32,17 @@
                         <p class="price">&#x20B1; {{ item.stock.price }}</p>
                     </div>
                     <div class="btn-cont">
-                        <a href="{% url 'cart:add_to_cart' item.stock.id %}" class="btn-primary1">
-                           <i class="fa-solid fa-plus"></i> 
-                        </a>
-                        <a href="{% url 'wishlist:delete' item.id%}" class="wishlist-icon remove">
-                            <i class="fa-solid fa-trash"></i>
+                        {% if item.stock.quantity > 0 %}
+                            <a href="{% url 'cart:add_to_cart' item.stock.id %}" class="btn-primary1">
+                                <i class="fa-solid fa-plus"></i>
+                            </a>
+                            {% else %}
+                                <span class="out-of-stock" style="
+                                    font-size: 12px;
+                                ">Out of Stock</span>
+                            {% endif %}
+                        <a href="{% url 'wishlist:delete' item.id%}" class="btn-primary1">
+                            <i class="fa-solid fa-xmark"></i>
                         </a>
                     </div>
                 </div>

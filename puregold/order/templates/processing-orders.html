@@ -1,0 +1,70 @@
+{%extends "master.html"%}
+
+{%load static%}
+
+{%block title%} {{title}} {%endblock title%}
+
+{%block extracss%}
+    <link rel="stylesheet" href="{%static 'css/inventory.css'%}?v={{ timestamp }}">
+    <link rel="stylesheet" href="{%static 'css/modal-addbtn.css'%}?v={{ timestamp }}">
+    <link rel="stylesheet" href="{%static 'css/table.css'%}?v={{ timestamp }}">
+    <link rel="stylesheet" href="{%static 'css/pagination.css'%}?v={{ timestamp }}">
+{%endblock%}
+
+{% block content %}
+    <div class="inventory-container">
+        {% block inventory %}
+        <div class="title-border-cont">
+            <h1>{{title}}</h1>
+            <div class="line-border"></div>
+        </div>
+        <div class="table-search-container">
+
+            <div class="table-list-cont">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>SL</th>
+                            <th>Customer</th>
+                            <th>Total Amount</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <td data-cell="SL">{{ order.id }}</td>
+                            <td data-cell="Customer">{{ order.customer.user.get_full_name }}</td>
+                            <td data-cell="Total Amount">₱{{ order.total_amount }}</td>
+                            <td data-cell="Actions">
+                                <div class="btn-td-cont">
+                                    {% comment %} <a href="{% url 'order:order_detail' order.id %}" class="button read-btn">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </a> {% endcomment %}
+                                    <!-- You can add edit or cancel buttons here -->
+                                    <form action="{% url 'order:update-status' order.id %}" method="POST">
+                                        {% csrf_token %}
+                                        <select name="status" onchange="this.form.submit()" >
+                                            {% for key, value in order.STATUS_CHOICES %}
+                                                <option value="{{ key }}" {% if order.status == key %}selected{% endif %}>
+                                                    {{ value }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5">No orders found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% comment %} {% include "components/paginations.html" %} {% endcomment %}
+        </div>
+        {% endblock %}
+    </div>
+{% endblock %}  

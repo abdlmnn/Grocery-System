@@ -7,7 +7,6 @@
 
 {% block extracss %}
     <style>
-
         .invoice-footer {
             margin-top: 20px;
             display: flex;
@@ -63,7 +62,7 @@
             <p><strong>Shipping Address:</strong> {{ order.customer.address }}</p>
         </div>
         <div>
-            <a href="{% url 'order:thank-you' %}" class="checkout-btn">Thank You</a>
+            <a href="{% url 'order:thank-you' %}" class="checkout-btn">Proceed</a>
         </div>
     </div>
 </div>

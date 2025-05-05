@@ -15,30 +15,26 @@
                 Orders
                 <i class="fa fa-caret-down drop-icon"></i>
             </button>
-            <div class="dropdown-cont">
-                <a href="" class="">
+            <div class="dropdown-cont {%if button == 'Orders'%} active {%endif%}">
+                <a href="{%url 'order:all-orders'%}" class="{%if title == 'All Orders'%} selected {%endif%}">
                     <i class="fa-solid fa-circle size-circle"></i>
                     All Orders
                 </a>
-                <a href="#" class="">
+                <a href="{%url 'order:place'%}" class="{%if title == 'Placed Orders'%} selected {%endif%}">
                     <i class="fa-solid fa-circle size-circle"></i>
                     Placed Orders
                 </a>
-                <a href="#">
+                <a href="{%url 'order:processing-orders'%}" class="{%if title == 'Processing Orders'%} selected {%endif%}">
                     <i class="fa-solid fa-circle size-circle"></i>
                     Processing Orders
                 </a>
-                <a href="#">
+                <a href="{%url 'order:delivered-orders'%}" class="{%if title == 'Delivered Orders'%} selected {%endif%}">
                     <i class="fa-solid fa-circle size-circle"></i>
-                    Product On The Way
+                    Delivered Orders
                 </a>
-                <a href="#">
+                <a href="{%url 'order:cancelled-orders'%}" class="{%if title == 'Cancelled Orders'%} selected {%endif%}">
                     <i class="fa-solid fa-circle size-circle"></i>
-                    Delivered Order
-                </a>
-                <a href="#">
-                    <i class="fa-solid fa-circle size-circle"></i>
-                    Canceled Order
+                    Canceled Orders
                 </a>
             </div>
             <button class="dropdown-btn {%if button == 'Inventory'%} active {%endif%}">

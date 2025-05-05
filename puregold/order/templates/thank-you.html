@@ -7,14 +7,16 @@
 
 {% block content %}
 <div class="after-hero-cont" style="
-    {% comment %} max-width: 600px; {% endcomment %}
-    width: 100%;
-    {% comment %} margin: 60px auto; {% endcomment %}
+    max-width: 600px;
+    {% comment %} width: 100%; {% endcomment %}
+    margin: 60px auto;
     padding: 40px;
     text-align: center;
-    background-color: #f8f9fa;
+    {% comment %} background-color: #f8f9fa; {% endcomment %}
+    background-color: transparent;
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
+    {% comment %} box-shadow: 0 4px 20px rgba(0,0,0,0.1); {% endcomment %}
+    ">
 
     <h2 style="color: #044635; font-size: 28px; margin-bottom: 20px;">
         <i class="fa-solid fa-circle-check" style="margin-right: 10px;"></i>
@@ -34,7 +36,7 @@
         margin: 0 auto;
         padding: 8px 12px;
         font-size: 12px;
-        width: 15%;
+        width: 30%;
         border-radius: 6px;">
         Continue Shopping
     </a>

@@ -4,11 +4,72 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from cart.models import Cart, Cartline
 from .models import *
-from inventory.models import Stock
+from inventory.models import Stock  
 from accounts.models import Customer  
 from django.contrib import messages
 from payment.models import Payment
+from datetime import datetime
 
+@login_required
+def cancelled_orders(request):
+    orders = Order.objects.filter(status='cancelled').order_by('-id')
+    return render(request, 'cancelled-orders.html', {
+        'orders': orders,
+        'title': 'Cancelled Orders',
+        'button': 'Orders',
+    })
+
+@login_required
+def delivered_orders(request):
+    orders = Order.objects.filter(status='completed').order_by('-id')
+    return render(request, 'delivered-orders.html', {
+        'orders': orders,
+        'title': 'Delivered Orders',
+        'button': 'Orders',
+    })
+
+@login_required
+def placed_orders(request):
+    orders = Order.objects.filter(status='pending').order_by('-id')
+    return render(request, 'place.html', {
+        'orders': orders,
+        'title': 'Placed Orders',
+        'button': 'Orders',
+    })
+
+@login_required
+def processing_orders(request):
+    orders = Order.objects.filter(status='processing').order_by('-id')
+    return render(request, 'processing-orders.html', {
+        'orders': orders,
+        'title': 'Processing Orders',
+        'button': 'Orders',
+    })
+    
+
+@login_required
+def update_order_status(request, id):
+    if request.method == 'POST':
+        order = get_object_or_404(Order, id=id)
+        new_status = request.POST.get('status')
+
+        if new_status in dict(Order.STATUS_CHOICES):
+            order.status = new_status
+            order.save()
+            messages.success(request, f"Order #{order.id} status updated.")
+        else:
+            messages.error(request, "Invalid status selected.")
+    return redirect('order:all-orders')
+
+@login_required
+def all_orders(request):
+    orders = Order.objects.all().select_related('customer').prefetch_related('orderline_set').order_by('-id')
+    context = {
+        'button': 'Orders',
+        'title': 'All Orders',
+        'orders': orders
+    }
+    return render(request, 'all-orders.html', context)
 
 @login_required(login_url='/login/')
 @transaction.atomic
@@ -64,7 +125,6 @@ def place_order(request):
                 method='cod',
                 status='pending'
             )
-            # return redirect('order:thank-you')
             return redirect('order:invoice', id=order.id)
 
         return redirect('order:thank-you')

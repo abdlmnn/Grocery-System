@@ -42,7 +42,7 @@
                 {% if not request.user.is_authenticated %}
                     <a href="{%url 'shop:login'%}" class="login-btn">Hello, log in</a>
                 {% endif %}
-                <a href="{%url 'cart:cart'%}"><i class="fa-solid fa-shop"></i></a>
+                {% comment %} <a href="{%url 'cart:cart'%}"><i class="fa-solid fa-shop"></i></a> {% endcomment %}
                 <a href="{%url 'cart:cart'%}"><i class="fa-solid fa-cart-shopping cart-icon"></i></a>
                 <a href="{%url 'wishlist:wishlist'%}"><i class="fa-solid fa-heart"></i></a>
                 <a href=""><i class="fa-solid fa-bell"></i></a>
@@ -130,13 +130,14 @@
                             <p class="price">&#x20B1; {{x.price}}</p>
                         </div>
                         <div class="btn-cont">
-                            {% comment %} <a href="#" class="btn-primary1"><i class="fa-solid fa-plus"></i></a> {% endcomment %}
                             {% if x.quantity > 0 %}
                             <a href="{% url 'cart:add_to_cart' x.id %}" class="btn-primary1">
                                 <i class="fa-solid fa-plus"></i>
                             </a>
                             {% else %}
-                                <span class="out-of-stock">Out of Stock</span>
+                                <span class="out-of-stock" style="
+                                    font-size: 12px;
+                                ">Out of Stock</span>
                             {% endif %}
                             <a href="{% url 'wishlist:add_to_wishlist' x.id %}" class="wishlist-icon">
                                 <i class="fa-solid fa-heart"></i>
