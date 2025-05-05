@@ -126,6 +126,14 @@ def place_order(request):
                 status='pending'
             )
             return redirect('order:invoice', id=order.id)
+        elif payment_method == 'gcash':
+            payment = Payment.objects.create(
+                customer=customer,
+                order=order,
+                method='gcash',
+                status='pending'
+            )
+            return redirect('payment:gcash', id=payment.id)
 
         return redirect('order:thank-you')
 

@@ -30,5 +30,6 @@ urlpatterns = [
     path('notification/', include(('notification.urls', 'notification'), namespace='notification')),
     path('cart/', include(('cart.urls', 'cart'), namespace='cart')),
     path('payment/', include(('payment.urls', 'payment'), namespace='payment')),
+    path('paypal/', include('paypal.standard.ipn.urls')),
     path('', include(('shop.urls', 'shop'), namespace='shop')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
