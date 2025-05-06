@@ -1,3 +1,4 @@
+
 <div class="dashboard-cards">
     <div class="cards">
         <div class="one-container">
@@ -5,7 +6,7 @@
         </div>
         <div class="two-container">
             <span class="text-1">Orders</span>
-            <p>700</p>
+            <p>{{ total_orders }}</p>
         </div>
     </div>
     <div class="cards">
@@ -14,7 +15,7 @@
         </div>
         <div class="two-container">
             <span class="text-2">Products</span>
-            <p>1,200</p>
+            <p>{{ total_products }}</p>
         </div>
     </div>
     <div class="cards">
@@ -23,7 +24,7 @@
         </div>
         <div class="two-container">
             <span class="text-3">Customers</span>
-            <p>900</p>
+            <p>{{ total_customers }}</p>
         </div>
     </div>
     <div class="cards">
@@ -32,7 +33,7 @@
         </div>
         <div class="two-container">
             <span class="text-4">Sales</span>
-            <p>125,200</p>
+            <p>₱ {{ total_sales|floatformat:2 }}</p>
         </div>
     </div>
 </div>

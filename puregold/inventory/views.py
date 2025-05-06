@@ -7,8 +7,6 @@ from django.http import JsonResponse
 from django.contrib import messages
 
 
-
-
 def get_filtered_objects(model, search_query=None, start_date=None, end_date=None):
     queryset = model.objects.all()
     if search_query:

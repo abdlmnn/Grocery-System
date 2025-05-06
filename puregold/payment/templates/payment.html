@@ -1,0 +1,94 @@
+{% extends "master.html" %}
+
+{% load static %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'css/inventory.css' %}?v={{ timestamp }}">
+    <link rel="stylesheet" href="{% static 'css/modal-addbtn.css' %}?v={{ timestamp }}">
+    <link rel="stylesheet" href="{% static 'css/table.css' %}?v={{ timestamp }}">
+    <link rel="stylesheet" href="{% static 'css/pagination.css' %}?v={{ timestamp }}">
+{% endblock %}
+
+{% block content %}
+    <div class="inventory-container">
+        {% block inventory %}
+        <div class="title-border-cont">
+            <h1>{{ title }}</h1>
+            <div class="line-border"></div>
+        </div>
+        <div class="table-search-container">
+
+            <div class="table-list-cont">   
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>SL</th>
+                            <th>Customer</th>
+                            <th>Total Amount</th>
+                            <th>Order Status</th>
+                            <th>Payment Status</th> 
+                            <th>Payment Method</th>  
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <td data-cell="SL">{{ order.id }}</td>
+                            <td data-cell="Customer">{{ order.customer.user.get_full_name }}</td>
+                            <td data-cell="Total Amount">₱{{ order.total_amount }}</td>
+                            <td data-cell="Order Status">
+                                <div class="btn-td-cont">
+                                    <form action="" method="POST">
+                                        {% csrf_token %}
+                                        <select name="status" onchange="this.form.submit()" disabled>
+                                            {% for key, value in order.STATUS_CHOICES %}
+                                                <option value="{{ key }}" {% if order.status == key %}selected{% endif %}>
+                                                    {{ value }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </form>
+                                </div>
+                            </td>
+                            <td data-cell="Payment Status">
+                                {% if order.payments.exists %}
+                                    {% for payment in order.payments.all %}
+                                        <form method="POST" action="{% url 'payment:update-status' payment.id %}">
+                                            {% csrf_token %}
+                                            <select name="status" onchange="this.form.submit()">
+                                                <option value="pending" {% if payment.status == 'pending' %}selected{% endif %}>Pending</option>
+                                                <option value="completed" {% if payment.status == 'completed' %}selected{% endif %}>Completed</option>
+                                            </select>
+                                        </form>
+                                    {% endfor %}
+                                {% else %}
+                                    <span>No payment</span>
+                                {% endif %}
+                            </td>
+                            <td data-cell="Payment Method">
+                                {% if order.payments.exists %}
+                                    {% for payment in order.payments.all %}
+                                        <span class="payment-method">
+                                            {{ payment.get_method_display }}
+                                        </span>
+                                    {% endfor %}
+                                {% else %}
+                                    <span>No payment method</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6">No payments found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        {% endblock %}
+    </div>
+{% endblock %}

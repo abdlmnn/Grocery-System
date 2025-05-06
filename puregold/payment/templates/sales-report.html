@@ -1,0 +1,129 @@
+{% extends "products.html" %}
+
+{% load static %}
+
+{% block title %} {{ title }} {% endblock title %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'css/inventory.css' %}?v={{ timestamp }}">
+    <link rel="stylesheet" href="{% static 'css/modal-addbtn.css' %}?v={{ timestamp }}">
+    <link rel="stylesheet" href="{% static 'css/table.css' %}?v={{ timestamp }}">
+    <link rel="stylesheet" href="{% static 'css/pagination.css' %}?v={{ timestamp }}">
+{% endblock %}
+
+{% block inventory %}
+    <div class="title-border-cont">
+        <h1>{{ title }}</h1>
+        <div class="line-border"></div>
+    </div>
+
+        <div class="table-list-cont">
+            <form class="search-cont-1"  method="get">
+                <div class="search-icon-cont">
+                    <input type="text" name="search" class="search-input-2" placeholder="Search" value="{{ search_query }}">
+                    <button class="search-btn-2">
+                        <i class="fa-solid fa-magnifying-glass search-icon-2"></i>
+                    </button>
+                </div>
+                <div class="btn-date-cont">
+                    <div class="date-cont">
+                        <div class="first-date">
+                            <input type="date" id="start_date" name="start_date" value="{{ start_date }}">
+                            <i class="fa-solid fa-calendar-days calendar-icon"></i>
+                        </div>
+                        <span>To</span>
+                        <div class="second-date">
+                            <input type="date" id="end_date" name="end_date" value="{{ end_date }}">
+                            <i class="fa-solid fa-calendar-days calendar-icon"></i>
+                        </div>
+                    </div>
+                    {% comment %} <div class="btn-add-new">
+                        <button class="add-btn-modal" type="submit">Filter</button>
+                    </div> {% endcomment %}
+                </div>
+            </form>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>SL</th>
+                        <th>Customer</th>
+                        <th>Total Amount</th>
+                        <th>Payment Status</th>
+                        <th>Payment Method</th>
+                    </tr>
+                </thead>
+                <tbody >
+                    {% if orders %}
+                        {% for order in orders %}
+                            <tr>
+                                <td style="padding: 15px;"  data-cell="SL">{{ order.id }}</td>
+                                <td style="padding: 15px;" data-cell="Customer">{{ order.customer.user.get_full_name }}</td>
+                                <td style="padding: 15px;" data-cell="Total Amount">₱{{ order.total_amount }}</td>
+                                <td style="padding: 15px;" data-cell="Payment Status">
+                                    {% if order.payments.exists %}
+                                        {% for payment in order.payments.all %}
+                                            <span class="payment-status">
+                                                {% if payment.status == 'completed' %}
+                                                    <span class="completed">Completed</span>
+                                                {% else %}
+                                                    <span class="pending">Pending</span>
+                                                {% endif %}
+                                            </span>
+                                        {% endfor %}
+                                    {% else %}
+                                        <span>No payment</span>
+                                    {% endif %}
+                                </td>
+                                <td style="padding: 15px;" data-cell="Payment Method">
+                                    {% if order.payments.exists %}
+                                        {% for payment in order.payments.all %}
+                                            <span class="payment-method">{{ payment.get_method_display }}</span>
+                                        {% endfor %}
+                                    {% else %}
+                                        <span>No payment method</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td style="padding: 15px;" colspan="5">No orders found.</td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td style="padding: 15px;" colspan="5">No orders found for the selected date range.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <div class="total-sales" style="margin-top: 20px; text-align: right; font-size:12px;">
+            <span style="font-weight: bold;">Total Sales:</span>
+            
+            <span >₱{{ total_sales|floatformat:2 }}</span>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extrascript %}
+    <script src="{% static 'js/modal-form.js' %}?v={{ timestamp }}"></script>
+    <script src="{% static 'js/ajax-categoryform-modal.js' %}?v={{ timestamp }}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('.search-cont-1');
+            const startDate = form.querySelector('input[name="start_date"]');
+            const endDate = form.querySelector('input[name="end_date"]');
+    
+            function checkAndSubmit() {
+                if (startDate.value && endDate.value) {
+                    form.submit();
+                }
+            }
+    
+            startDate.addEventListener('change', checkAndSubmit);
+            endDate.addEventListener('change', checkAndSubmit);
+        });
+    </script>
+{% endblock %}

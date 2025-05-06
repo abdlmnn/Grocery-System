@@ -68,21 +68,21 @@
                     Units
                 </a>
             </div>
-            <a href="" class="">
+            <a href="{%url 'payment:payment'%}" class="{%if title == 'Payments'%} active {%endif%}">
                 <i class="fa-solid fa-money-bill-transfer"></i>
                 Transactions
             </a>
-            <button class="dropdown-btn ">
+            <button class="dropdown-btn {%if button == 'Reports'%} active {%endif%}">
                 <i class="fa-solid fa-chart-line"></i>
                 Reports
                 <i class="fa fa-caret-down drop-icon"></i>
             </button>
             <div class="dropdown-cont">
-                <a href="#" class="selected">
+                <a href="{%url 'payment:sales-report'%}" class="{%if title == 'Sales Report'%} selected {%endif%}">
                     <i class="fa-solid fa-circle size-circle"></i>
                     Sales
                 </a>
-                <a href="#">
+                <a href="{%url 'payment:inventory-report'%}" class="{%if title == 'Inventory Report'%} selected {%endif%}">
                     <i class="fa-solid fa-circle size-circle"></i>
                     Inventory
                 </a>

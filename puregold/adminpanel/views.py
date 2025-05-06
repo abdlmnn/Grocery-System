@@ -7,18 +7,24 @@ from django.conf import settings
 from django.core.mail import EmailMessage
 from django.utils import timezone
 from django.urls import reverse
-from accounts.models import PasswordReset
+from accounts.models import PasswordReset, Customer
 from inventory.models import *
 from django.db.models import Q
 from django.core.serializers.json import DjangoJSONEncoder
 import json
 from collections import Counter
+from django.db.models import Sum
+from order.models import Order
 
 @login_required
 def dashboard(request):
     if not request.user.is_superuser:
         messages.error(request, 'Unauthorized to access the admin.')
         return redirect('shop:shop')
+    total_orders = Order.objects.count()
+    total_products = Inventory.objects.count()
+    total_customers = Customer.objects.count()
+    total_sales = Order.objects.aggregate(Sum('total_amount'))['total_amount__sum'] or 0
     labels = []
     data = []
     labels2 = []
@@ -33,6 +39,10 @@ def dashboard(request):
         data2.append(x.quantity)
     context = {
         'title': 'Dashboard',
+        'total_orders': total_orders,
+        'total_products': total_products,
+        'total_customers': total_customers,
+        'total_sales': total_sales,
 
         'labels': json.dumps(labels, cls=DjangoJSONEncoder),
         'data': json.dumps(data, cls=DjangoJSONEncoder),

@@ -1,0 +1,125 @@
+{% extends "master.html" %}
+
+{% load static %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'css/inventory.css' %}?v={{ timestamp }}">
+    <link rel="stylesheet" href="{% static 'css/modal-addbtn.css' %}?v={{ timestamp }}">
+    <link rel="stylesheet" href="{% static 'css/table.css' %}?v={{ timestamp }}">
+    <link rel="stylesheet" href="{% static 'css/pagination.css' %}?v={{ timestamp }}">
+{% endblock %}
+
+{% block content %}
+    <div class="inventory-container">
+        {% block inventory %}
+        <div class="title-border-cont">
+            <h1>{{ title }}</h1>
+            <div class="line-border"></div>
+        </div>
+        <div class="table-search-container">
+            <form class="search-cont-1" method="get">
+                <div class="search-icon-cont">
+                    <input type="text" name="search" class="search-input-2" placeholder="Search" value="{{ search_query }}">
+                    <button class="search-btn-2">
+                        <i class="fa-solid fa-magnifying-glass search-icon-2"></i>
+                    </button>
+                </div>
+                <div class="btn-date-cont">
+                    <div class="date-cont">
+                        <div class="first-date">
+                            <input type="date" name="start_date" class="fdate" value="{{ start_date }}">
+                            <i class="fa-solid fa-calendar-days calendar-icon"></i>
+                        </div>
+                        <span>To</span>
+                        <div class="second-date">
+                            <input type="date" name="end_date" class="Sdate" value="{{ end_date }}">
+                            <i class="fa-solid fa-calendar-days calendar-icon"></i>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="table-list-cont">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>SL</th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Unit</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Expiry Date</th>
+                            <th>Date Added</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for data in stocks %}
+                        <tr>
+                            <td data-cell="SL">{{ data.id }}</td>
+                            <td data-cell="Image">
+                                <img src="{{ data.inventory.image.url }}" alt="{{ data.inventory }}">
+                            </td>
+                            <td data-cell="Name">{{ data.inventory.name|capfirst }}</td>
+                            <td data-cell="Quantity">{{ data.quantity }}</td>
+                            <td data-cell="Unit">
+                                {% if data.amount_per_unit and data.unit %}
+                                    {{ data.amount_per_unit }} {{ data.unit }}
+                                {% elif data.unit %}
+                                    {{ data.unit }}
+                                {% else %}
+                                    None
+                                {% endif %}
+                            </td>
+                            <td data-cell="Price">&#x20B1; {{ data.price }}</td>
+                            <td data-cell="Status">
+                                <button class="status
+                                    {% if data.status == 'available' %}
+                                        avail
+                                    {% elif data.status == 'out stock' %}
+                                        out
+                                    {% elif data.status == 'expired' %}
+                                        expired
+                                    {% endif %}
+                                ">
+                                    {{ data.status|capfirst }}
+                                </button>
+                            </td>
+                            <td data-cell="Expiry">{{ data.expiry_date }}</td>
+                            <td data-cell="Actions">
+                                {{ data.date_added }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% comment %} {% include "components/paginations.html" %} {% endcomment %}
+        </div>
+        {% endblock %}
+    </div>
+{% endblock %}
+
+{% block extrascript %}
+    <script src="{% static 'js/ajax-stockform-modal.js' %}?v={{ timestamp }}"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.querySelector('.search-cont-1');
+            const startDate = form.querySelector('input[name="start_date"]');
+            const endDate = form.querySelector('input[name="end_date"]');
+    
+            function checkAndSubmit() {
+                if (startDate.value && endDate.value) {
+                    form.submit();
+                }
+            }
+    
+            startDate.addEventListener('change', checkAndSubmit);
+            endDate.addEventListener('change', checkAndSubmit);
+        });
+    </script>
+{% endblock %}

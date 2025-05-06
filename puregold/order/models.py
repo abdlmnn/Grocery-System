@@ -14,6 +14,7 @@ class Order(models.Model):
         ('cancelled', 'Canceled'),
     ]
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"Order #{self.id} - {self.status}"
