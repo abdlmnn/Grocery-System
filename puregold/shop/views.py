@@ -15,7 +15,7 @@ def shop(request):
         'subcategory': Subcategory.objects.all(),
         'brand': Brand.objects.all(),
     }
-    return render(request,'shop.html', context)
+    return render(request,'shop/shop.html', context)
 
 def login(request):
     if request.user.is_authenticated and request.user.is_superuser:
