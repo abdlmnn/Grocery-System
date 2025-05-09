@@ -1,0 +1,9 @@
+django
+djangorestframework
+django-allauth
+environs
+pillow
+python-dotenv
+requests
+cryptography
+social-auth-app-django

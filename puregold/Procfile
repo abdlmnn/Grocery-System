@@ -1,0 +1,2 @@
+web: gunicorn  puregold.wsgi --log-file -
+release: bash release.sh

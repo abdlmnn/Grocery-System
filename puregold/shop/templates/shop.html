@@ -135,9 +135,7 @@
                                 <i class="fa-solid fa-plus"></i>
                             </a>
                             {% else %}
-                                <span class="out-of-stock" style="
-                                    font-size: 12px;
-                                ">Out of Stock</span>
+                                <span class="out-of-stock" style="font-size: 12px;">Out of Stock</span>
                             {% endif %}
                             <a href="{% url 'wishlist:add_to_wishlist' x.id %}" class="wishlist-icon">
                                 <i class="fa-solid fa-heart"></i>
