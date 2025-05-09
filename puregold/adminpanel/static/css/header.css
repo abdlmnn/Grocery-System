@@ -100,8 +100,8 @@ header{
     background-color: #ff5252;
     color: var(--text-color);
     font-weight: bold;
-    font-size: 7px;
-    padding: 2px;
+    font-size: 8px;
+    padding: 2px 4px;
     border-radius: 10px;
   }
   
@@ -141,6 +141,7 @@ header{
     right: 24px;
     background-color: var(--first-color-grey);
     max-width: 250px;
+    width: 100%;
     z-index: 1200;
     border-radius: 10px;
     box-shadow: 0 2px 4px 1px rgba(0, 0, 0, .11);
@@ -199,7 +200,7 @@ header{
   
   .clearall-cont{
     display: flex;
-    justify-content: right;
+    justify-content: space-between;
     align-items: center;
     text-align: center;
     /* border: 1px solid red; */
@@ -237,6 +238,17 @@ header{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    /* border: 1px solid red; */
+    gap: 25px;
+  }
+
+  .card-child-top .form-notif {
+    /* border: 1px solid red; */
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
   }
   
   .card-child-top .card-name{

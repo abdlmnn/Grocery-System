@@ -152,6 +152,14 @@ def stock(request):
             'inventory': Inventory.objects.all(),
             'unit': Unit.objects.all(),
         }
+        return render(request, 'stocks.html', context)
+    context = {
+            'button': 'Inventory',
+            'title': 'Stocks',
+            'stock': Stock.objects.all(),
+            'inventory': Inventory.objects.all(),
+            'unit': Unit.objects.all(),
+        }
     return render(request, 'stocks.html', context)
 
 def addStock(request):
@@ -293,12 +301,12 @@ def category(request):
         paginator = Paginator(category, 10)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)
-    context = {
-        'button': 'Inventory',
-        'title': 'Categories',
-        'page_obj': page_obj,
-        'category': page_obj.object_list,
-    }
+        context = {
+            'button': 'Inventory',
+            'title': 'Categories',
+            'page_obj': page_obj,
+            'category': page_obj.object_list,
+            }
     return render(request, 'category.html', context)
 
 def addCategory(request):

@@ -9,6 +9,8 @@ from accounts.models import Customer
 from django.contrib import messages
 from payment.models import Payment
 from datetime import datetime
+from notification.models import Notification
+from django.contrib.auth.models import User
 
 @login_required
 def cancelled_orders(request):
@@ -51,19 +53,33 @@ def processing_orders(request):
 def update_order_status(request, id):
     if request.method == 'POST':
         order = get_object_or_404(Order, id=id)
+        old_status = order.status
         new_status = request.POST.get('status')
-
         if new_status in dict(Order.STATUS_CHOICES):
             order.status = new_status
             order.save()
-            messages.success(request, f"Order #{order.id} status updated.")
+            if old_status != new_status:
+                Notification.objects.create(
+                    user=order.customer.user,
+                    title=f"Order Status #{order.id}",
+                    message=f"Your order #{order.id} status changed from {old_status} to {new_status}.",
+                    order=order
+                )
         else:
             messages.error(request, "Invalid status selected.")
-    return redirect('order:all-orders')
+    return redirect(request.META.get('HTTP_REFERER', 'order:all-orders'))
 
 @login_required
 def all_orders(request):
     orders = Order.objects.all().select_related('customer').prefetch_related('orderline_set').order_by('-id')
+    for order in orders:
+        if order.status != 'pending' and not Notification.objects.filter(user=order.customer.user, order=order, title__icontains='Status').exists():
+            Notification.objects.create(
+                user=order.customer.user,
+                title=f"Order Status #{order.id}",
+                message=f"Your order #{order.id} is currently {order.get_status_display().lower()}.",
+                order=order
+            )
     context = {
         'button': 'Orders',
         'title': 'All Orders',
@@ -78,35 +94,37 @@ def place_order(request):
     cart_items = Cartline.objects.filter(cart__customer=customer)
 
     if request.method == "POST":
-        # Get data from form
         phone_number = request.POST.get('phone_number')
         birth_raw = request.POST.get('birth')
         payment_method = request.POST.get('payment_method')
         address = request.POST.get('address')
-
-        # Validate and set birth date
         if birth_raw:
             try:
                 birth = datetime.strptime(birth_raw, "%Y-%m-%d").date()
                 customer.birth = birth
             except ValueError:
                 return redirect('cart:checkout')
-
-        # ✅ Update customer info
         customer.phone_number = phone_number
         customer.address = address
         customer.save()
-
         if not cart_items.exists():
             messages.error(request, "Your cart is empty!")
             return redirect('cart:cart')
-
-        # ✅ Create order (only valid fields)
         order = Order.objects.create(
             customer=customer
         )
-
-        # Add orderlines
+        Notification.objects.create(
+            user=customer.user,
+            title=f"Order Placed #{order.id}",
+            message=f"Your order (ID: {order.id}) has been placed successfully. We’ll notify you once it’s processed."
+        )
+        admin_users = User.objects.filter(is_superuser=True)
+        for admin in admin_users:
+            Notification.objects.create(
+                user=admin,
+                title=f"New Order Received",
+                message=f"New order (Order ID: {order.id}) placed by {customer.user.get_full_name()}."
+            )
         for cart_item in cart_items:
             Orderline.objects.create(
                 order=order,
@@ -114,10 +132,7 @@ def place_order(request):
                 quantity=cart_item.quantity,
                 total_amount=cart_item.total_amount
             )
-
-        # Clear cart
         cart_items.delete()
-
         if payment_method == 'cod':
             Payment.objects.create(
                 customer=customer,
@@ -134,9 +149,7 @@ def place_order(request):
                 status='pending'
             )
             return redirect('payment:gcash', id=payment.id)
-
         return redirect('order:thank-you')
-
     return redirect('cart:checkout')
 
 def invoice(request, id):

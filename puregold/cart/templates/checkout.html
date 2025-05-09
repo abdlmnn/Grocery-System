@@ -18,7 +18,7 @@
             <tr>
                 <th>Product</th>
                 <th>Name</th>
-                <th>Unit Price</th>
+                <th>Price</th>
                 <th>Qty</th>
                 <th>Total</th>
             </tr>
@@ -27,7 +27,13 @@
             {% for item in cart_items %}
             <tr>
                 <td><img src="{{ item.stock.inventory.image.url }}" alt="{{ item.stock.inventory.name }}"></td>
-                <td>{{ item.stock.inventory.name }}</td>
+                <td>{{ item.stock.inventory.name }}
+                    {% if item.stock.amount_per_unit and item.stock.unit %}
+                        ({{ item.stock.amount_per_unit|floatformat:"-0" }} {{ item.stock.unit }})
+                    {% endif %}
+                    <br>
+                    <small>{{ item.stock.inventory.subcategory.category.name }} | {{ item.stock.inventory.subcategory.name }}</small>
+                </td>
                 <td>&#x20B1;{{ item.stock.price }}</td>
                 <td>{{ item.quantity }}</td>
                 <td>&#x20B1;{{ item.total_amount }}</td>

@@ -12,7 +12,7 @@
 
     <button onclick="notification.openNotif()" class="notification-btn-header">
         <i class="fa-regular fa-bell bell-icon"></i>
-        <span class="count-bell">0</span>
+        <span class="count-bell">{{ unread_count }}</span>
     </button>
     <div id="dropdown-Notification" class="dropdown-notification-content">
         <div class="two-top-header">
@@ -24,25 +24,52 @@
         <div class="main-notif-cont">
             <div class="message-content-containter">
                 <div class="clearall-cont">
-                    <button class="clearall-btn">
-                        Clear all
-                    </button>
+                    <form method="post" action="{%url 'notification:read-all'%}">
+                        {% csrf_token %}
+                        <button class="clearall-btn">
+                            Read all
+                        </button>
+                    </form>
+                    <form method="post" action="{%url 'notification:clear-all'%}">
+                        {% csrf_token %}
+                        <button class="clearall-btn">
+                            Clear all
+                        </button>
+                    </form>
                 </div>
+                {% for notif in notifications %}
                 <div class="card-message">
                     <div class="card-child-top">
-                        <span class="card-name">Mohammad Abdulmanan</span>
-                        <button class="delete-notification-btn">
-                            <i class="fa-solid fa-xmark"></i> 
-                        </button>
+                        <span class="card-name">{{ notif.title }}</span>
+                        <div class="form-notif">
+                            <form method="post" action="{%url 'notification:read' notif.id%}">
+                                {% csrf_token %}
+                                <button class="delete-notification-btn" type="submit">
+                                    {% comment %} <i class="fa-solid fa-envelope-open"></i> {% endcomment %}
+                                    <i class="fa-solid fa-check"></i>
+                                </button>
+                            </form>
+                            <form method="post" action="{%url 'notification:delete' notif.id%}">
+                                {% csrf_token %}
+                                <button class="delete-notification-btn" type="submit">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                     <div class="card-child-mid">
-                        <p class="card-description">Changed password successfully</p>
+                        <p class="card-description">{{ notif.message }}</p>
                     </div>
                     <div class="card-child-bottom">
-                        <span class="card-time">07:30 pm</span>
-                        <span class="card-date">March 8, 2025</span>
+                        <span class="card-time">{{ notif.created_at|time:"h:i a" }}</span>
+                        <span class="card-date">{{ notif.created_at|date:"F j, Y" }}</span>
                     </div>
                 </div>
+                {% empty %}
+                <div style="text-align: center">
+                    <p style="padding: 15px 35px; font-size: 12px;">No notifications</p>
+                </div>
+                {% endfor %}
             </div>
         </div>
     </div>

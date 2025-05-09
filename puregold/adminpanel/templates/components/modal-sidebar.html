@@ -16,38 +16,31 @@
                     <i class="fa-solid fa-desktop"></i>
                     Dashboard
                 </a>
-                {% comment %} {%if button == 'Orders'%} active {%endif%} {% endcomment %}
                 <button class="dropdown-btn ">
                     <i class="fa-solid fa-clipboard-list"></i>
                     Orders
                     <i class="fa fa-caret-down drop-icon"></i>
                 </button>
-                <div class="dropdown-cont">
-                    {% comment %} {%url 'admin-orders:all-orders'%} {% endcomment %}
-                    {% comment %} {%if title == 'All Orders'%} active {%endif%} {% endcomment %}
-                    <a href="" class="">
+                <div class="dropdown-cont {%if button == 'Orders'%} active {%endif%}">
+                    <a href="{%url 'order:all-orders'%}" class="{%if title == 'All Orders'%} selected {%endif%}">
                         <i class="fa-solid fa-circle size-circle"></i>
                         All Orders
                     </a>
-                    <a href="#" class="selected">
+                    <a href="{%url 'order:place'%}" class="{%if title == 'Placed Orders'%} selected {%endif%}">
                         <i class="fa-solid fa-circle size-circle"></i>
                         Placed Orders
                     </a>
-                    <a href="#">
+                    <a href="{%url 'order:processing-orders'%}" class="{%if title == 'Processing Orders'%} selected {%endif%}">
                         <i class="fa-solid fa-circle size-circle"></i>
                         Processing Orders
                     </a>
-                    <a href="#">
+                    <a href="{%url 'order:delivered-orders'%}" class="{%if title == 'Delivered Orders'%} selected {%endif%}">
                         <i class="fa-solid fa-circle size-circle"></i>
-                        Product On The Way
+                        Delivered Orders
                     </a>
-                    <a href="#">
+                    <a href="{%url 'order:cancelled-orders'%}" class="{%if title == 'Cancelled Orders'%} selected {%endif%}">
                         <i class="fa-solid fa-circle size-circle"></i>
-                        Delivered Order
-                    </a>
-                    <a href="#">
-                        <i class="fa-solid fa-circle size-circle"></i>
-                        Canceled Order
+                        Canceled Orders
                     </a>
                 </div>
                 <button class="dropdown-btn {%if button == 'Inventory'%} active {%endif%}">
@@ -81,26 +74,26 @@
                         Units
                     </a>
                 </div>
-                <a href="" class="">
+                <a href="{%url 'payment:payment'%}" class="{%if title == 'Payments'%} active {%endif%}">
                     <i class="fa-solid fa-money-bill-transfer"></i>
                     Transactions
                 </a>
-                <button class="dropdown-btn ">
+                <button class="dropdown-btn {%if button == 'Reports'%} active {%endif%}">
                     <i class="fa-solid fa-chart-line"></i>
                     Reports
                     <i class="fa fa-caret-down drop-icon"></i>
                 </button>
                 <div class="dropdown-cont">
-                    <a href="#" class="selected">
+                    <a href="{%url 'payment:sales-report'%}" class="{%if title == 'Sales Report'%} selected {%endif%}">
                         <i class="fa-solid fa-circle size-circle"></i>
                         Sales
                     </a>
-                    <a href="#">
+                    <a href="{%url 'payment:inventory-report'%}" class="{%if title == 'Inventory Report'%} selected {%endif%}">
                         <i class="fa-solid fa-circle size-circle"></i>
                         Inventory
                     </a>
                 </div>
-                <button class="dropdown-btn ">
+                {% comment %} <button class="dropdown-btn ">
                     <i class="fa-solid fa-gear"></i>
                     Settings
                     <i class="fa fa-caret-down drop-icon"></i>
@@ -114,22 +107,27 @@
                         <i class="fa-solid fa-circle size-circle"></i>
                         Change Password
                     </a>
-                </div>
-                <button class="dropdown-btn ">
+                </div> {% endcomment %}
+                
+                <button class="dropdown-btn {%if button == 'Administration'%} active {%endif%}">
                     <i class="fa-solid fa-user-gear"></i>
                     Administration
                     <i class="fa fa-caret-down drop-icon"></i>
                 </button>
                 <div class="dropdown-cont">
-                    <a href="#" class="selected">
+                    <a href="{%url 'accounts:customers'%}" class="{%if title == 'Customers'%} selected {%endif%}">
                         <i class="fa-solid fa-circle size-circle"></i>
-                        Users
+                        Customers
                     </a>
-                    <a href="#">
+                    <a href="{%url 'accounts:admin'%}" class="{%if title == 'Admin'%} selected {%endif%}">
                         <i class="fa-solid fa-circle size-circle"></i>
                         Admin
                     </a>
                 </div>
+                {% comment %} <a href="{%url 'adminpanel:dashboard'%}" class="{%if title == 'Dashboard'%} active {%endif%}">
+                    <i class="fa-solid fa-bell"></i>
+                    Notification
+                </a> {% endcomment %}
                 <a href="{%url 'adminpanel:logout'%}">
                     <i class="fa-solid fa-door-open"></i>
                     Logout

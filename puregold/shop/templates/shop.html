@@ -45,7 +45,7 @@
                 {% comment %} <a href="{%url 'cart:cart'%}"><i class="fa-solid fa-shop"></i></a> {% endcomment %}
                 <a href="{%url 'cart:cart'%}"><i class="fa-solid fa-cart-shopping cart-icon"></i></a>
                 <a href="{%url 'wishlist:wishlist'%}"><i class="fa-solid fa-heart"></i></a>
-                <a href=""><i class="fa-solid fa-bell"></i></a>
+                <a href="{%url 'notification:notifications'%}"><i class="fa-solid fa-bell"></i></a>
                 {% if request.user.is_authenticated%}
                     <a href="{%url 'shop:logout'%}" class="login-btn">Log out</a>
                 {% endif %}
@@ -117,7 +117,7 @@
                                 {{x.inventory.name|capfirst}}
 
                                 {%if x.amount_per_unit and x.unit%}
-                                    {{x.amount_per_unit|floatformat:"-0"}} {{x.unit}}
+                                    {{x.amount_per_unit|floatformat:"-0"}}{{x.unit.abbreviation}}
                                 {%else%}
 
                                 {%endif%}

@@ -314,9 +314,11 @@ nav .nav-cont {
 .product {
     position: relative;
     width: 100%; 
+    /* max-width: 350px; */
     height: 100%;
     border-radius: 7px;
     overflow: hidden;
+    /* border: 1px solid red; */
     /* background-color: var(--content-bg-color);
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1); */
 }
@@ -328,9 +330,12 @@ nav .nav-cont {
 }
 .product-img {
     width: 100%;
+    max-width: 180px;
     height: 300px;
-    object-fit: cover;
-    background: var(--content-bg-color);
+    object-fit: contain;
+    /* background: var(--content-bg-color); */
+    margin: 0 auto;
+    display: block;
     /* border-radius: var(--corner-radius); */
 }
 

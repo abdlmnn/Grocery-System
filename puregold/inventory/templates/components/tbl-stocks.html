@@ -8,7 +8,7 @@
         <td data-cell="Quantity">{{data.quantity}}</td>
         <td data-cell="Unit">
             {% if data.amount_per_unit and data.unit %}
-                {{ data.amount_per_unit }} {{ data.unit }}
+                {{ data.amount_per_unit|floatformat:"-0" }} {{ data.unit }}
             {% elif data.unit %}
                 {{ data.unit }}
             {% else %}

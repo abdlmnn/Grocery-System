@@ -8,6 +8,8 @@ from inventory.models import *
 from django.db.models import Sum, F
 from datetime import datetime
 from django.db.models import Q
+from notification.models import Notification
+from django.contrib.auth.models import User
 
 def update_payment_status(request, payment_id):
     if request.method == 'POST':
@@ -89,9 +91,15 @@ def gcash_payment_view(request, id):
             payment.image = uploaded_image
             payment.status = 'completed' 
             payment.save()
-            messages.success(request, "Your GCash proof has been submitted.")
-            return redirect('order:thank-you')
 
+            admin_users = User.objects.filter(is_superuser=True)
+            for admin in admin_users:
+                Notification.objects.create(
+                    user=admin,
+                    title="GCash Payment",
+                    message=f"Customer {payment.customer.user.get_full_name()} submitted GCash proof for (Order ID: {payment.order.id})."
+                )
+            return redirect('order:thank-you')
     context = {
         'payment': payment
     }

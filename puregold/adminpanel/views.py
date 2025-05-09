@@ -15,6 +15,7 @@ import json
 from collections import Counter
 from django.db.models import Sum
 from order.models import Order
+from notification.models import *
 
 @login_required
 def dashboard(request):
@@ -37,6 +38,7 @@ def dashboard(request):
     for x in sub:
         labels2.append(x.inventory.name)
         data2.append(x.quantity)
+    
     context = {
         'title': 'Dashboard',
         'total_orders': total_orders,

@@ -10,13 +10,13 @@
 <div class="checkout-container">
     <div class="checkout-header">Your Cart</div>
 
-    {% if cart_items %}
+    {% if cart_items %} 
     <table class="checkout-table">
         <thead>
             <tr>
                 <th>Product</th>
                 <th>Name</th>
-                <th>Unit Price</th>
+                <th>Price</th>
                 <th>Qty</th>
                 <th>Total</th>
                 <th>Actions</th>
@@ -62,7 +62,7 @@
     </div>
 
     {% else %}
-        <p style="text-align: center; font-size: 20px;">Your cart is empty.</p>
+        <p style="text-align: center; font-size: 14px; padding: 40px 20px;">Your cart is empty.</p>
     {% endif %}
 </div>
 {% endblock content %}

@@ -40,7 +40,8 @@ def add_to_cart(request, stock_id):
     cartline.save()
     stock.save()
     Wishlist.objects.filter(customer=customer, stock=stock).delete()
-    return redirect('shop:shop')
+    # return redirect('shop:shop')
+    return redirect(request.META.get('HTTP_REFERER', 'shop:shop'))
 
 @login_required(login_url='/login/')
 def update_quantity(request, id):
@@ -63,7 +64,7 @@ def update_quantity(request, id):
             stock.save()
         except Exception as e:
             print('Error')
-    return redirect('cart:cart')
+    return redirect(request.META.get('HTTP_REFERER', 'cart:cart'))
 
 @login_required(login_url='/login/')
 def delete(request, id):
@@ -72,4 +73,4 @@ def delete(request, id):
     stock.quantity += cart_line.quantity
     stock.save()
     cart_line.delete()
-    return redirect('cart:cart')
+    return redirect(request.META.get('HTTP_REFERER', 'cart:cart'))

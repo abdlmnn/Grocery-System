@@ -46,7 +46,17 @@
             {% for item in order.orderline_set.all %}
             <tr>
                 <td><img src="{{ item.stock.inventory.image.url }}" alt="{{ item.stock.inventory.name }}"></td>
-                <td>{{ item.stock.inventory.name }}</td>
+                <td>{{ item.stock.inventory.name }}
+                    {% if item.stock.amount_per_unit and item.stock.unit %}
+                    ({{item.stock.amount_per_unit|floatformat:"-0"}} {{item.stock.unit}})
+                    {% elif item.stock.unit %}
+                        {{ item.stock.unit }}
+                    {% else %}
+                        
+                    {% endif %}
+                    <br>
+                    <small>{{ item.stock.inventory.subcategory.category.name }} | {{ item.stock.inventory.subcategory.name }}</small>
+                </td>
                 <td>&#x20B1;{{ item.stock.price }}</td>
                 <td>{{ item.quantity }}</td>
                 <td>&#x20B1;{{ item.total_amount }}</td>

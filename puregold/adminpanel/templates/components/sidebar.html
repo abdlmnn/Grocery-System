@@ -87,7 +87,7 @@
                     Inventory
                 </a>
             </div>
-            <button class="dropdown-btn ">
+            {% comment %} <button class="dropdown-btn ">
                 <i class="fa-solid fa-gear"></i>
                 Settings
                 <i class="fa fa-caret-down drop-icon"></i>
@@ -101,22 +101,27 @@
                     <i class="fa-solid fa-circle size-circle"></i>
                     Change Password
                 </a>
-            </div>
-            <button class="dropdown-btn ">
+            </div> {% endcomment %}
+            
+            <button class="dropdown-btn {%if button == 'Administration'%} active {%endif%}">
                 <i class="fa-solid fa-user-gear"></i>
                 Administration
                 <i class="fa fa-caret-down drop-icon"></i>
             </button>
             <div class="dropdown-cont">
-                <a href="#" class="selected">
+                <a href="{%url 'accounts:customers'%}" class="{%if title == 'Customers'%} selected {%endif%}">
                     <i class="fa-solid fa-circle size-circle"></i>
-                    Users
+                    Customers
                 </a>
-                <a href="#">
+                <a href="{%url 'accounts:admin'%}" class="{%if title == 'Admin'%} selected {%endif%}">
                     <i class="fa-solid fa-circle size-circle"></i>
                     Admin
                 </a>
             </div>
+            {% comment %} <a href="{%url 'adminpanel:dashboard'%}" class="{%if title == 'Dashboard'%} active {%endif%}">
+                <i class="fa-solid fa-bell"></i>
+                Notification
+            </a> {% endcomment %}
             <a href="{%url 'adminpanel:logout'%}">
                 <i class="fa-solid fa-door-open"></i>
                 Logout
